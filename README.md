@@ -34,6 +34,8 @@
 
 
 ## 4. 소개 영상
+https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469b-a958-2d8f591412f6
+
 
 프로젝트 소개하는 영상을 추가하세요
 
