@@ -105,10 +105,11 @@
     </tr>
 </table>
 
+<!--
+## 6. 사용법
 
-<!-- ## 6. 사용법
-
-소스코드제출시 설치법이나 사용법을 작성하세요. --!>
+소스코드제출시 설치법이나 사용법을 작성하세요.
+-->
 
 ## 6. 소개 자료
 <a href="https://drive.google.com/file/d/1Pauf7xWhJ0fevqsi5CrV66KH-04LEPWV/view?usp=sharing">
