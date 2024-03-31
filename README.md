@@ -29,7 +29,8 @@
 
 
 ## 3. 시스템 아키텍처
-<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/3b0fa171-1d8e-4d49-8a2f-0894bce0a5b2" width="800" height="500">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2024-15/assets/66251759/75972cf6-ef2d-4845-9ec5-cbb3e2f1d7bc">
+
 
 
 ## 4. 소개 영상
