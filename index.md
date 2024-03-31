@@ -33,9 +33,10 @@
 
 
 ## 4. 소개 영상
-
-https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/2651a640-4465-46b4-b1ec-16d6c7fdbda1
-
+<iframe width="1080" height="720" 
+    src="https://youtu.be/cd-AW7t_J-M" 
+    frameborder="0" allowfullscreen>
+</iframe>
 ## 5. 팀 소개
 <table>
     <tr align="center">
