@@ -25,6 +25,7 @@
 
 
 ### AI 
+![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 
 ## 3. 시스템 아키텍처
@@ -95,10 +96,10 @@
             Frontend, Design
         </td>
                 <td>
-            Frontend
+            AI
         </td>
                 <td>
-            AI
+            Frontend
         </td>
     </tr>
 </table>
