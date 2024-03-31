@@ -77,7 +77,7 @@
               ****3060
         </td>
         <td style="min-width: 150px;">
-            <a href="https://github.com/">
+            <a href="https://github.com/i-soj-ng">
               <img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/a4ae609c-411f-4f52-923a-914f10bebf0b" width="100">
               <br />
               <b>이소정</b>
