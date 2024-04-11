@@ -95,10 +95,10 @@
             Frontend, Design
         </td>
                 <td>
-            Frontend
+            AI
         </td>
                 <td>
-            AI
+            Frontend
         </td>
     </tr>
 </table>
