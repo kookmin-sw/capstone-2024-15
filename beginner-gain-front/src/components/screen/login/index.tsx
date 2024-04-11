@@ -3,7 +3,7 @@
 
 const Screen = () => {
   return (
-    <div>
+    <div className="font-bold text-blue100">
       로그인
     </div>
   );
