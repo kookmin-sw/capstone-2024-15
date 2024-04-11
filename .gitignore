@@ -1,6 +1,7 @@
 ### Example user template template
 ### Example user template
-
+beginner-gain-server/node_modules/
+beginner-gain-server/package-lock.json
 # IntelliJ project files
 .idea
 .idea/*
