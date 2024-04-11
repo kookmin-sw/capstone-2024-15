@@ -5,6 +5,7 @@ beginner-gain-server/package-lock.json
 # IntelliJ project files
 .idea
 .idea/*
+.DS_Store
 *.iml
 out
 gen
