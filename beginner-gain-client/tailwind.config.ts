@@ -9,21 +9,27 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      'blue100': 'C5C9DE',
-      'blue200': '1D349F',
-      'blue300': '060B21',
-      'purple100': 'F4F3F9',
-      'purple200': 'D0CFE0',
-      'purple300': 'D0B8EE',
-      'purple400': '3D3A7F',
-      'gray100': 'EBEBEB',
-      'gray200': 'D9D9D9',
-      'gray300': '868686',
-      'gray400': '505050',
-      'gray500': '2D2D2D',
-    },
     extend: {
+      colors: {
+        gray: {
+          '100': 'EBEBEB',
+          '200': 'D9D9D9',
+          '300': '868686',
+          '400': '505050',
+          '500': '2D2D2D',
+        },
+        blue: {
+          '100': 'C5C9DE',
+          '200': '1D349F',
+          '300': '060B21',
+        },
+        purple: {
+          '100': 'F4F3F9',
+          '200': 'D0CFE0',
+          '300': 'D0B8EE',
+          '400': '3D3A7F',
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
