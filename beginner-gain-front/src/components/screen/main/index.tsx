@@ -1,13 +1,14 @@
-import Header from '../../internal/layout/header';
+import React from 'react';
+import Header from 'src/components/internal/layout/header';
 
 const Screen = () => {
   return (
-    <div>
-      {/*<Header />*/}
+    <>
+      <Header isVisible={true}/>
       <div>
         메인페이지
       </div>
-    </div>
+    </>
   );
 };
 
