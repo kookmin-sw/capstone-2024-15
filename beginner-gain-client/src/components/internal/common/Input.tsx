@@ -12,6 +12,7 @@ const Input = ({ placeholder, value, setValue }: IInput) => {
     }
     return (
         <input
+            className="text-gray-200"
             placeholder={placeholder}
             value={value}
             onChange={handleInputChange}/>
