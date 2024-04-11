@@ -1,13 +1,20 @@
+import React from "react";
 
 export interface IInput {
     placeholder: string;
     value: string;
-    setValue:
+    setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Input = ({ placeholder }: IInput) => {
+const Input = ({ placeholder, value, setValue }: IInput) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+    }
     return (
-        <input placeholder={placeholder}/>
+        <input
+            placeholder={placeholder}
+            value={value}
+            onChange={handleInputChange}/>
     );
 };
 
