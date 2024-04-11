@@ -5,9 +5,9 @@ const Screen = () => {
   return (
     <>
       <Header isVisible={true}/>
-      <div>
+      <h1 className="text-red-500 underline">
         메인페이지
-      </div>
+      </h1>
     </>
   );
 };
