@@ -1,6 +1,7 @@
+import React from 'react';
 import Link from 'next/link';
 
-import BeginnerGainLogo from '../../../../public/assets/svg/beginnergain-logo-black.svg';
+import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
 
 export interface IHeader {
   isVisible: boolean;
@@ -8,7 +9,7 @@ export interface IHeader {
 
 const Header = ({ isVisible }: IHeader) => {
   return (
-    <header className={`header ${isVisible && 'fixed'}`}>
+    <header>
       <Link href={'/'}>
         <BeginnerGainLogo />
       </Link>
