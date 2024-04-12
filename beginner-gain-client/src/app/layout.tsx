@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Inter, IBM_Plex_Sans_KR } from "next/font/google";
+import "../styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-inter',
+});
+const ibm = IBM_Plex_Sans_KR({
+  weight: ["500","600","700"],
+  display: 'swap',
+  variable: '--font-ibm',
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${inter.variable} ${ibm.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
