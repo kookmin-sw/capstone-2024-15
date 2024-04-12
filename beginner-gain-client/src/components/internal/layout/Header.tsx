@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
-import Button from "src/components/atom/Button";
+import Button from "src/components/internal/common/Button";
 
 export interface IHeader {
   isVisible: boolean;
@@ -10,11 +10,11 @@ export interface IHeader {
 
 const Header = ({ isVisible }: IHeader) => {
   return (
-    <header className="flex">
+    <header className="flex items-center py-8 px-10 justify-between gap-5">
       <Link href={'/'}>
         <BeginnerGainLogo />
       </Link>
-      <ul className="flex">
+      <ul className="w-1/3 flex justify-between min-w-48">
         <li>
           <Link href={'/'}>
             MENU
@@ -31,8 +31,15 @@ const Header = ({ isVisible }: IHeader) => {
           </Link>
         </li>
       </ul>
-      <Button title="로그인" />
-      <Button title="회원가입" />
+      <ul className="flex gap-5">
+        <li>
+          <Button title="로그인" />
+        </li>
+        <li>
+          <Button title="회원가입" />
+        </li>
+      </ul>
+
     </header>
   );
 };

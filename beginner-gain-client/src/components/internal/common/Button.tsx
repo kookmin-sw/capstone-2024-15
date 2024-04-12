@@ -8,10 +8,10 @@ const Button = ({ title }: IButton) => {
   return (
     <>
       <button
-        className="border rounded-full"
+        className={`border border-black rounded-full max-w-36 min-w-24 ${title === "회원가입" && "bg-black text-white"}`}
         style={{
-          width: '11%',
-          height: '38px',
+          width: '11vw',
+          height: '36px',
         }}
       >
         {title}
