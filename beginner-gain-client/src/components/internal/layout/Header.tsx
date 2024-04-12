@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
+import Button from "src/components/atom/Button";
 
 export interface IHeader {
   isVisible: boolean;
@@ -9,11 +10,11 @@ export interface IHeader {
 
 const Header = ({ isVisible }: IHeader) => {
   return (
-    <header>
+    <header className="flex">
       <Link href={'/'}>
         <BeginnerGainLogo />
       </Link>
-      <ul className="primary-menu">
+      <ul className="flex">
         <li>
           <Link href={'/'}>
             MENU
@@ -30,6 +31,8 @@ const Header = ({ isVisible }: IHeader) => {
           </Link>
         </li>
       </ul>
+      <Button title="로그인" />
+      <Button title="회원가입" />
     </header>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from 'src/components/internal/layout/header';
+import Header from '@/components/internal/layout/Header';
 
 const Screen = () => {
   return (
