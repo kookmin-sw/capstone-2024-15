@@ -9,7 +9,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
   padding: 0;
   margin: 0;
 }
