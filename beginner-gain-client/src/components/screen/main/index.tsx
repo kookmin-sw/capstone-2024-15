@@ -9,7 +9,7 @@ import useShowMousePointer from "@/hooks/useShowMousePointer";
 
 const Screen = () => {
   const { isVisible } = useShowMousePointer();
-  console.log(isVisible);
+
   return (
     <>
       <Blur className="fixed right-0 bottom-0" />
