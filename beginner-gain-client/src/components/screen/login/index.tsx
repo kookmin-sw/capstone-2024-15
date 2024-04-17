@@ -8,7 +8,7 @@ const Screen = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
   return (
-    <div className="flex">
+    <div className="flex h-screen">
         <div className="flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
             <div className="">
                 <Logo />

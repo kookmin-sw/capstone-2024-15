@@ -39,7 +39,7 @@ const BigButton = ({ name, color, isFilled, onClick }: IButton) => {
 
 const Button = styled.button<{color: keyof typeof theme; isfilled: boolean;}>`
     background-color: ${(props)=> props.isfilled && theme[props.color].default};
-    height: 60px;
+    min-height: 4rem;
     border-radius: 50px;
     border: ${(props)=> !props.isfilled && `1px solid ${props.color}`};
     color: ${(props)=> props.isfilled ? theme[props.color].text : theme[props.color].default};
