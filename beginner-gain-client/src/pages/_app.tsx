@@ -5,9 +5,7 @@ import ComponentWrapper from "@/components/layout/ComponentWrapper";
 const App = ({ Component, pageProps }: AppProps) => {
   return <>
     <ComponentWrapper>
-      <main className={`${ibm.className} ${inter.variable}`}>
-        <Component {...pageProps} />
-      </main>
+      <Component {...pageProps} />
     </ComponentWrapper>
   </>
 };
