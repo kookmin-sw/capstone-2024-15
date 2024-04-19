@@ -1,17 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Sans_KR } from "next/font/google";
 import "../styles/globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: 'swap',
-  variable: '--font-inter',
-});
-const ibm = IBM_Plex_Sans_KR({
-  weight: ["500","600","700"],
-  display: 'swap',
-  variable: '--font-ibm',
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",

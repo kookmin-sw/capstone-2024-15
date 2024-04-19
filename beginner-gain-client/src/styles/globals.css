@@ -7,6 +7,18 @@
   --background-rgb: 244, 243, 249;
 }
 
+@media screen and (min-width:1279px) {
+  html{font-size:14px;}
+}
+
+@media screen and (min-width:768px) and (max-width:1278px) {
+  html{font-size:12px;}
+}
+
+@media screen and (max-width:768px){
+  html{font-size:10px;}
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
