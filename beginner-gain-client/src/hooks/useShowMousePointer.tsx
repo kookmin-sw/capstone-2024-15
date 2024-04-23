@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 const useMousePointer = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const showMousePointer = useCallback(() => {
     let throttle = null;
@@ -9,7 +9,7 @@ const useMousePointer = () => {
     if (!throttle) {
       throttle = setTimeout(() => {
         throttle = null;
-        if (window.innerWidth >= 1185) {
+        if (window.innerWidth >= 1150) {
           setIsVisible(true);
         } else {
           setIsVisible(false);
