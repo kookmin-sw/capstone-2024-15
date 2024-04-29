@@ -23,7 +23,7 @@ const ComponentWrapper = ({ ...other }: IComponentWrapper) => {
   const router = useRouter();
   return (
     <>
-      { router.asPath !== "/login" | "/signup" ? <Header /> : <></> }
+      { router.asPath !== ( "/login" || "/signup" ) ? <Header /> : <></> }
       <main className={`${ibm.className} ${inter.variable}`}>
         {other.children}
       </main>
