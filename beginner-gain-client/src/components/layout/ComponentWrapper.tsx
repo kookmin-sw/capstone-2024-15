@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router'
-import {IBM_Plex_Sans_KR, Inter} from "next/font/google";
+import { IBM_Plex_Sans_KR, Inter } from "next/font/google";
 import Header from '@/components/layout/Header';
 
 export const inter = Inter({
@@ -23,8 +23,8 @@ const ComponentWrapper = ({ ...other }: IComponentWrapper) => {
   const router = useRouter();
   return (
     <>
-      { router.asPath === "/login" || router.asPath === "/join" ? null : <Header /> }
-      <main className={`${ibm.className} ${inter.variable}`}>
+      <main
+        className={`${ibm.className} ${inter.variable}`}>
         {other.children}
       </main>
     </>
