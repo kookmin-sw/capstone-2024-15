@@ -2,6 +2,8 @@ import BackArrow from "public/assets/svg/arrow-white.svg";
 import QuestionScreen from "public/assets/svg/screen.svg";
 import PurpleArrow from "public/assets/svg/arrow-purple.svg";
 import ChoiceButton from "@/components/internal/make-boilerplate/ChoiceButton";
+import Bubble from "public/assets/svg/bubble.svg";
+import ChatIcon from "public/assets/svg/chat.svg";
 
 const data = {
     title: '어떤 종류의 프로젝트인가요?',
@@ -20,7 +22,7 @@ const data = {
 const Screen = ({query} : {query: string | string[] }) => {
     console.log(query);
     return (
-        <div className="bg-blue-300 h-[calc(100vh-54px-4rem)]">
+        <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
             <div className="pt-6 pl-12">
                 <BackArrow/>
             </div>
@@ -42,7 +44,14 @@ const Screen = ({query} : {query: string | string[] }) => {
                 </div>
                 <QuestionScreen width={"100%"} height={"100%"}/>
             </div>
-            <div className="">
+            <div className="flex gap-6 items-center self-end flex-1 pr-14">
+                <div className="relative">
+                    <p className="absolute top-4 left-4 text-black">
+                        선택이 어렵다면 챗봇과 대화해보세요!
+                    </p>
+                    <Bubble />
+                </div>
+                <ChatIcon />
             </div>
         </div>
     );
