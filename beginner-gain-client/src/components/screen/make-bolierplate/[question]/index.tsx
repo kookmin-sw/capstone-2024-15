@@ -51,7 +51,9 @@ const Screen = ({query} : {query: string | string[] }) => {
                     </p>
                     <Bubble />
                 </div>
-                <ChatIcon />
+                <div className="cursor-pointer">
+                    <ChatIcon />
+                </div>
             </div>
         </div>
     );
