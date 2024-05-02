@@ -4,9 +4,10 @@ import Arrow from 'public/assets/svg/arrow.svg';
 
 export interface IButton {
   title: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const ArrowButton = ({ title }: IButton) => {
+const ArrowButton = ({ title, onClick }: IButton) => {
   return (
     <>
       <button
@@ -14,6 +15,7 @@ const ArrowButton = ({ title }: IButton) => {
         style={{
           height: '48px',
         }}
+        onClick={onClick || null}
       >
         {title}
         <Arrow />

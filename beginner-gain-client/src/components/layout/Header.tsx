@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import router from 'next/router';
 
 import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
 import SmallButton from "@/components/internal/common/SmallButton";
@@ -34,10 +35,18 @@ const Header = () => {
       </ul>
       <ul className="flex gap-5">
         <li>
-          <SmallButton title="로그인" isFilled={false} />
+          <SmallButton
+            title="로그인"
+            isFilled={false}
+            onClick={() => router.push("/login")}
+          />
         </li>
         <li>
-          <SmallButton title="회원가입" isFilled={true} />
+          <SmallButton
+            title="회원가입"
+            isFilled={true}
+            onClick={() => router.push("/join")}
+          />
         </li>
       </ul>
       {/*<UserButton />*/}
