@@ -2,8 +2,6 @@ import BackArrow from "public/assets/svg/arrow-white.svg";
 import QuestionScreen from "public/assets/svg/screen.svg";
 import PurpleArrow from "public/assets/svg/arrow-purple.svg";
 import ChoiceButton from "@/components/internal/make-boilerplate/ChoiceButton";
-import Bubble from "public/assets/svg/bubble.svg";
-import ChatIcon from "public/assets/svg/chat.svg";
 import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
 import DarkHeader from "@/components/layout/DarkHeader";
 

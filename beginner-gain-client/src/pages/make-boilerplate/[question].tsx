@@ -38,7 +38,7 @@ const Page = () => {
     const router = useRouter();
     const query = router.query.question || '1';
 
-    const handleModalClose = () => {
+    const handleModalClose: () => void = () => {
         router.back();
     };
 
@@ -49,7 +49,7 @@ const Page = () => {
                 isOpen={!!router.query.chat}
                 onRequestClose={handleModalClose}
             >
-                <Chat />
+                <Chat handleModalClose={handleModalClose}/>
             </Modal>
             <Screen query={query}/>
         </>
