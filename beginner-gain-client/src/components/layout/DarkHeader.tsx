@@ -34,10 +34,10 @@ const DarkHeader = () => {
       </ul>
       <ul className="flex gap-5">
         <li>
-          <SmallButton title="로그인" color="white" />
+          <SmallButton title="로그인" color="white" isFilled={false} />
         </li>
         <li>
-          <SmallButton title="회원가입" color="white" />
+          <SmallButton title="회원가입" color="white" isFilled={true} />
         </li>
       </ul>
       {/*<UserButton />*/}

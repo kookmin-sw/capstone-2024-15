@@ -31,7 +31,7 @@ const SmallCard = ({ title }: ICard) => {
         </div>
       </div>
       <div className="w-full text-center">
-        <SmallButton title="다운로드" />
+        <SmallButton title="다운로드" isFilled={false} />
       </div>
     </div>
   );

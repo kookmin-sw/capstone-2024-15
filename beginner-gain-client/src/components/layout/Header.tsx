@@ -34,10 +34,10 @@ const Header = () => {
       </ul>
       <ul className="flex gap-5">
         <li>
-          <SmallButton title="로그인" />
+          <SmallButton title="로그인" isFilled={false} />
         </li>
         <li>
-          <SmallButton title="회원가입" />
+          <SmallButton title="회원가입" isFilled={true} />
         </li>
       </ul>
       {/*<UserButton />*/}

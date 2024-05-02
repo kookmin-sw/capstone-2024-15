@@ -12,12 +12,7 @@ const Screen = () => {
   return (
     <>
       <Header />
-      <div
-        className="flex px-[10vw] items-center"
-        style={{
-          height: 'calc(100vh - 110px)',
-        }}
-      >
+      <div className="flex px-[10vw] h-[calc(100vh-54px-4rem)] items-center">
         <div className="flex w-full pb-20">
           <div className="flex-1 flex flex-col pr-20 justify-center">
             <h2 className="font-en text-lg font-semibold mb-[12vh]">

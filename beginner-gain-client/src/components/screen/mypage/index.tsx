@@ -14,7 +14,7 @@ const Screen = () => {
           <p className="mt-5 text-sm font-medium text-gray-400">
             My Boilerplate
           </p>
-          <Divider />
+          <Divider color="gray-100" />
           <div className="self-end">
             <ArrowButton title="내 boilerplate 생성하기" />
           </div>
