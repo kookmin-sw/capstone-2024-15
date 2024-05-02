@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
+import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-white.svg';
 import SmallButton from "@/components/internal/common/SmallButton";
 import UserButton from "@/components/internal/common/UserButton";
 
@@ -9,9 +9,9 @@ import UserButton from "@/components/internal/common/UserButton";
 //   isVisible: boolean;
 // }
 
-const Header = () => {
+const DarkHeader = () => {
   return (
-    <header className="flex items-center py-8 px-10 justify-between gap-5">
+    <header className="bg-blue-300 text-purple-100 flex items-center py-8 px-10 justify-between gap-5">
       <Link href={'/'}>
         <BeginnerGainLogo />
       </Link>
@@ -34,10 +34,10 @@ const Header = () => {
       </ul>
       <ul className="flex gap-5">
         <li>
-          <SmallButton title="로그인" isFilled={false} />
+          <SmallButton title="로그인" color="white" isFilled={false} />
         </li>
         <li>
-          <SmallButton title="회원가입" isFilled={true} />
+          <SmallButton title="회원가입" color="white" isFilled={true} />
         </li>
       </ul>
       {/*<UserButton />*/}
@@ -45,4 +45,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default DarkHeader;

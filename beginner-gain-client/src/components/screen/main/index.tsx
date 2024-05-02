@@ -6,12 +6,14 @@ import Blur from 'public/assets/svg/color-blur.svg';
 import MousePointer from 'public/assets/svg/mouse-pointer.svg';
 
 import useShowMousePointer from "@/hooks/useShowMousePointer";
+import Header from "@/components/layout/Header";
 
 const Screen = () => {
   const { isVisible } = useShowMousePointer();
 
   return (
     <>
+      <Header />
       <Blur className="fixed right-0 bottom-0" />
       <MousePointer className={`fixed right-96 bottom-80 ${isVisible ? "visible" : "invisible"}`} />
       <div className="fixed top-40 left-14">
