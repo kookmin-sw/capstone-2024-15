@@ -5,13 +5,14 @@ import UncheckedBox from "public/assets/svg/unchecked-box.svg";
 
 export interface ICheckBox {
   title: string;
+  isChecked: boolean;
 }
 
-const CheckOption = ({ title }: ICheckBox) => {
+const CheckOption = ({ title, isChecked }: ICheckBox) => {
   return (
     <div>
       <label className="flex gap-5 items-center">
-        <CheckedBox />
+        {isChecked ? <CheckedBox /> : <UncheckedBox />}
         <p className="text-white text-sm font-semibold">{title}</p>
       </label>
     </div>
