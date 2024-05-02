@@ -49,7 +49,7 @@ const Page = () => {
                 isOpen={!!router.query.chat}
                 onRequestClose={handleModalClose}
             >
-                <Chat handleModalClose={handleModalClose} />
+                <Chat />
             </Modal>
             <Screen query={query}/>
         </>

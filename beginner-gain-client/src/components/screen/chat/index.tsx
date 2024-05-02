@@ -3,13 +3,12 @@ import ChatBubble from "@/components/internal/make-boilerplate/ChatBubble";
 import ChatingInput from "@/components/internal/make-boilerplate/ChatingInput";
 import {useState} from "react";
 
-const Screen = ( handleModalClose : (() => void)) => {
+const Screen = () => {
     const [inputValue, setInputValue] = useState<string>('');
     return(
         <div className="flex flex-col h-full">
             <div
-                className="p-6 border-b"
-                onClick={handleModalClose}>
+                className="p-6 border-b">
                 <CloseIcon/>
             </div>
             <div className="p-6 flex flex-col gap-9 flex-1">
