@@ -10,7 +10,6 @@ const ComponentWrapper = ({ ...other }: IComponentWrapper) => {
   const router = useRouter();
   return (
     <>
-      { router.asPath !== "/login" | "/signup" ? <Header /> : <></> }
       <main>
         {other.children}
       </main>
