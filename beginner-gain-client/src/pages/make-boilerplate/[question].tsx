@@ -2,7 +2,6 @@ import Screen from 'src/components/screen/make-bolierplate/[question]';
 import {useRouter} from "next/router";
 import Modal from "react-modal";
 import Chat from "@/components/screen/chat";
-import {inherits} from "@babel/types";
 
 Modal.setAppElement('#__next');
 

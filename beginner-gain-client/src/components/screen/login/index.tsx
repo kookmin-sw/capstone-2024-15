@@ -5,6 +5,10 @@ import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {useMutation} from "react-query";
+import {login} from "@/server/user";
+import {AxiosResponse} from "axios";
+import {ILogin} from "@/types/User";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -12,7 +16,25 @@ const Screen = () => {
 
     const router = useRouter();
 
+    // react-query test 코드
+    const loginMutation = useMutation({
+        mutationFn: (loginData : ILogin) => {
+            return login(loginData);
+        },
+        onSuccess(data : AxiosResponse) {
+            console.log(data);
+        },
+        onError(err) {
+            console.log(err);
+        }
+    })
+
     const handleLoginButtonClick = () => {
+        loginMutation.mutate({
+            email: email,
+            password: password,
+            accessToken: 'test',
+        })
         router.push('/');
     };
 
