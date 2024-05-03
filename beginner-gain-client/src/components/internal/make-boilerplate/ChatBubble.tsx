@@ -1,7 +1,7 @@
 interface IChatBubble {
-    isMychat: boolean,
-    isLoading: boolean,
-    content: string,
+    isMychat?: boolean,
+    isLoading?: boolean,
+    content?: string,
 }
 
 const ChatBubble = ({ isMychat, isLoading, content } : IChatBubble) => {

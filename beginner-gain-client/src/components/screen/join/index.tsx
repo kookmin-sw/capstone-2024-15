@@ -3,11 +3,18 @@ import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
 import {useState} from "react";
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [name, setName] = useState<string>('');
+
+    const router = useRouter();
+
+    const handleSubmitButtonClick = () => {
+        router.push('/');
+    }
     return (
         <div className="flex h-screen">
             <div className="flex-1 p-[10vh] flex flex-col">
@@ -38,7 +45,8 @@ const Screen = () => {
                 <BigButton
                     name="회원가입"
                     color={'blue'}
-                    isFilled={true}/>
+                    isFilled={true}
+                    onClick={handleSubmitButtonClick}/>
             </div>
             <div className="flex flex-col flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
                 <div className="self-end">

@@ -12,7 +12,7 @@ const Input = ({ placeholder, value, setValue }: IInput) => {
     }
     return (
         <input
-            className="w-full text-blue-300 text-xs rounded-[10px] border border-gray-200 h-16 p-5 focus:border-blue-100 placeholder-gray-200 placeholder:text-xs"
+            className="w-full text-blue-300 text-xs rounded-[10px] border border-gray-200 h-16 p-5 focus:border-blue-100 placeholder-gray-200 placeholder:text-xs focus:outline-purple-200"
             placeholder={placeholder}
             value={value}
             onChange={handleInputChange}/>
