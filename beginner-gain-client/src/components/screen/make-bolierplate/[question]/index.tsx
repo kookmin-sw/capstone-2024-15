@@ -63,7 +63,7 @@ const data : IQuestionData[] = [
     },
 ];
 
-const Screen = ({query} : {query: string | string[] }) => {
+const Screen = () => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
 
     const router = useRouter();
@@ -109,7 +109,7 @@ const Screen = ({query} : {query: string | string[] }) => {
                   <QuestionScreen width={"100%"} height={"100%"}/>
               </div>
               <div className="flex items-center self-end flex-1 pr-14">
-                  <ChatbotButton />
+                  <ChatbotButton query={router.query.question || '1'}/>
               </div>
           </div>
         </>

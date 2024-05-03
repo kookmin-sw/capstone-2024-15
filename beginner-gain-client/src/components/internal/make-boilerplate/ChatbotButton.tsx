@@ -2,7 +2,7 @@ import Bubble from "../../../../public/assets/svg/bubble.svg";
 import ChatIcon from "../../../../public/assets/svg/chat.svg";
 import Link from "next/link";
 
-const ChatbotButton = () => {
+const ChatbotButton = ({ query }: { query : string | string[] }) => {
     return (
         <div className="flex gap-6 items-center">
             <div className="relative">
@@ -13,7 +13,7 @@ const ChatbotButton = () => {
             </div>
             <Link
                 className="cursor-pointer"
-                href="/make-boilerplate/1?chat=true"
+                href={`/make-boilerplate/${query}?chat=true`}
             >
                 <ChatIcon/>
             </Link>

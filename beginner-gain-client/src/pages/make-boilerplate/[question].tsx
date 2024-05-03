@@ -35,7 +35,6 @@ export const getServerSideProps = async ({ query = {}, params = {} }) => {
 const Page = () => {
 
     const router = useRouter();
-    const query = router.query.question || '1';
 
     const handleModalClose: () => void = () => {
         router.back();
@@ -50,7 +49,7 @@ const Page = () => {
             >
                 <Chat handleModalClose={handleModalClose}/>
             </Modal>
-            <Screen query={query}/>
+            <Screen />
         </>
     );
 };
