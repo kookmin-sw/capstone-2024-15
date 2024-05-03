@@ -1,10 +1,11 @@
-import { useState } from "react";
+import router from 'next/router';
 
 import DarkHeader from "@/components/layout/DarkHeader";
 import BackArrow from "public/assets/svg/arrow-white.svg";
 import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
+import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
 
 const options = [
   {
@@ -65,7 +66,12 @@ const Screen = () => {
               <p className="text-md text-white font-medium">
                 추가할 항목을 선택하세요
               </p>
-              <SmallButton title="boilerplate 생성" color="white" isFilled={true} />
+              <SmallButton
+                title="boilerplate 생성"
+                color="white"
+                isFilled={true}
+                onClick={() => router.push("/make-boilerplate/complete")}
+              />
             </div>
             <Divider color="gray-200" />
           </div>
@@ -83,6 +89,9 @@ const Screen = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div className="fixed bottom-12 right-12">
+          <ChatbotButton />
         </div>
       </div>
     </>
