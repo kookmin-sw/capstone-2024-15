@@ -1,4 +1,5 @@
 import React from 'react';
+import router from 'next/router';
 
 import MainTitle from 'public/assets/svg/beginnergain-logo-big.svg';
 import ArrowButton from "@/components/internal/common/ArrowButton";
@@ -14,16 +15,19 @@ const Screen = () => {
   return (
     <>
       <Header />
-      <Blur className="fixed right-0 bottom-0" />
+      <Blur className="fixed right-0 bottom-0 -z-50" />
       <MousePointer className={`fixed right-96 bottom-80 ${isVisible ? "visible" : "invisible"}`} />
       <div className="h-[calc(100vh-54px-4rem)] flex flex-col justify-center">
-        <div className="ml-16">
+        <div className="ml-16 mb-10">
           <MainTitle />
           <p className="text-md font-medium mt-14 mb-9">
             초보개발자들을 위한<br/>
             보일러플레이트(boilerplate) 생성 서비스
           </p>
-          <ArrowButton title="프로젝트 생성하기" />
+          <ArrowButton
+            title="프로젝트 생성하기"
+            onClick={() => router.push("/make-boilerplate/project-name")}
+          />
         </div>
       </div>
     </>

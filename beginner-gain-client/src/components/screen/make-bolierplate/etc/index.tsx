@@ -79,18 +79,20 @@ const Screen = () => {
             </div>
             <Divider color="gray-200" />
           </div>
-          {options.map((v, i) => (
-            <div className="flex flex-col gap-3">
-              <p className="text-md text-white font-medium">
-                {v.title}
-              </p>
-              <div className="flex gap-20">
-                {v?.select.map((s, i) => (
-                  <CheckOption title={s.option} />
-                ))}
+          <div className="h-3/5 flex flex-col justify-between">
+            {options.map((v, i) => (
+              <div className="flex flex-col gap-3">
+                <p className="text-md text-white font-medium">
+                  {v.title}
+                </p>
+                <div className="flex gap-20">
+                  {v?.select.map((s, i) => (
+                    <CheckOption title={s.option} isChecked={s.isChecked} />
+                  ))}
+                </div>
               </div>
-            </div>
             ))}
+          </div>
         </div>
       </div>
     </>

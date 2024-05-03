@@ -4,9 +4,10 @@ export interface IButton {
   title: string;
   color?: string;
   isFilled: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const SmallButton = ({ title, color, isFilled }: IButton) => {
+const SmallButton = ({ title, color, isFilled, onClick }: IButton) => {
   if (color === "white") {
     return (
       <>
@@ -19,6 +20,7 @@ const SmallButton = ({ title, color, isFilled }: IButton) => {
             width: `${title === "다운로드" ? '192px' : '11vw'}`,
             height: '40px',
           }}
+          onClick={onClick || null}
         >
           {title}
         </button>
@@ -36,6 +38,7 @@ const SmallButton = ({ title, color, isFilled }: IButton) => {
           width: `${title === "다운로드" ? '192px' : '11vw'}`,
           height: '40px',
         }}
+        onClick={onClick || null}
       >
         {title}
       </button>
