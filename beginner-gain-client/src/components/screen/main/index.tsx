@@ -16,11 +16,15 @@ const Screen = () => {
     <>
       <Header />
       <Blur className="fixed right-0 bottom-0 -z-50" />
-      <MousePointer className={`fixed right-96 bottom-80 ${isVisible ? "visible" : "invisible"}`} />
+      <div className={`fixed w-1/12 right-96 bottom-80 ${isVisible ? "visible" : "invisible"}`}>
+        <MousePointer className="w-full h-full"/>
+      </div>
       <div className="h-[calc(100vh-54px-4rem)] flex flex-col justify-center">
         <div className="ml-16 mb-10">
-          <MainTitle />
-          <p className="text-md font-medium mt-14 mb-9">
+          <div className="w-2/5">
+            <MainTitle className="w-full h-full"/>
+          </div>
+          <p className="text-sm font-medium mt-10 mb-10">
             초보개발자들을 위한<br/>
             보일러플레이트(boilerplate) 생성 서비스
           </p>
