@@ -11,9 +11,10 @@ export interface ICheckBox {
 
 const CheckOption = ({ title }: ICheckBox) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
   return (
     <div>
-      <label className="flex gap-5 items-center">
+      <label className="flex gap-5 items-center" onClick={() => setIsChecked(!isChecked)}>
         {isChecked ? <CheckedBox /> : <UncheckedBox />}
         <p className="text-white text-sm font-semibold">{title}</p>
       </label>
