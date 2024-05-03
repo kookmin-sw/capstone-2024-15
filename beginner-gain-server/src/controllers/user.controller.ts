@@ -10,7 +10,7 @@ import {
 import { UserService } from '../services/user.serivce.js';
 import { CreateUserDto, LoginUserDto } from '../dtos/user.dto.js';
 
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get(':id')
