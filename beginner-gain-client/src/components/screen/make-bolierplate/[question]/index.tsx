@@ -68,12 +68,12 @@ const Screen = () => {
 
     const router = useRouter();
 
-    const fetchQuestionData = () => {
-        const filteredData = data.filter((item) => item.id === Number(router.query.question));
-        if(filteredData.length > 0) setQuestionData(filteredData[0]);
-    }
-
     useEffect(()=> {
+        const fetchQuestionData = () => {
+            const filteredData = data.filter((item) => item.id === Number(router.query.question));
+            if(filteredData.length > 0) setQuestionData(filteredData[0]);
+        }
+
         fetchQuestionData();
     },[router.query.question])
 

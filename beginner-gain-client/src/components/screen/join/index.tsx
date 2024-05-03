@@ -53,7 +53,12 @@ const Screen = () => {
                     <Logo/>
                 </div>
                 <div className="w-[31vw] h-[31vw] mx-auto mt-[8vh]">
-                    <Image src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/working-illust.svg" alt="로그인 일러스트" width="1000" height="1000"/>
+                    <Image
+                        src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/working-illust.svg"
+                        alt="로그인 일러스트"
+                        width="1000"
+                        height="1000"
+                        priority={true}/>
                 </div>
             </div>
         </div>
