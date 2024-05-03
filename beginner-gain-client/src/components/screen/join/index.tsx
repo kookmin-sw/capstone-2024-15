@@ -12,6 +12,11 @@ const Screen = () => {
 
     const router = useRouter();
 
+    const requiredFields = [email, password, name];
+
+    // 버튼 활성화 여부를 나타내는 변수
+    const isButtonActive = requiredFields.every(item => Boolean(item));
+
     const handleSubmitButtonClick = () => {
         router.push('/');
     }
@@ -46,6 +51,7 @@ const Screen = () => {
                     name="회원가입"
                     color={'blue'}
                     isFilled={true}
+                    isDisabled={!isButtonActive}
                     onClick={handleSubmitButtonClick}/>
             </div>
             <div className="flex flex-col flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">

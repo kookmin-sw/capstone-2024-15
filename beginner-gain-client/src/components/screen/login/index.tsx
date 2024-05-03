@@ -17,6 +17,8 @@ const Screen = () => {
 
     const router = useRouter();
 
+    const isButtonActive = email && password;
+
     // react-query test 코드
     const loginMutation = useMutation({
         mutationFn: (loginData : ILogin) => {
@@ -87,6 +89,7 @@ const Screen = () => {
                         name="로그인"
                         color={'blue'}
                         isFilled={true}
+                        isDisabled={!isButtonActive}
                         onClick={handleLoginButtonClick}/>
                     <BigButton
                         name="회원가입"
