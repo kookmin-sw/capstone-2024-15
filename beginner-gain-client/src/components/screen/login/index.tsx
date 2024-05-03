@@ -9,6 +9,7 @@ import {useMutation} from "react-query";
 import {login} from "@/server/user";
 import {AxiosResponse} from "axios";
 import {ILogin} from "@/types/User";
+import { setCookie } from "cookies-next";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -22,6 +23,8 @@ const Screen = () => {
             return login(loginData);
         },
         onSuccess(data : AxiosResponse) {
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessToken', 'testToken');
             console.log(data);
         },
         onError(err) {
