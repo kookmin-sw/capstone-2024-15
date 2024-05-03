@@ -12,15 +12,12 @@ const options = [
     select: [
       {
         option: 'React Query',
-        isChecked: false,
       },
       {
         option: 'React Router',
-        isChecked: false,
       },
       {
         option: 'React Responsive',
-        isChecked: false,
       },
     ]
   },
@@ -29,15 +26,12 @@ const options = [
     select: [
       {
         option: 'style-component',
-        isChecked: false,
       },
       {
         option: 'Material UI',
-        isChecked: false,
       },
       {
         option: 'Chakra UI',
-        isChecked: false,
       },
     ]
   },
@@ -46,22 +40,18 @@ const options = [
     select: [
       {
         option: 'React Query',
-        isChecked: false,
       },
       {
         option: 'React Router',
-        isChecked: false,
       },
       {
         option: 'React Responsive',
-        isChecked: false,
       },
     ]
   }
 ];
 
 const Screen = () => {
-  const [name, setName] = useState<string>('');
   return (
     <>
       <DarkHeader />
@@ -87,7 +77,7 @@ const Screen = () => {
                 </p>
                 <div className="flex gap-20">
                   {v?.select.map((s, i) => (
-                    <CheckOption title={s.option} isChecked={s.isChecked} />
+                    <CheckOption title={s.option} />
                   ))}
                 </div>
               </div>
