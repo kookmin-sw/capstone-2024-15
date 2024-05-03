@@ -1,11 +1,18 @@
-import BackArrow from "../../../../../public/assets/svg/arrow-white.svg";
 import BigButton from "@/components/internal/common/BigButton";
 import UnderlineInput from "@/components/internal/make-boilerplate/UnderlineInput";
 import {useState} from "react";
 import DarkHeader from "@/components/layout/DarkHeader";
+import {useRouter} from "next/router";
+import BackArrow from "@/components/internal/common/BackArrow";
 
 const Screen = () => {
     const [name, setName] = useState<string>('');
+
+    const router = useRouter();
+    const handleNextButtonClick = () => {
+        // 무조건 id가 1인 질문으로 넘어가도록
+        router.push('/make-boilerplate/1');
+    }
     return (
       <>
         <DarkHeader />
@@ -18,7 +25,11 @@ const Screen = () => {
             <UnderlineInput value={name} setValue={setName} />
           </div>
           <div className="w-1/3 mb-[10vh]">
-            <BigButton name="다음" color="white" isFilled={true} />
+            <BigButton
+                name="다음"
+                color="white"
+                isFilled={true}
+                onClick={handleNextButtonClick}/>
           </div>
         </div>
       </>

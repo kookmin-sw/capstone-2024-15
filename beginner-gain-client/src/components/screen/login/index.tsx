@@ -3,10 +3,23 @@ import {useState} from "react";
 import Logo from "public/assets/svg/beginnergain-logo-black.svg";
 import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
+import {useRouter} from "next/router";
+import Link from "next/link";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
+    const router = useRouter();
+
+    const handleLoginButtonClick = () => {
+        router.push('/');
+    };
+
+    const handleJoinButtonClick = () => {
+        router.push('/join');
+    };
+
   return (
     <div className="flex h-screen">
         <div className="flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
@@ -34,16 +47,22 @@ const Screen = () => {
                         value={password}
                         setValue={setPassword}/>
                 </div>
-                <p className="text-xxs text-gray-300 self-end mt-4 cursor-pointer">비밀번호를 잊어버렸나요?</p>
+                <Link
+                    className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"
+                    href="/reset-password">
+                    비밀번호를 잊어버렸나요?
+                </Link>
                 <div className="flex flex-col gap-5 mt-16">
                     <BigButton
                         name="로그인"
                         color={'blue'}
-                        isFilled={true}/>
+                        isFilled={true}
+                        onClick={handleLoginButtonClick}/>
                     <BigButton
                         name="회원가입"
                         color={'blue'}
-                        isFilled={false}/>
+                        isFilled={false}
+                        onClick={handleJoinButtonClick}/>
                 </div>
             </div>
         </div>
