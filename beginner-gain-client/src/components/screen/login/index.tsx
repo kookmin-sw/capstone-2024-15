@@ -5,6 +5,11 @@ import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {useMutation} from "react-query";
+import {login} from "@/server/user";
+import {AxiosResponse} from "axios";
+import {ILogin} from "@/types/User";
+import { setCookie } from "cookies-next";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -12,7 +17,27 @@ const Screen = () => {
 
     const router = useRouter();
 
+    // react-query test 코드
+    const loginMutation = useMutation({
+        mutationFn: (loginData : ILogin) => {
+            return login(loginData);
+        },
+        onSuccess(data : AxiosResponse) {
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessToken', 'testToken');
+            console.log(data);
+        },
+        onError(err) {
+            console.log(err);
+        }
+    })
+
     const handleLoginButtonClick = () => {
+        loginMutation.mutate({
+            email: email,
+            password: password,
+            accessToken: 'test',
+        })
         router.push('/');
     };
 
@@ -27,7 +52,12 @@ const Screen = () => {
                 <Logo />
             </div>
             <div className="w-[31vw] h-[31vw] mx-auto mt-[8vh]">
-                <Image src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/working-illust.svg" alt="로그인 일러스트" width="1000" height="1000"/>
+                <Image
+                    src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/working-illust.svg"
+                    alt="로그인 일러스트"
+                    width="1000"
+                    height="1000"
+                    priority={true}/>
             </div>
         </div>
         <div className="flex-1 p-[10vh]">

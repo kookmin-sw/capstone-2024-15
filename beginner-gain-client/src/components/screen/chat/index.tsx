@@ -25,6 +25,8 @@ const Screen = ({handleModalClose} : {handleModalClose : () => void}) => {
     const handleSendButtonClick = () => {
         if(inputValue !== '') {
             // 내 채팅 내용 저장
+            console.log('!');
+            console.log(inputValue);
             const myNewChat = {
                 content: inputValue,
                 isMychat: true,

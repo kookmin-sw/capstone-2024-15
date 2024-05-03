@@ -15,8 +15,7 @@ const ChatingInput = ({ placeholder, value, setValue, handleSendButtonClick }: I
 
     // enter 누르면 메시지 전달할 수 있도록 하는 이벤트 함수
     const handleActiveEnter = (e : React.KeyboardEvent<HTMLInputElement>) => {
-        // todo: 한글만 두번 입력되는 오류 해결하기
-        if(value !== '' && e.key == "Enter") {
+        if (value !== '' && e.key == "Enter") {
             handleSendButtonClick();
         }
     };
@@ -27,7 +26,7 @@ const ChatingInput = ({ placeholder, value, setValue, handleSendButtonClick }: I
                 placeholder={placeholder}
                 value={value}
                 onChange={handleInputChange}
-                onKeyDown={(e) => handleActiveEnter(e)}/>
+                onKeyUp={(e) => handleActiveEnter(e)}/>
             <div
                 className="absolute top-1/2 right-5 -translate-y-1/2"
                 onClick={handleSendButtonClick}>

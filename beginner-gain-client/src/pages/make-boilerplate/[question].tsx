@@ -2,7 +2,6 @@ import Screen from 'src/components/screen/make-bolierplate/[question]';
 import {useRouter} from "next/router";
 import Modal from "react-modal";
 import Chat from "@/components/screen/chat";
-import {inherits} from "@babel/types";
 
 Modal.setAppElement('#__next');
 
@@ -36,7 +35,6 @@ export const getServerSideProps = async ({ query = {}, params = {} }) => {
 const Page = () => {
 
     const router = useRouter();
-    const query = router.query.question || '1';
 
     const handleModalClose: () => void = () => {
         router.back();
@@ -51,7 +49,7 @@ const Page = () => {
             >
                 <Chat handleModalClose={handleModalClose}/>
             </Modal>
-            <Screen query={query}/>
+            <Screen />
         </>
     );
 };
