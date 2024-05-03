@@ -1,3 +1,5 @@
+import router from 'next/router';
+
 import DarkHeader from "@/components/layout/DarkHeader";
 import BigButton from "@/components/internal/common/BigButton";
 import BgImage from "public/assets/svg/ellipse.svg";
@@ -16,7 +18,12 @@ const Screen = () => {
             </p>
           </div>
           <BigButton name="다운로드" color="purple" isFilled={true} />
-          <BigButton name="내 boilerplate 보러가기" color="purple" isFilled={false} />
+          <BigButton
+            name="내 boilerplate 보러가기"
+            color="purple"
+            isFilled={false}
+            onClick={() => router.push("/mypage")}
+          />
         </div>
       </div>
     </>

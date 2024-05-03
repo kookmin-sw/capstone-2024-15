@@ -1,4 +1,5 @@
 import React from 'react';
+import router from 'next/router';
 
 import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
@@ -16,7 +17,10 @@ const Screen = () => {
           </p>
           <Divider color="gray-100" />
           <div className="self-end">
-            <ArrowButton title="내 boilerplate 생성하기" />
+            <ArrowButton
+              title="내 boilerplate 생성하기"
+              onClick={() => router.push("/make-boilerplate/project-name")}
+            />
           </div>
           <div
             className="mt-14 grid gap-10"
