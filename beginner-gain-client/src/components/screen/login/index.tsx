@@ -5,9 +5,8 @@ import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import Link from "next/link";
-import {useMutation, UseMutationResult} from "react-query";
+import {useMutation} from "react-query";
 import {login} from "@/server/user";
-import {AxiosResponse} from "axios";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
 
