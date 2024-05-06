@@ -4,6 +4,11 @@ import BigButton from "@/components/internal/common/BigButton";
 import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {useMutation} from "react-query";
+import {IJoin} from "@/types/User";
+import {join} from "@/server/user";
+import {AxiosResponse} from "axios";
+import {setCookie} from "cookies-next";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -17,8 +22,25 @@ const Screen = () => {
     // 버튼 활성화 여부를 나타내는 변수
     const isButtonActive = requiredFields.every(item => Boolean(item));
 
+    const joinMutation = useMutation({
+        mutationFn: (joinData : IJoin) => {
+            return join(joinData);
+        },
+        onSuccess(data : AxiosResponse) {
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessToken', 'testToken');
+            console.log(data);
+        },
+        onError(err) {
+            console.log(err);
+        }
+    })
+
     const handleSubmitButtonClick = () => {
-        router.push('/');
+        joinMutation.mutate({
+            email, password, name
+        });
+        // router.push('/');
     }
     return (
         <div className="flex h-screen">

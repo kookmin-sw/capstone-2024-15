@@ -5,10 +5,10 @@ import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import Link from "next/link";
-import {useMutation} from "react-query";
+import {useMutation, UseMutationResult} from "react-query";
 import {login} from "@/server/user";
 import {AxiosResponse} from "axios";
-import {ILogin} from "@/types/User";
+import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
 
 const Screen = () => {
@@ -21,26 +21,25 @@ const Screen = () => {
 
     // react-query test 코드
     const loginMutation = useMutation({
-        mutationFn: (loginData : ILogin) => {
+        mutationFn: (loginData: ILogin) => {
             return login(loginData);
-        },
-        onSuccess(data : AxiosResponse) {
-            // 쿠키로 token 저장 (현재 testToken으로 대체)
-            setCookie('accessToken', 'testToken');
-            console.log(data);
         },
         onError(err) {
             console.log(err);
+        },
+        onSuccess(data: ILoginResponse) {
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessToken', 'testToken');
+            console.log(data);
         }
     })
 
-    const handleLoginButtonClick = () => {
+    const handleLoginButtonClick = async () => {
         loginMutation.mutate({
             email: email,
             password: password,
-            accessToken: 'test',
-        })
-        router.push('/');
+        });
+        // router.push('/');
     };
 
     const handleJoinButtonClick = () => {
