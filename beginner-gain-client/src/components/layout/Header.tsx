@@ -33,23 +33,23 @@ const Header = () => {
           </Link>
         </li>
       </ul>
-      <ul className="flex gap-5">
-        <li>
-          <SmallButton
-            title="로그인"
-            isFilled={false}
-            onClick={() => router.push("/login")}
-          />
-        </li>
-        <li>
-          <SmallButton
-            title="회원가입"
-            isFilled={true}
-            onClick={() => router.push("/join")}
-          />
-        </li>
-      </ul>
-      {/*<UserButton />*/}
+      {/*<ul className="flex gap-5">*/}
+      {/*  <li>*/}
+      {/*    <SmallButton*/}
+      {/*      title="로그인"*/}
+      {/*      isFilled={false}*/}
+      {/*      onClick={() => router.push("/login")}*/}
+      {/*    />*/}
+      {/*  </li>*/}
+      {/*  <li>*/}
+      {/*    <SmallButton*/}
+      {/*      title="회원가입"*/}
+      {/*      isFilled={true}*/}
+      {/*      onClick={() => router.push("/join")}*/}
+      {/*    />*/}
+      {/*  </li>*/}
+      {/*</ul>*/}
+      <UserButton color="black" />
     </header>
   );
 };

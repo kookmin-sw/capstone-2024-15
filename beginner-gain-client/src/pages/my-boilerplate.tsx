@@ -1,4 +1,4 @@
-import Screen from '../components/screen/mypage';
+import Screen from '../components/screen/my-boilerplate';
 
 export const getServerSideProps = async ({ query = {}, params = {} }) => {
   return {

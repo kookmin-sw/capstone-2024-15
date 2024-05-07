@@ -6,7 +6,7 @@ export interface IDivider {
 
 const Divider = ({ color }: IDivider) => {
   return (
-    <div className={`border border-${color} my-5`}></div>
+    <div className={`border border-${color} w-full my-5`}></div>
   );
 }
 
