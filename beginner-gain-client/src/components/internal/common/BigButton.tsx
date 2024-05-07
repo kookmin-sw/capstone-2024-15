@@ -52,7 +52,7 @@ const Button = styled.button<{color: keyof typeof theme; $isfilled: boolean;}>`
     color: ${(props)=> props.$isfilled ? theme[props.color].text : theme[props.color].default};
     
     &:hover {
-        transition-duration: 0.4s;
+        transition-duration: 0.3s;
         background-color: ${(props)=> theme[props.color].hover};
         color: ${(props)=> !props.$isfilled && theme[props.color].text};
         border-color: ${(props)=> !props.$isfilled && theme[props.color].hover};
