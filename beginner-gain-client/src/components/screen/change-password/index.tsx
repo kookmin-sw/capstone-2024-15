@@ -10,6 +10,12 @@ const Screen = () => {
 
     const router = useRouter();
 
+    const isPasswordMatch : boolean = password === confirmPassword;
+    const requiredFields = [password, confirmPassword, isPasswordMatch];
+
+    // 버튼 활성화 여부를 나타내는 변수
+    const isButtonActive = requiredFields.every(item => Boolean(item));
+
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         router.push('/');
@@ -44,6 +50,7 @@ const Screen = () => {
                             name="비밀번호 변경"
                             color="purple"
                             isFilled
+                            isDisabled={!isButtonActive}
                             onClick={handleButtonClick}/>
                     </section>
                 </form>

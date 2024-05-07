@@ -4,6 +4,11 @@ import BigButton from "@/components/internal/common/BigButton";
 import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {useMutation} from "react-query";
+import {IJoin, IJoinResponse} from "@/types/User";
+import {join} from "@/server/user";
+import {AxiosResponse} from "axios";
+import {setCookie} from "cookies-next";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -12,8 +17,30 @@ const Screen = () => {
 
     const router = useRouter();
 
+    const requiredFields = [email, password, name];
+
+    // 버튼 활성화 여부를 나타내는 변수
+    const isButtonActive = requiredFields.every(item => Boolean(item));
+
+    const joinMutation = useMutation({
+        mutationFn: (joinData : IJoin) => {
+            return join(joinData);
+        },
+        onSuccess(data : AxiosResponse) {
+            const joinData : IJoinResponse = data.data;
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessId', joinData.id);
+            router.push('/');
+        },
+        onError(err) {
+            console.log(err);
+        }
+    })
+
     const handleSubmitButtonClick = () => {
-        router.push('/');
+        joinMutation.mutate({
+            email, password, name
+        });
     }
     return (
         <div className="flex h-screen">
@@ -46,6 +73,7 @@ const Screen = () => {
                     name="회원가입"
                     color={'blue'}
                     isFilled={true}
+                    isDisabled={!isButtonActive}
                     onClick={handleSubmitButtonClick}/>
             </div>
             <div className="flex flex-col flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
