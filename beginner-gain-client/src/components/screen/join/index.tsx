@@ -5,7 +5,7 @@ import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useMutation} from "react-query";
-import {IJoin} from "@/types/User";
+import {IJoin, IJoinResponse} from "@/types/User";
 import {join} from "@/server/user";
 import {AxiosResponse} from "axios";
 import {setCookie} from "cookies-next";
@@ -27,9 +27,10 @@ const Screen = () => {
             return join(joinData);
         },
         onSuccess(data : AxiosResponse) {
+            const joinData : IJoinResponse = data.data;
             // 쿠키로 token 저장 (현재 testToken으로 대체)
-            setCookie('accessToken', 'testToken');
-            console.log(data);
+            setCookie('accessId', joinData.id);
+            router.push('/');
         },
         onError(err) {
             console.log(err);
@@ -40,7 +41,6 @@ const Screen = () => {
         joinMutation.mutate({
             email, password, name
         });
-        // router.push('/');
     }
     return (
         <div className="flex h-screen">

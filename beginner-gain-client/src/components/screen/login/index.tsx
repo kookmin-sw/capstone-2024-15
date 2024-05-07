@@ -9,6 +9,7 @@ import {useMutation} from "react-query";
 import {login} from "@/server/user";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
+import {AxiosResponse} from "axios";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
@@ -26,10 +27,11 @@ const Screen = () => {
         onError(err) {
             console.log(err);
         },
-        onSuccess(data: ILoginResponse) {
+        onSuccess(data: AxiosResponse) {
+            const loginData: ILoginResponse = data.data;
             // 쿠키로 token 저장 (현재 testToken으로 대체)
-            setCookie('accessToken', 'testToken');
-            console.log(data);
+            setCookie('accessId', loginData.id);
+            router.push('/');
         }
     })
 
@@ -38,7 +40,6 @@ const Screen = () => {
             email: email,
             password: password,
         });
-        // router.push('/');
     };
 
     const handleJoinButtonClick = () => {
