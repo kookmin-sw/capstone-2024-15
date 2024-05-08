@@ -76,7 +76,8 @@ const Screen = () => {
                     <Input
                         placeholder={"비밀번호를 입력하세요"}
                         value={password}
-                        setValue={setPassword}/>
+                        setValue={setPassword}
+                        isPassword/>
                 </div>
                 <Link
                     className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"
