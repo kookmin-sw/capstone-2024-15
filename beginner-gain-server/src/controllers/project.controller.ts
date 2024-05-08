@@ -12,12 +12,15 @@ export class ProjectController {
   }
 
   @Get()
-  async findAll() {
+  async getALl() {
     return await this.projectService.findAll();
   }
-
+  @Get('/user/:id')
+  async getProjectByUserId(@Param('id') id: string) {
+    return await this.projectService.getProjectByUserId(id);
+  }
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async getProjectByProjectId(@Param('id') id: string) {
     return await this.projectService.findOne(id);
   }
 
