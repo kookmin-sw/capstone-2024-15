@@ -77,13 +77,13 @@ const Screen = () => {
           </div>
           <div className="h-3/5 flex flex-col justify-between">
             {options.map((v, i) => (
-              <div className="flex flex-col gap-3">
+              <div key={i} className="flex flex-col gap-3">
                 <p className="text-md text-white font-medium">
                   {v.title}
                 </p>
                 <div className="flex gap-20">
                   {v?.select.map((s, i) => (
-                    <CheckOption title={s.option} />
+                    <CheckOption key={i} title={s.option} />
                   ))}
                 </div>
               </div>
