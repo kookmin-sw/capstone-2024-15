@@ -1,7 +1,7 @@
 import router from 'next/router';
 
 import DarkHeader from "@/components/layout/DarkHeader";
-import BackArrow from "public/assets/svg/arrow-white.svg";
+import BackArrow from "@/components/internal/common/BackArrow";
 import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
