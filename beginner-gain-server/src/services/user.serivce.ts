@@ -1,8 +1,8 @@
 import {
+  ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
-  ConflictException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -17,16 +17,14 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
   async getUserById(userId: string): Promise<User | undefined> {
-    const response = await this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: { id: userId },
       relations: ['apartment'],
     });
-    return response;
   }
   async createUser(createUserDto: CreateUserDto): Promise<any> {
-
     const existingUser = await this.userRepository.findOne({
-      where: { email: createUserDto.email }
+      where: { email: createUserDto.email },
     });
 
     if (existingUser) {
@@ -60,6 +58,13 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async checkEmail(email: string): Promise<boolean> {
+    const existingUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    return !existingUser;
   }
 
   async remove(id: string): Promise<void> {
