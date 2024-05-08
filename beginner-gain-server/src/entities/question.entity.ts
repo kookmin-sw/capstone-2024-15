@@ -1,13 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from 'typeorm';
+import { Answer } from './answer.entity';
 
 @Entity()
 export class Question extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
-  title: string;
-
-  @Column()
   content: string;
+
+  @OneToMany(() => Answer, (answer) => answer.question)
+  answers: Answer[];
 }
