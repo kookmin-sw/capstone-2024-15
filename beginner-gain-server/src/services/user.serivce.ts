@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserDto, LoginUserDto } from '../dtos/user.dto.js';
 import * as bcrypt from 'bcrypt';
+import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class UserService {
@@ -67,4 +68,34 @@ export class UserService {
     if (!user) throw new Error('User not found');
     await this.userRepository.remove(user);
   }
+
+  async resetPassword(email: string): Promise<any> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) throw new NotFoundException('User not found');
+
+    const tempPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+    user.password = hashedPassword;
+    await this.userRepository.save(user);
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'beginergain77@gmail.com',
+        pass: 'herwzwswavpnngkf'   
+      }
+    });
+
+    const mailOptions = {
+      from: 'beginergain1004@gmail.com', 
+      to: email, 
+      subject: '비기너게인 임시 비밀번호입니다',
+      text: `비기너게임 임시 비밀번호: ${tempPassword}`
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return { success: true, message: '임시 비밀번호가 이메일로 발송되었습니다.' };
+  }
 }
+
