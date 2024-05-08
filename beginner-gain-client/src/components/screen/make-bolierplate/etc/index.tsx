@@ -91,7 +91,7 @@ const Screen = () => {
           </div>
         </div>
         <div className="fixed bottom-12 right-12">
-          <ChatbotButton />
+          <ChatbotButton query={'etc'}/>
         </div>
       </div>
     </>
