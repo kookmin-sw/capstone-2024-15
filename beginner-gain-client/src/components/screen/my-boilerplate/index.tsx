@@ -27,8 +27,6 @@ const Screen = (props) => {
     getData();
   }, []);
 
-  console.log(projectList);
-
   return (
     <>
       <Header isLoggedIn={props.isLoggedIn} />
