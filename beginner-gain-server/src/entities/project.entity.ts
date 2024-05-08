@@ -15,14 +15,17 @@ export class Project {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   filePath: string;
 
   @ManyToOne(() => User, (user) => user.boilerplate, {
     onDelete: 'CASCADE',
   })
   owner: Relation<User>;
+
+  @Column('json')
+  select: { question: string; answer: string }[];
 }
