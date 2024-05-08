@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectDto } from '../dtos/project.dto';
-import * as fs from 'fs';
 import { Project, User } from '../entities';
 import { getBoilerPlateUrl } from '../helper/boilerplate';
 
@@ -28,7 +27,10 @@ export class ProjectService {
     });
     return this.boilerplateRepository.save(project);
   }
-
+  async getProjectByUserId(userId: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    return await this.boilerplateRepository.find({ where: { owner: user } });
+  }
   async findAll() {
     return await this.boilerplateRepository.find();
   }
@@ -39,7 +41,6 @@ export class ProjectService {
 
   async remove(id: string): Promise<void> {
     const boilerplate = await this.boilerplateRepository.findOneBy({ id });
-    fs.unlinkSync(boilerplate.filePath);
     await this.boilerplateRepository.remove(boilerplate);
   }
 }
