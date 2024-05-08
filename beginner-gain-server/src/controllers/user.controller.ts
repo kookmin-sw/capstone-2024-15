@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -32,4 +33,9 @@ export class UserController {
   async login(@Body() loginUserDto: LoginUserDto) {
     return this.userService.loginUser(loginUserDto);
   }
+
+  @Delete(':id')
+    async remove(@Param('id') id: string): Promise<void> {
+        await this.userService.remove(id);
+    }
 }
