@@ -10,10 +10,14 @@ import {login} from "@/server/user";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
 import {AxiosResponse} from "axios";
+import {useRecoilState} from "recoil";
+import {userState} from "@/recoil/userState";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
+    const [user, setUser] = useRecoilState(userState);
 
     const router = useRouter();
 
@@ -31,6 +35,12 @@ const Screen = () => {
             const loginData: ILoginResponse = data.data;
             // 쿠키로 token 저장 (현재 testToken으로 대체)
             setCookie('accessId', loginData.id);
+            // user 데이터 recoil 저장
+            setUser({
+                id: loginData.id,
+                email: loginData.email,
+                name: loginData.name,
+            })
             router.push('/');
         }
     })
@@ -76,7 +86,8 @@ const Screen = () => {
                     <Input
                         placeholder={"비밀번호를 입력하세요"}
                         value={password}
-                        setValue={setPassword}/>
+                        setValue={setPassword}
+                        isPassword/>
                 </div>
                 <Link
                     className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"

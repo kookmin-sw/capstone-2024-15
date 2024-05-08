@@ -1,7 +1,9 @@
+import {useState} from "react";
+import Modal from "react-modal";
 import CloseIcon from "public/assets/svg/close-purple.svg";
 import ChatBubble from "@/components/internal/make-boilerplate/ChatBubble";
 import ChatingInput from "@/components/internal/make-boilerplate/ChatingInput";
-import {useState} from "react";
+import {useRouter} from "next/router";
 
 interface IChatingHistory {
     content: string,
@@ -18,9 +20,36 @@ const testChatingData: IChatingHistory[] = [
         isMychat: false,
     }
 ]
-const Screen = ({handleModalClose} : {handleModalClose : () => void}) => {
+
+Modal.setAppElement('#__next');
+
+const customStyles = {
+    content: {
+        width: '39%',
+        height: '80%',
+        background: 'rgba(255,255,255,0.50)',
+        backdropFilter: 'blur(20px)',
+        border: 0,
+        borderRadius: '10px',
+        padding: 0,
+        marginLeft: 'auto',
+        inset: '70px',
+    },
+    overlay: {
+        backgroundColor: '0',
+        background: 'rgba(0,0,0,0.40)',
+    }
+}
+
+const Screen = () => {
     const [inputValue, setInputValue] = useState<string>('');
     const [chatingHistory, setChatingHistory] = useState<IChatingHistory[]>(testChatingData);
+
+    const router = useRouter();
+
+    const handleModalClose: () => void = () => {
+        router.back();
+    };
 
     const handleSendButtonClick = () => {
         if(inputValue !== '') {
@@ -38,28 +67,34 @@ const Screen = ({handleModalClose} : {handleModalClose : () => void}) => {
     };
 
     return(
-        <div className="flex flex-col h-full">
-            <div
-                className="p-6 border-b"
-                onClick={handleModalClose}>
-                <CloseIcon/>
+        <Modal
+            style={customStyles}
+            isOpen={!!router.query.chat}
+            onRequestClose={handleModalClose}
+        >
+            <div className="flex flex-col h-full">
+                <div
+                    className="p-6 border-b"
+                    onClick={handleModalClose}>
+                    <CloseIcon/>
+                </div>
+                <div className="p-6 flex flex-col gap-9 flex-1 overflow-auto">
+                    {chatingHistory.map((item, index) => (
+                        <ChatBubble
+                            key={index}
+                            isMychat={item.isMychat}
+                            content={item.content}/>
+                    ))}
+                </div>
+                <div className="p-6 sticky bottom-0 right-0 left-0 z-10">
+                    <ChatingInput
+                        placeholder="내용을 입력하세요"
+                        value={inputValue}
+                        setValue={setInputValue}
+                        handleSendButtonClick={handleSendButtonClick}/>
+                </div>
             </div>
-            <div className="p-6 flex flex-col gap-9 flex-1 overflow-auto">
-                {chatingHistory.map((item, index) => (
-                    <ChatBubble
-                        key={index}
-                        isMychat={item.isMychat}
-                        content={item.content} />
-                ))}
-            </div>
-            <div className="p-6 sticky bottom-0 right-0 left-0 z-10">
-                <ChatingInput
-                    placeholder="내용을 입력하세요"
-                    value={inputValue}
-                    setValue={setInputValue}
-                    handleSendButtonClick={handleSendButtonClick}/>
-            </div>
-        </div>
+        </Modal>
     );
 };
 
