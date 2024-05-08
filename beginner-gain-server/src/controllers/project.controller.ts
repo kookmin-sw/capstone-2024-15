@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ProjectService } from '../services/project.service';
 import { ProjectDto } from '../dtos/project.dto';
 
@@ -14,22 +7,25 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  create(@Body() projectDto: ProjectDto) {
-    return this.projectService.create(projectDto);
+  async create(@Body() projectDto: ProjectDto) {
+    return await this.projectService.create(projectDto);
   }
 
   @Get()
-  findAll() {
-    return this.projectService.findAll();
+  async getALl() {
+    return await this.projectService.findAll();
   }
-
+  @Get('/user/:id')
+  async getProjectByUserId(@Param('id') id: string) {
+    return await this.projectService.getProjectByUserId(id);
+  }
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectService.findOne(id);
+  async getProjectByProjectId(@Param('id') id: string) {
+    return await this.projectService.findOne(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.projectService.remove(id);
   }
 }

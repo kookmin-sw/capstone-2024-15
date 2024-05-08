@@ -6,6 +6,7 @@ import DarkHeader from "@/components/layout/DarkHeader";
 import BackArrow from "@/components/internal/common/BackArrow";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import OneButtonModal from "@/components/internal/modal/OneButtonModal";
 
 interface IAnswerData {
     name: string,
@@ -66,12 +67,20 @@ const data : IQuestionData[] = [
 const Screen = () => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
 
+    // 준비중 모달 open 여부
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
     const router = useRouter();
 
     useEffect(()=> {
         const fetchQuestionData = () => {
             const filteredData = data.filter((item) => item.id === Number(router.query.question));
             if(filteredData.length > 0) setQuestionData(filteredData[0]);
+            else {
+                // 다음 질문의 data가 없는 경우 준비중 모달 open
+                setIsOpenModal(true);
+                router.back();
+            }
         }
 
         fetchQuestionData();
@@ -112,6 +121,7 @@ const Screen = () => {
                   <ChatbotButton query={router.query.question || '1'}/>
               </div>
           </div>
+            {isOpenModal && <OneButtonModal closeModal={()=> setIsOpenModal(false)} hasContent/>}
         </>
     );
 };

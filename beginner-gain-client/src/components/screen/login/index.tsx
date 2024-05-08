@@ -7,38 +7,49 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {useMutation} from "react-query";
 import {login} from "@/server/user";
-import {AxiosResponse} from "axios";
-import {ILogin} from "@/types/User";
+import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
+import {AxiosResponse} from "axios";
+import {useRecoilState} from "recoil";
+import {userState} from "@/recoil/userState";
 
 const Screen = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const [user, setUser] = useRecoilState(userState);
+
     const router = useRouter();
+
+    const isButtonActive = email && password;
 
     // react-query test 코드
     const loginMutation = useMutation({
-        mutationFn: (loginData : ILogin) => {
+        mutationFn: (loginData: ILogin) => {
             return login(loginData);
-        },
-        onSuccess(data : AxiosResponse) {
-            // 쿠키로 token 저장 (현재 testToken으로 대체)
-            setCookie('accessToken', 'testToken');
-            console.log(data);
         },
         onError(err) {
             console.log(err);
+        },
+        onSuccess(data: AxiosResponse) {
+            const loginData: ILoginResponse = data.data;
+            // 쿠키로 token 저장 (현재 testToken으로 대체)
+            setCookie('accessId', loginData.id);
+            // user 데이터 recoil 저장
+            setUser({
+                id: loginData.id,
+                email: loginData.email,
+                name: loginData.name,
+            })
+            router.push('/');
         }
     })
 
-    const handleLoginButtonClick = () => {
+    const handleLoginButtonClick = async () => {
         loginMutation.mutate({
             email: email,
             password: password,
-            accessToken: 'test',
-        })
-        router.push('/');
+        });
     };
 
     const handleJoinButtonClick = () => {
@@ -75,7 +86,8 @@ const Screen = () => {
                     <Input
                         placeholder={"비밀번호를 입력하세요"}
                         value={password}
-                        setValue={setPassword}/>
+                        setValue={setPassword}
+                        isPassword/>
                 </div>
                 <Link
                     className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"
@@ -87,6 +99,7 @@ const Screen = () => {
                         name="로그인"
                         color={'blue'}
                         isFilled={true}
+                        isDisabled={!isButtonActive}
                         onClick={handleLoginButtonClick}/>
                     <BigButton
                         name="회원가입"
