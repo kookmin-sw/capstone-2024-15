@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -16,13 +17,20 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
   async getUserById(userId: string): Promise<User | undefined> {
-    const response = await this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: { id: userId },
       relations: ['apartment'],
     });
-    return response;
   }
   async createUser(createUserDto: CreateUserDto): Promise<any> {
+    const existingUser = await this.userRepository.findOne({
+      where: { email: createUserDto.email },
+    });
+
+    if (existingUser) {
+      throw new ConflictException('This email is already registered');
+    }
+
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const user = this.userRepository.create({
       name: createUserDto.name,
@@ -50,6 +58,13 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async checkEmail(email: string): Promise<boolean> {
+    const existingUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    return !existingUser;
   }
 
   async remove(id: string): Promise<void> {

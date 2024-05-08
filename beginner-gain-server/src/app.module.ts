@@ -6,6 +6,8 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { UserModule } from './modules/user.module.js';
 import { QuestionModule } from './modules/question.module';
+import { AnswerModule } from './modules/answer.module';
+import { ProjectModule } from './modules/project.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { QuestionModule } from './modules/question.module';
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     QuestionModule,
+    AnswerModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

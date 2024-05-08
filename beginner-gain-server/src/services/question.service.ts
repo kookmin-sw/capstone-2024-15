@@ -19,4 +19,15 @@ export class QuestionSevice {
     const question = this.questionRepository.create(createQuestionDto);
     return await this.questionRepository.save(question);
   }
+
+  async getAllQuestions(): Promise<Question[]> {
+    return await this.questionRepository.find();
+  }
+
+  async getQuestionById(questionId: string): Promise<Question> {
+    return await this.questionRepository.findOne({
+      where: { id: questionId },
+      relations: ['answers'],
+    });
+  }
 }

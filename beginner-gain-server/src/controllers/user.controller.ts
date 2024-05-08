@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -31,5 +32,15 @@ export class UserController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async login(@Body() loginUserDto: LoginUserDto) {
     return this.userService.loginUser(loginUserDto);
+  }
+  @Post('valid')
+  async checkEmail(@Body('email') email: string) {
+    const isAvailable = await this.userService.checkEmail(email);
+    return { isAvailable };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.userService.remove(id);
   }
 }
