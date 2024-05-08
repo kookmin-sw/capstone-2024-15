@@ -3,26 +3,38 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectDto } from '../dtos/project.dto';
 import * as fs from 'fs';
-import { Project } from '../entities';
+import { Project, User } from '../entities';
+import { getBoilerPlateUrl } from '../helper/boilerplate';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @InjectRepository(Project)
     private boilerplateRepository: Repository<Project>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async create(projectDto: ProjectDto): Promise<Project> {
-    const project = this.boilerplateRepository.create(projectDto);
+    const owner = await this.userRepository.findOne({
+      where: { id: projectDto.userId },
+    });
+    const project = this.boilerplateRepository.create({
+      name: projectDto.name,
+      description: projectDto?.description,
+      filePath: getBoilerPlateUrl(),
+      owner: owner,
+      select: projectDto.select,
+    });
     return this.boilerplateRepository.save(project);
   }
 
-  findAll() {
-    return this.boilerplateRepository.find();
+  async findAll() {
+    return await this.boilerplateRepository.find();
   }
 
-  findOne(id: string) {
-    return this.boilerplateRepository.findOneBy({ id });
+  async findOne(id: string) {
+    return await this.boilerplateRepository.findOneBy({ id });
   }
 
   async remove(id: string): Promise<void> {
