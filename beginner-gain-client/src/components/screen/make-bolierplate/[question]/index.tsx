@@ -8,7 +8,10 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import OneButtonModal from "@/components/internal/modal/OneButtonModal";
 import {useQuery} from "react-query";
-import {getQuestion} from "@/server/Question";
+import {getQuestion} from "@/server/question";
+import {useSetRecoilState} from "recoil";
+import {projectDataState} from "@/recoil/projectDataState";
+import {QuestionSelected} from "@/types/Project";
 
 interface IAnswerData {
     id: number,
@@ -22,8 +25,14 @@ interface IQuestionData {
     answers: IAnswerData[],
 }
 
+interface IAnswerButton {
+    nextId: number,
+    answerId: number,
+}
+
 const Screen = () => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
+    const setProjectData = useSetRecoilState(projectDataState);
 
     // 준비중 모달 open 여부
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -44,13 +53,24 @@ const Screen = () => {
 
     // todo: 다음 질문이 준비되어 있지 않은 서비스면 모달 띄우기
 
-    const handleAnswerButtonClick = (nextId : number) => {
+    const handleAnswerButtonClick = ({ nextId, answerId }: IAnswerButton) => {
+        if(questionData) {
+            // 현재 질문, 답변 recoil 에 저장
+            const questionInfo: QuestionSelected = {
+                question: questionData?.id.toString(),
+                answer: answerId.toString(),
+            };
+            setProjectData((prev) => ({
+                ...prev,
+                select: [...prev.select, questionInfo]
+            }));
+        }
         // 다음 질문이 없을 경우 etc 선택 화면으로 이동
         if(nextId === null) {
             router.push('/make-boilerplate/etc');
         } else {
-            router.push(`/make-boilerplate/${nextId}`);
-        }
+                router.push(`/make-boilerplate/${nextId}`);
+            }
     }
 
     return (
@@ -73,7 +93,11 @@ const Screen = () => {
                                   key={index}
                                   order={String.fromCharCode(index + 65)} //순서를 알파벳으로 표시
                                   name={item.name}
-                                  onClick={() => handleAnswerButtonClick(item.nextQuestionId)}
+                                  onClick={() =>
+                                      handleAnswerButtonClick({
+                                          nextId: item.nextQuestionId,
+                                          answerId: item.id
+                                      })}
                               />
                           )}
                       </div>
