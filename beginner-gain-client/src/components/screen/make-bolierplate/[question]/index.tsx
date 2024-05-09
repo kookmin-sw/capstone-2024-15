@@ -6,7 +6,7 @@ import DarkHeader from "@/components/layout/DarkHeader";
 import BackArrow from "@/components/internal/common/BackArrow";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import OneButtonModal from "@/components/internal/modal/OneButtonModal";
+import MiniModal from "@/components/internal/modal/MiniModal";
 import {useQuery} from "react-query";
 import {getQuestion} from "@/server/question";
 import {useSetRecoilState} from "recoil";
@@ -108,7 +108,14 @@ const Screen = () => {
                   <ChatbotButton query={router.query.question || '1'}/>
               </div>
           </div>
-            {isOpenModal && <OneButtonModal closeModal={()=> setIsOpenModal(false)} hasContent/>}
+            {
+                isOpenModal &&
+                <MiniModal
+                    title="해당 서비스는 준비중입니다"
+                    button="확인"
+                    handleButtonClick={()=> setIsOpenModal(false)}
+                    content="추후 버전에서 업데이트 될 예정입니다"/>
+            }
         </>
     );
 };

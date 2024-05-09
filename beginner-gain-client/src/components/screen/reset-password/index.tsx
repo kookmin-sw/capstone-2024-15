@@ -4,7 +4,7 @@ import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
 import Header from "@/components/layout/Header";
 import useShowIllust from "@/hooks/useShowIllust";
-import EmailModel from "@/components/internal/modal";
+import EmailModal from "@/components/internal/modal/EmailModal";
 
 const Screen = () => {
   const { isVisible } = useShowIllust();
@@ -42,7 +42,7 @@ const Screen = () => {
         </div>
       </div>
       {openModal &&
-        <EmailModel email={"jeong4530@gmail.com"} closeModal={() => setOpenModal(false)} />
+        <EmailModal email={"jeong4530@gmail.com"} closeModal={() => setOpenModal(false)} />
       }
     </div>
   );
