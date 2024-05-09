@@ -37,7 +37,7 @@ const Screen = () => {
             </div>
           </div>
           <div className={`w-4/12 ml-[14vw]`}>
-            <img src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/rocket-illust.svg" />
+            <img src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/rocket-illust.svg" alt="rocket-illust"/>
           </div>
         </div>
       </div>
