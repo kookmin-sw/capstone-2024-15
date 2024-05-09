@@ -6,7 +6,7 @@ import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
 import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
-import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {useMutation} from "react-query";
 import {IMakeProject} from "@/types/Project";
@@ -60,9 +60,7 @@ const options = [
 ];
 
 const Screen = () => {
-  const [projectData, setProjectData] = useRecoilState(projectDataState);
-
-  console.log(projectData);
+  const projectData= useRecoilValue(projectDataState);
 
   const makeProjectMutation = useMutation({
     mutationFn: (projectData : IMakeProject) => {
