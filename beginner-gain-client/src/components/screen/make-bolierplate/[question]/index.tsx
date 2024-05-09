@@ -6,88 +6,71 @@ import DarkHeader from "@/components/layout/DarkHeader";
 import BackArrow from "@/components/internal/common/BackArrow";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import OneButtonModal from "@/components/internal/modal/OneButtonModal";
+import MiniModal from "@/components/internal/modal/MiniModal";
+import {useQuery} from "react-query";
+import {getQuestion} from "@/server/question";
+import {useSetRecoilState} from "recoil";
+import {projectDataState} from "@/recoil/projectDataState";
+import {QuestionSelected} from "@/types/Project";
 
 interface IAnswerData {
+    id: number,
     name: string,
-    nextQuestion: number,
+    nextQuestionId: number,
 }
 
 interface IQuestionData {
     id: number,
-    title: string,
-    select: IAnswerData[],
+    content: string,
+    answers: IAnswerData[],
 }
 
-const data : IQuestionData[] = [
-    {
-        id: 1,
-        title: '어떤 종류의 프로젝트인가요?',
-        select: [
-            {
-                name: '웹',
-                nextQuestion: 2,
-            },
-            {
-                name: '앱',
-                nextQuestion: 3,
-            },
-        ]
-    },
-    {
-        id: 2,
-        title: '사용할 언어를 선택해주세요',
-        select: [
-            {
-                name: 'javascript',
-                nextQuestion: 4,
-            },
-            {
-                name: 'typescript',
-                nextQuestion: 4,
-            },
-        ]
-    },
-    {
-        id: 4,
-        title: '사용할 프레임워크를 선택해주세요',
-        select: [
-            {
-                name: 'React.js',
-                nextQuestion: 5,
-            },
-            {
-                name: 'Vue.js',
-                nextQuestion: 6,
-            },
-        ]
-    },
-];
+interface IAnswerButton {
+    nextId: number,
+    answerId: number,
+}
 
 const Screen = () => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
+    const setProjectData = useSetRecoilState(projectDataState);
 
     // 준비중 모달 open 여부
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     const router = useRouter();
 
+    const questionId = router.query.question || '1';
+    const { data } = useQuery({
+        queryKey: ['question', questionId],
+        queryFn: () => getQuestion({questionId})});
+
     useEffect(()=> {
-        const fetchQuestionData = () => {
-            const filteredData = data.filter((item) => item.id === Number(router.query.question));
-            if(filteredData.length > 0) setQuestionData(filteredData[0]);
-            else {
-                // 다음 질문의 data가 없는 경우 준비중 모달 open
-                setIsOpenModal(true);
-                router.back();
-            }
+        if(data?.data) {
+            console.log(data);
+            setQuestionData(data.data);
         }
+    },[data]);
 
-        fetchQuestionData();
-    },[router.query.question])
+    // todo: 다음 질문이 준비되어 있지 않은 서비스면 모달 띄우기
 
-    const handleAnswerButtonClick = (nextId : number) => {
-        router.push(`/make-boilerplate/${nextId}`);
+    const handleAnswerButtonClick = ({ nextId, answerId }: IAnswerButton) => {
+        if(questionData) {
+            // 현재 질문, 답변 recoil 에 저장
+            const questionInfo: QuestionSelected = {
+                question: questionData?.id.toString(),
+                answer: answerId.toString(),
+            };
+            setProjectData((prev) => ({
+                ...prev,
+                select: [...prev.select, questionInfo]
+            }));
+        }
+        // 다음 질문이 없을 경우 etc 선택 화면으로 이동
+        if(nextId === null) {
+            router.push('/make-boilerplate/etc');
+        } else {
+                router.push(`/make-boilerplate/${nextId}`);
+            }
     }
 
     return (
@@ -102,15 +85,19 @@ const Screen = () => {
                       <div className="flex items-center mb-14">
                           <p className="text-sm text-purple-200">{questionData?.id}</p>
                           <PurpleArrow/>
-                          <p className="text-md text-white ml-4">{questionData?.title}</p>
+                          <p className="text-md text-white ml-4">{questionData?.content}</p>
                       </div>
                       <div className="flex flex-col flex-wrap gap-4 h-full">
-                          {questionData?.select.map((item, index)=>
+                          {questionData?.answers.map((item, index)=>
                               <ChoiceButton
                                   key={index}
                                   order={String.fromCharCode(index + 65)} //순서를 알파벳으로 표시
                                   name={item.name}
-                                  onClick={() => handleAnswerButtonClick(item.nextQuestion)}
+                                  onClick={() =>
+                                      handleAnswerButtonClick({
+                                          nextId: item.nextQuestionId,
+                                          answerId: item.id
+                                      })}
                               />
                           )}
                       </div>
@@ -121,7 +108,14 @@ const Screen = () => {
                   <ChatbotButton query={router.query.question || '1'}/>
               </div>
           </div>
-            {isOpenModal && <OneButtonModal closeModal={()=> setIsOpenModal(false)} hasContent/>}
+            {
+                isOpenModal &&
+                <MiniModal
+                    title="해당 서비스는 준비중입니다"
+                    button="확인"
+                    handleButtonClick={()=> setIsOpenModal(false)}
+                    content="추후 버전에서 업데이트 될 예정입니다"/>
+            }
         </>
     );
 };

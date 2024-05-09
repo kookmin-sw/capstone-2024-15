@@ -4,12 +4,22 @@ import {useState} from "react";
 import DarkHeader from "@/components/layout/DarkHeader";
 import {useRouter} from "next/router";
 import BackArrow from "@/components/internal/common/BackArrow";
+import {useSetRecoilState} from "recoil";
+import {projectDataState} from "@/recoil/projectDataState";
 
 const Screen = () => {
     const [name, setName] = useState<string>('');
+    const setProjectData = useSetRecoilState(projectDataState);
 
     const router = useRouter();
     const handleNextButtonClick = () => {
+        // 프로젝트명 recoil 에 저장
+        if(name) {
+            setProjectData((prev) => ({
+                ...prev,
+                name,
+            }));
+        }
         // 무조건 id가 1인 질문으로 넘어가도록
         router.push('/make-boilerplate/1');
     }
