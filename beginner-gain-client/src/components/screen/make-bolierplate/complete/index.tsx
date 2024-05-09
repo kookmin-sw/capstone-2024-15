@@ -4,8 +4,33 @@ import Image from "next/image";
 import DarkHeader from "@/components/layout/DarkHeader";
 import BigButton from "@/components/internal/common/BigButton";
 import BgImage from "public/assets/svg/ellipse.svg";
+import axios from "axios";
+import {useEffect, useState} from "react";
 
 const Screen = () => {
+  const [downloadUrl, setDownloadUrl] = useState<string>();
+  const testUrl = "https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/client.zip";
+  const fetchFile = async () => {
+    //
+    // const {
+    //   data: { type, arrayBuffer },
+    // } = await axios.get('/api/file', { params : { url: testUrl }});
+    //
+    // const blob = await new Blob([Uint8Array.from(arrayBuffer)], { type });
+    // setDownloadUrl(window.URL.createObjectURL(blob));
+  }
+  const handleDownloadClick = async () => {
+    const rawData = await fetch(testUrl);
+    const blob = await rawData.blob();
+    const fileUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.style.display = 'none';
+    link.download = 'client-boilerplate';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
   return (
     <>
       <DarkHeader />
@@ -16,6 +41,7 @@ const Screen = () => {
             <div className="w-3/4">
               <Image
                 src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/computer-illust.svg"
+                alt="computer-illust"
                 width={500}
                 height={500}
                 priority={true}
@@ -25,7 +51,7 @@ const Screen = () => {
               boilerplate가 생성되었습니다!
             </p>
           </div>
-          <BigButton name="다운로드" color="purple" isFilled={true} />
+            <BigButton name="다운로드" color="purple" isFilled={true} onClick={handleDownloadClick}/>
           <BigButton
             name="내 boilerplate 보러가기"
             color="purple"
