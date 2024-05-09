@@ -18,3 +18,8 @@ export class LoginUserDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class ResetPasswordDto {
+  @IsEmail()
+  email: string;
+}
