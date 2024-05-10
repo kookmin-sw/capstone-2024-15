@@ -18,7 +18,7 @@ const Screen = (props) => {
   if (!userInfo) return;
 
   const getData = async () => {
-    const data = await getProjects("d4d468ed-9535-4a1d-a186-e1fd6984c8e1");
+    const data = await getProjects(userInfo.id);
     setProjectList(data);
   }
 
