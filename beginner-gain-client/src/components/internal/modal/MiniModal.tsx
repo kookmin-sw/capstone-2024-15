@@ -28,7 +28,12 @@ const MiniModal = ( { handleButtonClick, title, button, content, secondButton, h
                 <div className="flex gap-4">
                     <SmallButton title={button} isFilled={true} color="black" onClick={handleButtonClick}/>
                     { secondButton &&
-                        <SmallButton title={secondButton} isFilled={false} color="black" onClick={handleSecondButtonClick}/>
+                        <SmallButton
+                          title={secondButton}
+                          isFilled={false}
+                          color="black"
+                          onClick={handleSecondButtonClick || void(0)}
+                        />
                     }
                 </div>
             </ModalBox>

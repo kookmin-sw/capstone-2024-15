@@ -12,6 +12,7 @@ import {getQuestion} from "@/server/question";
 import {useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {QuestionSelected} from "@/types/Project";
+import Chat from "@/components/screen/chat";
 
 interface IAnswerData {
     id: number,
@@ -30,7 +31,7 @@ interface IAnswerButton {
     answerId: number,
 }
 
-const Screen = () => {
+const Screen = (props) => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
     const setProjectData = useSetRecoilState(projectDataState);
 
@@ -75,7 +76,7 @@ const Screen = () => {
 
     return (
         <>
-          <DarkHeader />
+          <DarkHeader isLoggedIn={props.isLoggedIn} />
           <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
               <div className="pt-6 pl-12">
                   <BackArrow/>
@@ -116,6 +117,7 @@ const Screen = () => {
                     handleButtonClick={()=> setIsOpenModal(false)}
                     content="추후 버전에서 업데이트 될 예정입니다"/>
             }
+          <Chat />
         </>
     );
 };

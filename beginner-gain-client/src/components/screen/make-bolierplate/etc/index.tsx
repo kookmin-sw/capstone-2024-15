@@ -60,7 +60,7 @@ const options = [
   }
 ];
 
-const Screen = () => {
+const Screen = (props) => {
   const projectData= useRecoilValue(projectDataState);
   const setDownloadUrl = useSetRecoilState(downloadUrlState);
 
@@ -83,7 +83,7 @@ const Screen = () => {
 
   return (
       <>
-        <DarkHeader />
+        <DarkHeader isLoggedIn={props.isLoggedIn} />
         {makeProjectMutation.isLoading ?
             <Loading />
             :
