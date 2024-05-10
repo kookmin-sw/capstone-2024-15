@@ -12,6 +12,18 @@ export interface ICard {
 
 const SmallCard = ({ projectData, deleteProject }: ICard) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isSecondOpenModal, setIsSecondOpenModal] = useState<boolean>(false);
+
+  const doDelete = () => {
+    deleteProject();
+    setIsOpenModal(false);
+    setIsSecondOpenModal(true);
+  }
+
+  const clickSecondModalButton = () => {
+    setIsSecondOpenModal(false);
+    window.location.reload();
+  }
 
   return (
     <>
@@ -47,9 +59,16 @@ const SmallCard = ({ projectData, deleteProject }: ICard) => {
           title="보일러플레이트를 삭제하시겠습니까?"
           content="삭제 후 되돌릴 수 없습니다."
           button="삭제하기"
-          handleButtonClick={deleteProject}
+          handleButtonClick={() => doDelete()}
           secondButton="취소"
           handleSecondButtonClick={() => setIsOpenModal(false)}
+        />
+      }
+      {isSecondOpenModal &&
+        <MiniModal
+          title="보일러플레이트가 삭제되었습니다."
+          button="확인"
+          handleButtonClick={() => clickSecondModalButton()}
         />
       }
     </>

@@ -24,7 +24,6 @@ const Screen = (props) => {
 
   const deleteData = async (projectId: number) => {
     deleteProject(projectId);
-    window.location.reload();
   }
 
   useEffect(() => {
