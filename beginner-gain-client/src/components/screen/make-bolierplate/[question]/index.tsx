@@ -12,6 +12,7 @@ import {getQuestion} from "@/server/question";
 import {useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {QuestionSelected} from "@/types/Project";
+import Chat from "@/components/screen/chat";
 
 interface IAnswerData {
     id: number,
@@ -116,6 +117,7 @@ const Screen = (props) => {
                     handleButtonClick={()=> setIsOpenModal(false)}
                     content="추후 버전에서 업데이트 될 예정입니다"/>
             }
+          <Chat />
         </>
     );
 };
