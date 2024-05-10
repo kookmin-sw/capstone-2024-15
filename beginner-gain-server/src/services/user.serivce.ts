@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities';
-import { CreateUserDto, LoginUserDto } from '../dtos/user.dto.js';
+import { CreateUserDto, LoginUserDto, ChangePasswordDto } from '../dtos/user.dto.js';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 
@@ -101,6 +101,25 @@ export class UserService {
     await transporter.sendMail(mailOptions);
 
     return { success: true, message: '임시 비밀번호가 이메일로 발송되었습니다.' };
+  }
+
+  async changePassword(changePasswordDto: ChangePasswordDto): Promise<any> {
+    const { email, oldPassword, newPassword } = changePasswordDto;
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+  
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Invalid old password');
+    }
+  
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await this.userRepository.save(user);
+  
+    return { success: true, message: 'Password has been changed successfully.' };
   }
 }
 
