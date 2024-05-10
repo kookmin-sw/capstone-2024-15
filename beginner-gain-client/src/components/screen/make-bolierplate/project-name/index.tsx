@@ -7,7 +7,7 @@ import BackArrow from "@/components/internal/common/BackArrow";
 import {useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 
-const Screen = () => {
+const Screen = (props) => {
     const [name, setName] = useState<string>('');
     const setProjectData = useSetRecoilState(projectDataState);
 
@@ -25,7 +25,7 @@ const Screen = () => {
     }
     return (
       <>
-        <DarkHeader />
+        <DarkHeader isLoggedIn={props.isLoggedIn} />
         <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
           <div className="pt-6 pl-12 self-start">
             <BackArrow/>

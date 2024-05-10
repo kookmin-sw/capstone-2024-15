@@ -9,12 +9,12 @@ import MousePointer from 'public/assets/svg/mouse-pointer.svg';
 import useShowMousePointer from "@/hooks/useShowMousePointer";
 import Header from "@/components/layout/Header";
 
-const Screen = () => {
+const Screen = (props) => {
   const { isVisible } = useShowMousePointer();
 
   return (
     <>
-      <Header />
+      <Header isLoggedIn={props.isLoggedIn}/>
       <Blur className="fixed right-0 bottom-0 -z-50" />
       <div className={`fixed w-1/12 right-96 bottom-80 ${isVisible ? "visible" : "invisible"}`}>
         <MousePointer className="w-full h-full"/>
