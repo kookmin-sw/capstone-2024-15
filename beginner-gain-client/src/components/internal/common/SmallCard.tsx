@@ -3,13 +3,14 @@ import { useState } from 'react';
 import DeleteIcon from 'public/assets/svg/delete-icon.svg';
 import MiniModal from "@/components/internal/modal/MiniModal";
 import SmallButton from "@/components/internal/common/SmallButton";
+import { IProject } from 'src/types/Project';
 
 export interface ICard {
-  title: string;
+  projectData: IProject;
   deleteProject: () => void;
 }
 
-const SmallCard = ({ title, deleteProject }: ICard) => {
+const SmallCard = ({ projectData, deleteProject }: ICard) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   return (
@@ -31,12 +32,14 @@ const SmallCard = ({ title, deleteProject }: ICard) => {
             </button>
           </div>
           <div>
-            <p className="text-xs font-medium text-blue-300">{title}</p>
+            <p className="text-xs font-medium text-blue-300">{projectData.name}</p>
             <p className="text-xxs font-medium text-gray-300">2024.03.20</p>
           </div>
         </div>
         <div className="w-full text-center">
-          <SmallButton title="다운로드" isFilled={false} />
+          <a href={projectData.filePath} download>
+            <SmallButton title="다운로드" isFilled={false} />
+          </a>
         </div>
       </div>
       {isOpenModal &&

@@ -54,7 +54,7 @@ const Screen = (props) => {
             }}
           >
             {projectList?.map((v) => (
-              <SmallCard key={v.id} title={v.name} deleteProject={() => deleteData(v.id)} />
+              <SmallCard key={v.id} projectData={v} deleteProject={() => deleteData(v.id)} />
             ))}
           </div>
         </div>
