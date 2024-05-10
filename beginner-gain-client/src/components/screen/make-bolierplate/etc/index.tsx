@@ -60,7 +60,7 @@ const options = [
   }
 ];
 
-const Screen = (props) => {
+const Screen = (props : any) => {
   const projectData= useRecoilValue(projectDataState);
   const setDownloadUrl = useSetRecoilState(downloadUrlState);
 
