@@ -30,7 +30,7 @@ interface IAnswerButton {
     answerId: number,
 }
 
-const Screen = () => {
+const Screen = (props) => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
     const setProjectData = useSetRecoilState(projectDataState);
 
@@ -75,7 +75,7 @@ const Screen = () => {
 
     return (
         <>
-          <DarkHeader />
+          <DarkHeader isLoggedIn={props.isLoggedIn} />
           <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
               <div className="pt-6 pl-12">
                   <BackArrow/>

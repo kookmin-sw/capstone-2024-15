@@ -5,10 +5,10 @@ import DarkHeader from "@/components/layout/DarkHeader";
 import BigButton from "@/components/internal/common/BigButton";
 import BgImage from "public/assets/svg/ellipse.svg";
 
-const Screen = () => {
+const Screen = (props) => {
   return (
     <>
-      <DarkHeader />
+      <DarkHeader isLoggedIn={props.isLoggedIn} />
       <div className="flex flex-col items-center justify-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
         <BgImage className="fixed bottom-0 w-screen h-3/5 z-0"/>
         <div className="flex-1 flex flex-col w-1/3 h-full justify-center gap-6 z-10 mb-24">

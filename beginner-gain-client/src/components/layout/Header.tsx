@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import router from 'next/router';
-import { getCookie } from "cookies-next";
 
 import BeginnerGainLogo from 'public/assets/svg/beginnergain-logo-black.svg';
 import SmallButton from "@/components/internal/common/SmallButton";
@@ -18,21 +17,16 @@ const Header = ({ isLoggedIn }: IHeader) => {
         <BeginnerGainLogo />
       </Link>
       <ul className="w-1/3 flex justify-between min-w-48">
-        <li>
-          <Link href={'/'} className="text-xs">
-            MENU
-          </Link>
-        </li>
-        <li>
-          <Link href={'/'} className="text-xs">
-            MENU
-          </Link>
-        </li>
-        <li>
-          <Link href={'/'} className="text-xs">
-            MENU
-          </Link>
-        </li>
+        {/*<li>*/}
+        {/*  <Link href={'/'} className="text-xs">*/}
+        {/*    MENU*/}
+        {/*  </Link>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <Link href={'/'} className="text-xs">*/}
+        {/*    MENU*/}
+        {/*  </Link>*/}
+        {/*</li>*/}
       </ul>
       {isLoggedIn ?
         <UserButton color="black" />
