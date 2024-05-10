@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import DeleteIcon from 'public/assets/svg/delete-icon.svg';
+import MiniModal from "@/components/internal/modal/MiniModal";
 import SmallButton from "@/components/internal/common/SmallButton";
-import OneButtonModal from "@/components/internal/modal/OneButtonModal";
 
 export interface ICard {
   title: string;
@@ -39,7 +39,16 @@ const SmallCard = ({ title, deleteProject }: ICard) => {
           <SmallButton title="다운로드" isFilled={false} />
         </div>
       </div>
-      {isOpenModal && <OneButtonModal closeModal={()=> setIsOpenModal(false)} hasContent/>}
+      {isOpenModal &&
+        <MiniModal
+          title="보일러플레이트를 삭제하시겠습니까?"
+          content="삭제 후 되돌릴 수 없습니다."
+          button="삭제하기"
+          handleButtonClick={deleteProject}
+          secondButton="취소"
+          handleSecondButtonClick={() => setIsOpenModal(false)}
+        />
+      }
     </>
   );
 }
