@@ -3,7 +3,6 @@ import "src/styles/globals.css";
 import ComponentWrapper from "@/components/layout/ComponentWrapper";
 import {useState} from "react";
 import {Hydrate, QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
 import {RecoilRoot} from "recoil";
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -17,7 +16,6 @@ const App = ({ Component, pageProps }: AppProps) => {
           </ComponentWrapper>
         </RecoilRoot>
       </Hydrate>
-      <ReactQueryDevtools />
     </QueryClientProvider>
   </>
 };
