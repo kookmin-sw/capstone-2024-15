@@ -21,8 +21,8 @@ const SmallButton = ({ title, color, isFilled, onClick, isDisabled }: IButton) =
             width: `${title === "다운로드" ? '192px' : '11vw'}`,
             height: '40px',
           }}
-          onClick={onClick || undefined}
-          disabled={isDisabled}
+          onClick={onClick || void(0)}
+          disabled={isDisabled || false}
         >
           {title}
         </button>
@@ -40,8 +40,8 @@ const SmallButton = ({ title, color, isFilled, onClick, isDisabled }: IButton) =
           width: `${title === "다운로드" ? '192px' : '11vw'}`,
           height: '40px',
         }}
-        onClick={onClick || undefined}
-        disabled={isDisabled}
+        onClick={onClick || void(0)}
+        disabled={isDisabled || false}
       >
         {title}
       </button>

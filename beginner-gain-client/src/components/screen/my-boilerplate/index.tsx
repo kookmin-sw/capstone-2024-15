@@ -1,15 +1,40 @@
-import React from 'react';
 import router from 'next/router';
+import { useEffect, useState } from 'react';
+import { getProjects, deleteProject } from "@/server/projects";
 
 import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
 import Divider from "@/components/internal/common/Divider";
 import Header from "@/components/layout/Header";
 
-const Screen = () => {
+import { useRecoilValue } from "recoil";
+import { userState } from "src/recoil/userState";
+import { IProject } from "@/types/Project";
+
+const Screen = (props) => {
+  const userInfo = useRecoilValue(userState);
+  const [projectList, setProjectList] = useState<IProject[] | undefined>(undefined);
+
+  if (!userInfo) return;
+
+  const getData = async () => {
+    const data = await getProjects("d4d468ed-9535-4a1d-a186-e1fd6984c8e1");
+    setProjectList(data);
+  }
+
+  const deleteData = async (projectId: number) => {
+    deleteProject(projectId);
+    window.location.reload();
+  }
+
+  useEffect(() => {
+    if (!userInfo) return;
+    getData();
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header isLoggedIn={props.isLoggedIn} />
       <div className="w-full flex flex-col">
         <div className="px-20 flex flex-col">
           <p className="mt-5 text-sm font-medium text-gray-400">
@@ -28,14 +53,9 @@ const Screen = () => {
               gridTemplateColumns: 'repeat(auto-fill, minmax(17rem, 1fr))',
             }}
           >
-            {/*API 바인딩 시 map 함수로 수정할 예정입니다~*/}
-            <SmallCard title="커뮤니티 서비스1" />
-            <SmallCard title="커뮤니티 서비스2" />
-            <SmallCard title="커뮤니티 서비스3" />
-            <SmallCard title="커뮤니티 서비스4" />
-            <SmallCard title="커뮤니티 서비스5" />
-            <SmallCard title="커뮤니티 서비스6" />
-            <SmallCard title="커뮤니티 서비스7" />
+            {projectList?.map((v) => (
+              <SmallCard key={v.id} title={v.name} deleteProject={() => deleteData(v.id)} />
+            ))}
           </div>
         </div>
       </div>
