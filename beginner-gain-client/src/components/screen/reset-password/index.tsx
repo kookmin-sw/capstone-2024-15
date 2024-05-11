@@ -7,9 +7,11 @@ import useShowIllust from "@/hooks/useShowIllust";
 import EmailModal from "@/components/internal/modal/EmailModal";
 
 const Screen = () => {
-  const { isVisible } = useShowIllust();
+  // const { isVisible } = useShowIllust();
   const [email, setEmail] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const isButtonActive = Boolean(email);
 
   return (
     <div className="flex flex-col static">
@@ -32,6 +34,7 @@ const Screen = () => {
                 name="이메일 보내기"
                 color={'purple'}
                 isFilled={true}
+                isDisabled={!isButtonActive}
                 onClick={() => setOpenModal(true)}
               />
             </div>
@@ -42,7 +45,10 @@ const Screen = () => {
         </div>
       </div>
       {openModal &&
-        <EmailModal email={"jeong4530@gmail.com"} closeModal={() => setOpenModal(false)} />
+        <EmailModal
+          email={email}
+          closeModal={() => setOpenModal(false)}
+        />
       }
     </div>
   );

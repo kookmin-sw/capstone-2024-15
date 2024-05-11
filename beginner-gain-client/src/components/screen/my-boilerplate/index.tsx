@@ -1,6 +1,6 @@
 import router from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProjects, deleteProject } from "@/server/projects";
+import { getProjects, deleteProject } from "@/server/project";
 
 import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
