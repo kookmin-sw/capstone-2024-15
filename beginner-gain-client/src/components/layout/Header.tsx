@@ -31,22 +31,18 @@ const Header = ({ isLoggedIn }: IHeader) => {
       {isLoggedIn ?
         <UserButton color="black" />
         :
-        <ul className="flex gap-5">
-          <li>
-            <SmallButton
-              title="로그인"
-              isFilled={false}
-              onClick={() => router.push("/login")}
-            />
-          </li>
-          <li>
-            <SmallButton
-              title="회원가입"
-              isFilled={true}
-              onClick={() => router.push("/join")}
-            />
-          </li>
-        </ul>
+        <div className="flex gap-5 w-1/4">
+          <SmallButton
+            title="로그인"
+            isFilled={false}
+            onClick={() => router.push("/login")}
+          />
+          <SmallButton
+            title="회원가입"
+            isFilled={true}
+            onClick={() => router.push("/join")}
+          />
+        </div>
       }
     </header>
   );
