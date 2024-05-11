@@ -59,9 +59,9 @@ const Screen = () => {
   return (
     <div className="flex h-screen">
         <div className="flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
-            <div className="">
+            <Link href={'/'}>
                 <Logo />
-            </div>
+            </Link>
             <div className="w-[31vw] h-[31vw] mx-auto mt-[8vh]">
                 <Image
                     src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/working-illust.svg"
