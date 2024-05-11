@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Loading = () => {
+const Loading = ({text} : { text? : string }) => {
     return (
         <div className="flex flex-col items-center justify-center gap-8 bg-blue-300 h-[calc(100vh-54px-4rem)]">
             <CircleContainer>
@@ -8,7 +8,7 @@ const Loading = () => {
                 <Circle></Circle>
                 <Circle></Circle>
             </CircleContainer>
-            <p className="text-md font-semibold text-purple-100">boilerplate를 제작중입니다</p>
+            <p className="text-md font-semibold text-purple-100">{text}</p>
         </div>
     );
 };

@@ -85,7 +85,7 @@ const Screen = (props : any) => {
       <>
         <DarkHeader isLoggedIn={props.isLoggedIn} />
         {makeProjectMutation.isLoading ?
-            <Loading />
+            <Loading text={"boilerplate가 생성되었습니다!"}/>
             :
             <>
               <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">

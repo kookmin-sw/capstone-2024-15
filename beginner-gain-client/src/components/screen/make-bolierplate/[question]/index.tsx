@@ -13,6 +13,7 @@ import {useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {QuestionSelected} from "@/types/Project";
 import Chat from "@/components/screen/chat";
+import Loading from "@/components/internal/common/Loading";
 
 interface IAnswerData {
     id: number,
@@ -41,9 +42,10 @@ const Screen = (props) => {
     const router = useRouter();
 
     const questionId = router.query.question || '1';
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['question', questionId],
-        queryFn: () => getQuestion({questionId})});
+        queryFn: () => getQuestion({questionId})
+    });
 
     useEffect(()=> {
         if(data?.data) {
@@ -77,47 +79,52 @@ const Screen = (props) => {
     return (
         <>
           <DarkHeader isLoggedIn={props.isLoggedIn} />
-          <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
-              <div className="pt-6 pl-12">
-                  <BackArrow/>
-              </div>
-              <div className="h-[50vh] w-fit mx-auto relative mt-[6vh]">
-                  <div className="absolute h-[50vh] w-fit p-28 w-full">
-                      <div className="flex items-center mb-14">
-                          <p className="text-sm text-purple-200">{questionData?.id}</p>
-                          <PurpleArrow/>
-                          <p className="text-md text-white ml-4">{questionData?.content}</p>
-                      </div>
-                      <div className="flex flex-col flex-wrap gap-4 h-full">
-                          {questionData?.answers.map((item, index)=>
-                              <ChoiceButton
-                                  key={index}
-                                  order={String.fromCharCode(index + 65)} //순서를 알파벳으로 표시
-                                  name={item.name}
-                                  onClick={() =>
-                                      handleAnswerButtonClick({
-                                          nextId: item.nextQuestionId,
-                                          answerId: item.id
-                                      })}
-                              />
-                          )}
-                      </div>
-                  </div>
-                  <QuestionScreen width={"100%"} height={"100%"}/>
-              </div>
-              <div className="flex items-center self-end flex-1 pr-14">
-                  <ChatbotButton query={router.query.question || '1'}/>
-              </div>
-          </div>
-            {
-                isOpenModal &&
-                <MiniModal
-                    title="해당 서비스는 준비중입니다"
-                    button="확인"
-                    handleButtonClick={()=> setIsOpenModal(false)}
-                    content="추후 버전에서 업데이트 될 예정입니다"/>
-            }
-          <Chat />
+            {isLoading ?
+                <Loading />
+                :
+                <>
+                    <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
+                        <div className="pt-6 pl-12">
+                            <BackArrow/>
+                        </div>
+                        <div className="h-[50vh] w-fit mx-auto relative mt-[6vh]">
+                            <div className="absolute h-[50vh] w-fit p-28 w-full">
+                                <div className="flex items-center mb-14">
+                                    <p className="text-sm text-purple-200">{questionData?.id}</p>
+                                    <PurpleArrow/>
+                                    <p className="text-md text-white ml-4">{questionData?.content}</p>
+                                </div>
+                                <div className="flex flex-col flex-wrap gap-4 h-full">
+                                    {questionData?.answers.map((item, index) =>
+                                        <ChoiceButton
+                                            key={index}
+                                            order={String.fromCharCode(index + 65)} //순서를 알파벳으로 표시
+                                            name={item.name}
+                                            onClick={() =>
+                                                handleAnswerButtonClick({
+                                                    nextId: item.nextQuestionId,
+                                                    answerId: item.id
+                                                })}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            <QuestionScreen width={"100%"} height={"100%"}/>
+                        </div>
+                        <div className="flex items-center self-end flex-1 pr-14">
+                            <ChatbotButton query={router.query.question || '1'}/>
+                        </div>
+                    </div>
+                    {
+                        isOpenModal &&
+                        <MiniModal
+                            title="해당 서비스는 준비중입니다"
+                            button="확인"
+                            handleButtonClick={() => setIsOpenModal(false)}
+                            content="추후 버전에서 업데이트 될 예정입니다"/>
+                    }
+                    <Chat/>
+                </>}
         </>
     );
 };

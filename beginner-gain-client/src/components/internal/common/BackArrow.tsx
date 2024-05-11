@@ -8,7 +8,7 @@ const BackArrow = () => {
     }
     return (
         <span onClick={handleButtonClick}>
-            <Back />
+            <Back className="hover:-translate-x-1.5 hover:ease-in hover:duration-150 duration-150"/>
         </span>
     );
 };
