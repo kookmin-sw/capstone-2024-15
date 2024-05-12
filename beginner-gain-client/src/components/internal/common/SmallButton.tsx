@@ -18,11 +18,11 @@ const SmallButton = ({ title, color, isFilled, onClick, isDisabled }: IButton) =
           ${isFilled ? "bg-purple-100 text-blue-300 hover:bg-purple-200 hover:border-purple-200" : "text-purple-100 hover:bg-white hover:text-blue-300"}`
         }
           style={{
-            width: `${title === "다운로드" ? '192px' : '11vw'}`,
+            width: '100%',
             height: '40px',
           }}
-          onClick={onClick || undefined}
-          disabled={isDisabled}
+          onClick={onClick || void(0)}
+          disabled={isDisabled || false}
         >
           {title}
         </button>
@@ -37,11 +37,11 @@ const SmallButton = ({ title, color, isFilled, onClick, isDisabled }: IButton) =
         ${isFilled ? "bg-black text-white hover:bg-gray-500 hover:border-gray-500" : "hover:bg-black hover:text-white"}`
       }
         style={{
-          width: `${title === "다운로드" ? '192px' : '11vw'}`,
+          width: '100%',
           height: '40px',
         }}
-        onClick={onClick || undefined}
-        disabled={isDisabled}
+        onClick={onClick || void(0)}
+        disabled={isDisabled || false}
       >
         {title}
       </button>

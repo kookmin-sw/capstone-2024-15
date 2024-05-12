@@ -1,11 +1,20 @@
 import router from 'next/router';
 
 import DarkHeader from "@/components/layout/DarkHeader";
-import BackArrow from "public/assets/svg/arrow-white.svg";
+import BackArrow from "@/components/internal/common/BackArrow";
 import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
 import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {projectDataState} from "@/recoil/projectDataState";
+import {useMutation} from "react-query";
+import {IMakeProject, IMakeProjectResponse} from "@/types/Project";
+import {makeProject} from "@/server/project";
+import {AxiosResponse} from "axios";
+import Loading from "@/components/internal/common/Loading";
+import Chat from "@/components/screen/chat";
+import {downloadUrlState} from "@/recoil/downloadUrlState";
 
 const options = [
   {
@@ -52,49 +61,76 @@ const options = [
   }
 ];
 
-const Screen = () => {
+const Screen = (props : any) => {
+  const projectData= useRecoilValue(projectDataState);
+  const setDownloadUrl = useSetRecoilState(downloadUrlState);
+
+  const makeProjectMutation = useMutation({
+    mutationFn: (projectData : IMakeProject) => {
+      return makeProject(projectData);
+    },
+    onError(err) {
+      console.log(err);
+    },
+    onSuccess(data: AxiosResponse) {
+      const projectData: IMakeProjectResponse = data.data;
+      setDownloadUrl(projectData.filePath);
+      router.push("/make-boilerplate/complete");
+    },
+  });
+  const handleSubmitButton = async () => {
+    makeProjectMutation.mutate(projectData);
+  };
+
   return (
-    <>
-      <DarkHeader />
-      <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
-        <div className="pt-6 pl-12 self-start">
-          <BackArrow/>
-        </div>
-        <div className="flex-1 flex flex-col w-9/12 gap-12">
-          <div className="flex flex-col">
-            <div className="flex justify-between mb-2">
-              <p className="text-md text-white font-medium">
-                추가할 항목을 선택하세요
-              </p>
-              <SmallButton
-                title="boilerplate 생성"
-                color="white"
-                isFilled={true}
-                onClick={() => router.push("/make-boilerplate/complete")}
-              />
-            </div>
-            <Divider color="gray-200" />
-          </div>
-          <div className="h-3/5 flex flex-col justify-between">
-            {options.map((v, i) => (
-              <div key={i} className="flex flex-col gap-3">
-                <p className="text-md text-white font-medium">
-                  {v.title}
-                </p>
-                <div className="flex gap-20">
-                  {v?.select.map((s, i) => (
-                    <CheckOption key={i} title={s.option} />
-                  ))}
+      <>
+        <DarkHeader isLoggedIn={props.isLoggedIn} />
+        {makeProjectMutation.isLoading ?
+            <Loading text={"boilerplate가 생성되었습니다!"}/>
+            :
+            <>
+              <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
+                <div className="pt-6 pl-12 self-start">
+                  <BackArrow/>
+                </div>
+                <div className="flex-1 flex flex-col w-9/12 gap-12">
+                  <div className="flex flex-col">
+                    <div className="flex justify-between mb-2">
+                      <p className="text-md text-white font-medium">
+                        추가할 항목을 선택하세요
+                      </p>
+                      <SmallButton
+                          title="boilerplate 생성"
+                          color="white"
+                          isFilled={true}
+                          onClick={handleSubmitButton}
+                      />
+                    </div>
+                    <Divider color="gray-200" />
+                  </div>
+                  <div className="h-3/5 flex flex-col justify-between">
+                    {options.map((v, i) => (
+                        <div key={i} className="flex flex-col gap-3">
+                          <p className="text-md text-white font-medium">
+                            {v.title}
+                          </p>
+                          <div className="flex gap-20">
+                            {v?.select.map((s, i) => (
+                                <CheckOption key={i} title={s.option} />
+                            ))}
+                          </div>
+                        </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="fixed bottom-12 right-12">
+                  <ChatbotButton query={'etc'}/>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="fixed bottom-12 right-12">
-          <ChatbotButton query={'etc'}/>
-        </div>
-      </div>
-    </>
+            </>
+        }
+        <Chat/>
+      </>
   );
 };
 

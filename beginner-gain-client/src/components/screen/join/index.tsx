@@ -1,6 +1,7 @@
 import Logo from "../../../../public/assets/svg/beginnergain-logo-black.svg";
 import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
+import Link from 'next/link';
 import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
@@ -78,7 +79,9 @@ const Screen = () => {
             </div>
             <div className="flex flex-col flex-1 bg-purple-100 h-[100vh] min-w-[50vw] p-[6vh]">
                 <div className="self-end">
-                    <Logo/>
+                  <Link href={'/'}>
+                    <Logo />
+                  </Link>
                 </div>
                 <div className="w-[31vw] h-[31vw] mx-auto mt-[8vh]">
                     <Image

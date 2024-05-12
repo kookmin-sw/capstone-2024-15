@@ -9,7 +9,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from '../services/user.serivce.js';
-import { CreateUserDto, LoginUserDto, ResetPasswordDto } from '../dtos/user.dto.js';
+import {
+  CreateUserDto,
+  LoginUserDto,
+  ResetPasswordDto,
+  ChangePasswordDto,
+} from '../dtos/user.dto.js';
 
 @Controller('user')
 export class UserController {
@@ -41,11 +46,17 @@ export class UserController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
-      await this.userService.remove(id);
+    await this.userService.remove(id);
   }
 
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return await this.userService.resetPassword(resetPasswordDto.email);
+  }
+
+  @Post('change-password')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    return await this.userService.changePassword(changePasswordDto);
   }
 }
