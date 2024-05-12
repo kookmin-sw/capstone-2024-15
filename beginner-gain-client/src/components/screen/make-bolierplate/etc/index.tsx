@@ -13,6 +13,7 @@ import {IMakeProject, IMakeProjectResponse} from "@/types/Project";
 import {makeProject} from "@/server/project";
 import {AxiosResponse} from "axios";
 import Loading from "@/components/internal/common/Loading";
+import Chat from "@/components/screen/chat";
 import {downloadUrlState} from "@/recoil/downloadUrlState";
 
 const options = [
@@ -128,6 +129,7 @@ const Screen = (props : any) => {
               </div>
             </>
         }
+        <Chat/>
       </>
   );
 };

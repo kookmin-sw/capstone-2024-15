@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import styled from "styled-components";
 
 import UserIcon from 'public/assets/svg/user-icon.svg';
 import DropDown from 'public/assets/svg/dropdown-arrow.svg';
@@ -18,12 +19,18 @@ const UserButton = ({ color }: IUserButton) => {
         onClick={() => setOpenModal(!openModal)}
       >
         <UserIcon css={{ color: `${color || 'black'}` }}/>
-        <DropDown css={{ color: `${color || 'black'}` }}/>
+        <CustomDropdownBtn
+          css={{ color: `${color || 'black'}` }}
+          openModal={openModal}
+        />
       </div>
       {openModal && <UserModal />}
     </>
-
   );
 }
 
 export default UserButton;
+
+const CustomDropdownBtn = styled(DropDown)`
+  transform: ${(props) => props.openModal && "rotate(0.5turn)"} ;
+`;

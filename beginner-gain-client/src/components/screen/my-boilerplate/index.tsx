@@ -1,6 +1,6 @@
 import router from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProjects, deleteProject } from "@/server/projects";
+import { getProjects, deleteProject } from "@/server/project";
 
 import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
@@ -18,13 +18,12 @@ const Screen = (props) => {
   if (!userInfo) return;
 
   const getData = async () => {
-    const data = await getProjects("d4d468ed-9535-4a1d-a186-e1fd6984c8e1");
+    const data = await getProjects(userInfo.id);
     setProjectList(data);
   }
 
   const deleteData = async (projectId: number) => {
     deleteProject(projectId);
-    window.location.reload();
   }
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const Screen = (props) => {
             }}
           >
             {projectList?.map((v) => (
-              <SmallCard key={v.id} title={v.name} deleteProject={() => deleteData(v.id)} />
+              <SmallCard key={v.id} projectData={v} deleteProject={() => deleteData(v.id)} />
             ))}
           </div>
         </div>

@@ -23,6 +23,7 @@ const Screen = (props) => {
         // 무조건 id가 1인 질문으로 넘어가도록
         router.push('/make-boilerplate/1');
     }
+
     return (
       <>
         <DarkHeader isLoggedIn={props.isLoggedIn} />

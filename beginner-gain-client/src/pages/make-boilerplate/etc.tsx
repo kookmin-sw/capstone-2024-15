@@ -13,14 +13,14 @@ export const getServerSideProps = async ({ query = {}, params = {}, req }) => {
   };
 };
 
-const Page = () => {
+// const Page = () => {
+//
+//   return (
+//       <>
+//         <Chat/>
+//         <Screen />
+//       </>
+//   );
+// };
 
-  return (
-      <>
-        <Chat/>
-        <Screen />
-      </>
-  );
-};
-
-export default Page;
+export default Screen;

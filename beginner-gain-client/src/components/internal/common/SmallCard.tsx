@@ -3,14 +3,27 @@ import { useState } from 'react';
 import DeleteIcon from 'public/assets/svg/delete-icon.svg';
 import MiniModal from "@/components/internal/modal/MiniModal";
 import SmallButton from "@/components/internal/common/SmallButton";
+import { IProject } from 'src/types/Project';
 
 export interface ICard {
-  title: string;
+  projectData: IProject;
   deleteProject: () => void;
 }
 
-const SmallCard = ({ title, deleteProject }: ICard) => {
+const SmallCard = ({ projectData, deleteProject }: ICard) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isSecondOpenModal, setIsSecondOpenModal] = useState<boolean>(false);
+
+  const doDelete = () => {
+    deleteProject();
+    setIsOpenModal(false);
+    setIsSecondOpenModal(true);
+  }
+
+  const clickSecondModalButton = () => {
+    setIsSecondOpenModal(false);
+    window.location.reload();
+  }
 
   return (
     <>
@@ -31,12 +44,14 @@ const SmallCard = ({ title, deleteProject }: ICard) => {
             </button>
           </div>
           <div>
-            <p className="text-xs font-medium text-blue-300">{title}</p>
+            <p className="text-xs font-medium text-blue-300">{projectData.name}</p>
             <p className="text-xxs font-medium text-gray-300">2024.03.20</p>
           </div>
         </div>
         <div className="w-full text-center">
-          <SmallButton title="다운로드" isFilled={false} />
+          <a href={projectData.filePath} download>
+            <SmallButton title="다운로드" isFilled={false} />
+          </a>
         </div>
       </div>
       {isOpenModal &&
@@ -44,9 +59,16 @@ const SmallCard = ({ title, deleteProject }: ICard) => {
           title="보일러플레이트를 삭제하시겠습니까?"
           content="삭제 후 되돌릴 수 없습니다."
           button="삭제하기"
-          handleButtonClick={deleteProject}
+          handleButtonClick={() => doDelete()}
           secondButton="취소"
           handleSecondButtonClick={() => setIsOpenModal(false)}
+        />
+      }
+      {isSecondOpenModal &&
+        <MiniModal
+          title="보일러플레이트가 삭제되었습니다."
+          button="확인"
+          handleButtonClick={() => clickSecondModalButton()}
         />
       }
     </>
