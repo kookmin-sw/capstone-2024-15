@@ -20,4 +20,11 @@ export const join = async ({ email, password, name } : IJoin ): Promise<AxiosRes
     name,
   });
   return response;
-}
+};
+
+export const emailValid = async (email : string): Promise<AxiosResponse> => {
+  const response : AxiosResponse = await axios.post(`${API_ENDPOINT}/user/valid`, {
+    email,
+  });
+  return response;
+};
