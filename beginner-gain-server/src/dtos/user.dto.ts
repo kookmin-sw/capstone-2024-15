@@ -23,3 +23,9 @@ export class ResetPasswordDto {
   @IsEmail()
   email: string;
 }
+
+export class ChangePasswordDto {
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+}
