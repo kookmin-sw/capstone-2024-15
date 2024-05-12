@@ -4,7 +4,9 @@ beginner-gain-client/node_modules/
 beginner-gain-client/package-lock.json
 beginner-gain-server/node_modules/
 beginner-gain-server/package-lock.json
+beginner-gain-chatbot/.env
 beginner-gain-server/.env
+
 # IntelliJ project files
 .idea
 .idea/*
