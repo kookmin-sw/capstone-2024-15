@@ -1,11 +1,3 @@
-from langchain_community.chat_models import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.prompts.few_shot import FewShotPromptTemplate
-from langchain.prompts.prompt import PromptTemplate
-from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
-import os
-from dotenv import load_dotenv
-from langchain.schema.runnable import Runnable
 from __future__ import annotations
 
 from typing import List, Optional
@@ -28,7 +20,21 @@ from langchain_core.runnables import Runnable
 from langsmith.evaluation import EvaluationResult, RunEvaluator
 from langsmith.schemas import Example
 
+from langchain_community.chat_models import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain.prompts.few_shot import FewShotPromptTemplate
+from langchain.prompts.prompt import PromptTemplate
+from langchain.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
+import os
+from dotenv import load_dotenv
+from langchain.schema.runnable import Runnable
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
 load_dotenv()
+memory = ConversationBufferMemory()
+
 class ResponseEffectiveness(BaseModel):
     """Score the effectiveness of the AI chat bot response."""
 
@@ -76,7 +82,7 @@ evaluate_response_effectiveness = (
     | evaluation_prompt
     # bind_functions formats the schema for the OpenAI function
     # calling endpoint, which returns more reliable structured data.
-    | ChatOpenAI(model="gpt-3.5-turbo").bind_functions(
+    | ChatOpenAI(model="gpt-4").bind_functions(
         functions=[ResponseEffectiveness],
         function_call="ResponseEffectiveness",
     )
@@ -118,15 +124,13 @@ class ResponseEffectivenessEvaluator(RunEvaluator):
             target_run_id=target_run_id,  # Requires langsmith >= 0.0.54
         )
 
+def format_chat_history(chain_input: dict) -> dict:
+    messages = format_messages(chain_input)
 
-###############################################################################
-# |           The chat bot definition
-# | This is what is actually exposed by LangServe in the API
-# | It can be any chain that accepts the ChainInput schema and returns a str
-# | all that is required is the with_config() call at the end to add the
-# V evaluators as "listeners" to the chain.
-# ############################################################################
-
+    return {
+        "chat_history": messages,
+        "text": chain_input.get("text"),
+    }
 
 class ChainInput(BaseModel):
     """Input for the chat bot."""
@@ -137,8 +141,8 @@ class ChainInput(BaseModel):
     text: str = Field(..., description="User's latest query.")
     last_run_id: Optional[str] = Field("", description="Run ID of the last run.")
 
-def get_chain() -> Runnable:
-    """retrun a chain. """
+
+def get_chain():
     examples = [
         [
             {
@@ -170,30 +174,9 @@ def get_chain() -> Runnable:
         ]
     ]
 
-    # _prompt = ChatPromptTemplate.from_messages(
-    #     [
-    #         (
-    #             "system",
-    #             # "Translate user input into pirate speak",
-    #             # "You are an AI Coding Teacher. You must answer in Korean. "
-    #             """
-    #             You are a coding teacher who knows a lot about apps and web frameworks.
-    #             You are a friendly coding teacher who helps users select a technology stack or framework to create a service.
-    #             You must answer in Korean and use an informal and friendly tone.
-    #             When users ask questions, you must always answer concisely.
-    #             User: Next is a css-related library. Which one should I choose among css component, matherial UI, chakra UI, tailwind css, and emotion?
-    #             Answer: Is your project large? Then I would recommend Material UI. You want something simple? Then I would recommend Chakra UI. Want to implement a customized design? Then I would recommend Tailwind CSS.
-    #             You should answer appropriately using concise features and questions such as .
-    #             """
-    #         ),
-    #         MessagesPlaceholder("chat_history"),
-    #         ("human", "{text}"),
-    #     ]
-    # )
     example_prompt = ChatPromptTemplate.from_messages(
         [
             ("human", "{text}"),
-            # ("ai", "{answer}"),
         ]
     )
 
@@ -216,13 +199,31 @@ def get_chain() -> Runnable:
             ("human", "{text}"),
         ]
     )
-    # _model = ChatOpenAI()
+
     llm = ChatOpenAI(
         temperature=0,  # 창의성 (0.0 ~ 2.0)
         max_tokens=2048,  # 최대 토큰수
-        model_name="gpt-3.5-turbo",  # 모델명
+        model_name="gpt-4",  # 모델명
+        streaming=True,
+        callbacks=[StreamingStdOutCallbackHandler()],
     )
-    # if you update this, you MUST also update ../pyproject.toml
-    # with the new `tool.langserve.export_attr`
-    chain = final_prompt | llm
+
+    chain = (
+        (format_chat_history | final_prompt | llm | StrOutputParser())
+            .with_config(
+            run_name="ChatBot",
+            callbacks=[
+                EvaluatorCallbackHandler(
+                    evaluators=[
+                        ResponseEffectivenessEvaluator(evaluate_response_effectiveness)
+                    ]
+                )
+            ],
+        )
+    )
+
+    chain = chain.with_types(input_type=ChainInput)
+
+
+get_chain()
 

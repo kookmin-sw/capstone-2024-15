@@ -2,6 +2,8 @@
 ### Example user template
 beginner-gain-server/node_modules/
 beginner-gain-server/package-lock.json
+beginner-gain-chatbot/.env
+
 # IntelliJ project files
 .idea
 .idea/*
