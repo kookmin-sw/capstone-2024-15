@@ -9,7 +9,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from '../services/user.serivce.js';
-import { CreateUserDto, LoginUserDto, ResetPasswordDto } from '../dtos/user.dto.js';
+import { CreateUserDto, LoginUserDto, ResetPasswordDto, ChangePasswordDto } from '../dtos/user.dto.js';
 
 @Controller('user')
 export class UserController {
@@ -47,5 +47,11 @@ export class UserController {
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return await this.userService.resetPassword(resetPasswordDto.email);
+  }
+
+  @Post('change-password')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    return await this.userService.changePassword(changePasswordDto);
   }
 }

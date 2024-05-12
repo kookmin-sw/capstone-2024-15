@@ -17,10 +17,6 @@ const config: Config = {
       lg: '2.5rem',
     },
     extend: {
-      fontFamily: {
-        en: ['var(--font-inter)'],
-        kr: ['var(--font-ibm)']
-      },
       colors: {
         gray: {
           '100': '#EBEBEB',

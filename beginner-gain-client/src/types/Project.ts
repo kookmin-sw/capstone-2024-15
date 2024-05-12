@@ -21,3 +21,9 @@ export interface IMakeProject {
     select: QuestionSelected[],
     userId: string,
 }
+
+export interface IMakeProjectResponse {
+    name: string,
+    description: string,
+    filePath: string,
+}

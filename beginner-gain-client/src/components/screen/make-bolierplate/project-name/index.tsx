@@ -40,7 +40,8 @@ const Screen = (props) => {
                 name="다음"
                 color="white"
                 isFilled={true}
-                onClick={handleNextButtonClick}/>
+                onClick={handleNextButtonClick}
+                isDisabled={!name}/>
           </div>
         </div>
       </>
