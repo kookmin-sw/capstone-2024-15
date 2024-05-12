@@ -7,7 +7,11 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities';
-import { CreateUserDto, LoginUserDto, ChangePasswordDto } from '../dtos/user.dto.js';
+import {
+  CreateUserDto,
+  LoginUserDto,
+  ChangePasswordDto,
+} from '../dtos/user.dto.js';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 
@@ -76,6 +80,7 @@ export class UserService {
 
   async resetPassword(email: string): Promise<any> {
     const user = await this.userRepository.findOne({ where: { email } });
+    console.log(user);
     if (!user) throw new NotFoundException('User not found');
 
     const tempPassword = Math.random().toString(36).slice(-8);
@@ -86,21 +91,24 @@ export class UserService {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'beginergain77@gmail.com',
-        pass: 'herwzwswavpnngkf'   
-      }
+        user: 'beginergain1004@gmail.com',
+        pass: 'herwzwswavpnngkf',
+      },
     });
 
     const mailOptions = {
-      from: 'beginergain1004@gmail.com', 
-      to: email, 
+      from: 'beginergain1004@gmail.com',
+      to: email,
       subject: '비기너게인 임시 비밀번호입니다',
-      text: `비기너게임 임시 비밀번호: ${tempPassword}`
+      text: `비기너게인 임시 비밀번호: ${tempPassword}`,
     };
 
     await transporter.sendMail(mailOptions);
 
-    return { success: true, message: '임시 비밀번호가 이메일로 발송되었습니다.' };
+    return {
+      success: true,
+      message: '임시 비밀번호가 이메일로 발송되었습니다.',
+    };
   }
 
   async changePassword(changePasswordDto: ChangePasswordDto): Promise<any> {
@@ -109,17 +117,19 @@ export class UserService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-  
+
     const passwordMatch = await bcrypt.compare(oldPassword, user.password);
     if (!passwordMatch) {
       throw new UnauthorizedException('Invalid old password');
     }
-  
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
     await this.userRepository.save(user);
-  
-    return { success: true, message: 'Password has been changed successfully.' };
+
+    return {
+      success: true,
+      message: 'Password has been changed successfully.',
+    };
   }
 }
-
