@@ -1,8 +1,11 @@
 ### Example user template template
 ### Example user template
+beginner-gain-client/node_modules/
+beginner-gain-client/package-lock.json
 beginner-gain-server/node_modules/
 beginner-gain-server/package-lock.json
 beginner-gain-chatbot/.env
+beginner-gain-server/.env
 
 # IntelliJ project files
 .idea
@@ -85,7 +88,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+beginner-gain-client/.env
 .env.test
 .env.product
 .env.develop
