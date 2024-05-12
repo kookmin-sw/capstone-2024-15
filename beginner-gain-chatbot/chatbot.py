@@ -225,4 +225,3 @@ def get_chain():
     chain = chain.with_types(input_type=ChainInput)
 
 get_chain()
-
