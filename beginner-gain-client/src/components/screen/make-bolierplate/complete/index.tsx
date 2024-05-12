@@ -4,8 +4,11 @@ import Image from "next/image";
 import DarkHeader from "@/components/layout/DarkHeader";
 import BigButton from "@/components/internal/common/BigButton";
 import BgImage from "public/assets/svg/ellipse.svg";
+import {useRecoilValue} from "recoil";
+import {downloadUrlState} from "@/recoil/downloadUrlState";
 
-const Screen = (props) => {
+const Screen = (props: any) => {
+    const downloadUrl = useRecoilValue(downloadUrlState);
   return (
     <>
       <DarkHeader isLoggedIn={props.isLoggedIn} />
@@ -16,6 +19,7 @@ const Screen = (props) => {
             <div className="w-3/4">
               <Image
                 src="https://beginergain.s3.ap-northeast-2.amazonaws.com/develop/computer-illust.svg"
+                alt="computer-illust"
                 width={500}
                 height={500}
                 priority={true}
@@ -25,7 +29,9 @@ const Screen = (props) => {
               boilerplate가 생성되었습니다!
             </p>
           </div>
-          <BigButton name="다운로드" color="purple" isFilled={true} />
+          <a href={downloadUrl} download>
+            <BigButton name="다운로드" color="purple" isFilled={true} />
+          </a>
           <BigButton
             name="내 boilerplate 보러가기"
             color="purple"

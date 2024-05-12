@@ -6,13 +6,14 @@ import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
 import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
-import {useRecoilValue} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {useMutation} from "react-query";
-import {IMakeProject} from "@/types/Project";
+import {IMakeProject, IMakeProjectResponse} from "@/types/Project";
 import {makeProject} from "@/server/project";
 import {AxiosResponse} from "axios";
 import Loading from "@/components/internal/common/Loading";
+import {downloadUrlState} from "@/recoil/downloadUrlState";
 
 const options = [
   {
@@ -59,8 +60,9 @@ const options = [
   }
 ];
 
-const Screen = (props) => {
+const Screen = (props : any) => {
   const projectData= useRecoilValue(projectDataState);
+  const setDownloadUrl = useSetRecoilState(downloadUrlState);
 
   const makeProjectMutation = useMutation({
     mutationFn: (projectData : IMakeProject) => {
@@ -70,7 +72,8 @@ const Screen = (props) => {
       console.log(err);
     },
     onSuccess(data: AxiosResponse) {
-      console.log(data);
+      const projectData: IMakeProjectResponse = data.data;
+      setDownloadUrl(projectData.filePath);
       router.push("/make-boilerplate/complete");
     },
   });
@@ -82,7 +85,7 @@ const Screen = (props) => {
       <>
         <DarkHeader isLoggedIn={props.isLoggedIn} />
         {makeProjectMutation.isLoading ?
-            <Loading />
+            <Loading text={"boilerplate가 생성되었습니다!"}/>
             :
             <>
               <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
