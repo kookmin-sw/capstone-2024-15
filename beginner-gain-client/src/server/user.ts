@@ -28,3 +28,11 @@ export const emailValid = async (email : string): Promise<AxiosResponse> => {
   });
   return response;
 };
+
+export const initPassword = async (email: string): Promise<AxiosResponse> => {
+  if (!email) return;
+  const response: AxiosResponse = await axios.post(`${API_ENDPOINT}/user/reset-password`, {
+    email,
+  });
+  return response;
+}

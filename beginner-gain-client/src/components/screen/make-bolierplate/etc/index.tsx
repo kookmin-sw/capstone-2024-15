@@ -99,12 +99,14 @@ const Screen = (props : any) => {
                       <p className="text-md text-white font-medium">
                         추가할 항목을 선택하세요
                       </p>
-                      <SmallButton
+                      <div className="w-1/5">
+                        <SmallButton
                           title="boilerplate 생성"
                           color="white"
                           isFilled={true}
                           onClick={handleSubmitButton}
-                      />
+                        />
+                      </div>
                     </div>
                     <Divider color="gray-200" />
                   </div>
