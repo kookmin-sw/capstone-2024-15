@@ -5,6 +5,7 @@ import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
 import Header from "@/components/layout/Header";
 import EmailModal from "@/components/internal/modal/EmailModal";
+import MiniModal from "@/components/internal/modal/MiniModal";
 
 import { emailValid, initPassword } from "@/server/user";
 import { AxiosResponse } from "axios";
@@ -13,6 +14,7 @@ import {emailCheck} from "@/assets/utils";
 const Screen = () => {
   const [email, setEmail] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openMiniModal, setOpenMiniModal] = useState<boolean>(false);
   const [isRightEmail, setIsRightEmail] = useState<boolean>(true);
 
   const isButtonActive = Boolean(email);
@@ -23,7 +25,6 @@ const Screen = () => {
     },
     onSuccess(data : AxiosResponse) {
       const result = data.data.isAvailable;
-      console.log(result);
       setIsRightEmail(!result);
     },
     onError(err) {
@@ -35,7 +36,7 @@ const Screen = () => {
       return initPassword(email);
     },
     onError(err) {
-      console.log(err.response.data.statusCode);
+      setOpenMiniModal(true);
     },
     onSuccess(data: AxiosResponse) {
       setOpenModal(true);
@@ -92,6 +93,14 @@ const Screen = () => {
         <EmailModal
           email={email}
           closeModal={() => setOpenModal(false)}
+        />
+      }
+      {openMiniModal &&
+        <MiniModal
+          title="이메일 전송에 실패했습니다."
+          content="이메일을 확인한 뒤, 다시 시도해 주세요."
+          button="확인"
+          handleButtonClick={() => setOpenMiniModal(false)}
         />
       }
     </div>
