@@ -10,23 +10,31 @@ import {IJoin, IJoinResponse} from "@/types/User";
 import {emailValid, join} from "@/server/user";
 import {AxiosResponse} from "axios";
 import {setCookie} from "cookies-next";
-import {emailCheck} from "@/assets/utils";
+import {emailCheck, validatePassword} from "@/assets/utils";
 
 const Screen = () => {
     const [inputValue, setInputValue] = useState({
         email: '',
         password: '',
+        confirmedPassword: '',
         name: '',
     });
 
     // 중복 이메일 체크
     const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(true);
-    // 이메일 포맷 체크
-    const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
 
     const router = useRouter();
 
-    const requiredFields = [inputValue.email, inputValue.password, inputValue.name, isEmailAvailable, isEmailValid];
+    // 이메일 포맷 체크
+    const isEmailValid = inputValue.email ? emailCheck(inputValue.email) : true;
+
+    // 비밀번호, 비밀번호확인 비교
+    const isPasswordEqual = inputValue.password && inputValue.confirmedPassword ? inputValue.password === inputValue.confirmedPassword : true;
+
+    // 비밀번호 규칙 체크
+    const isValidPassword = inputValue.password ? validatePassword(inputValue.password) : true;
+
+    const requiredFields = [inputValue.email, inputValue.password, inputValue.name, isEmailAvailable, isEmailValid, isPasswordEqual];
 
     // 버튼 활성화 여부를 나타내는 변수
     const isButtonActive = requiredFields.every(item => Boolean(item));
@@ -52,7 +60,6 @@ const Screen = () => {
         },
         onSuccess(data : AxiosResponse) {
             const result = data.data.isAvailable;
-            console.log(result);
             setIsEmailAvailable(result);
         },
         onError(err) {
@@ -64,9 +71,6 @@ const Screen = () => {
         if(e.target.name === "email") {
             // 이메일 중복 체크
             emailValidMutation.mutate(e.target.value);
-            // 이메일 포맷 체크
-            const emailInfo = emailCheck(e.target.value);
-            setIsEmailValid(Boolean(emailInfo));
         }
     };
 
@@ -108,6 +112,24 @@ const Screen = () => {
                             value={inputValue.password}
                             name="password"
                             handleInputChange={handleInputChange}/>
+                        {!isValidPassword &&
+                            <p className="text-xxs text-red-600 mt-1">
+                                비밀번호는 특수문자 1개이상을 조합하여 최소 9자리 이상으로 구성해주세요.
+                            </p>
+                        }
+                    </div>
+                    <div className="mb-12">
+                        <p className="font-en text-sm pb-5">Password Confirmation</p>
+                        <Input
+                            placeholder={"비밀번호를 한번 더 입력하세요"}
+                            value={inputValue.confirmedPassword}
+                            name="confirmedPassword"
+                            handleInputChange={handleInputChange}/>
+                        {!isPasswordEqual &&
+                            <p className="text-xxs text-red-600 mt-1">
+                                비밀번호가 일치하지 않습니다.
+                            </p>
+                        }
                     </div>
                     <div className="mb-12">
                         <p className="font-en text-sm pb-5">Name</p>
