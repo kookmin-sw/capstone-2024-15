@@ -6,7 +6,7 @@ import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
 import Divider from "@/components/internal/common/Divider";
 import Header from "@/components/layout/Header";
-가import EmptyFile from "public/assets/svg/file-icon.svg";
+import EmptyFile from "public/assets/svg/file-icon.svg";
 
 import { useRecoilValue } from "recoil";
 import { userState } from "src/recoil/userState";
