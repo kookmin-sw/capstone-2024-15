@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "react-query";
 
 import Input from "@/components/internal/common/Input";
@@ -6,14 +6,29 @@ import BigButton from "@/components/internal/common/BigButton";
 import Header from "@/components/layout/Header";
 import EmailModal from "@/components/internal/modal/EmailModal";
 
-import { initPassword } from "@/server/user";
+import { emailValid, initPassword } from "@/server/user";
 import { AxiosResponse } from "axios";
+import {emailCheck} from "@/assets/utils";
 
 const Screen = () => {
   const [email, setEmail] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [isRightEmail, setIsRightEmail] = useState<boolean>(true);
 
   const isButtonActive = Boolean(email);
+
+  const emailValidMutation = useMutation({
+    mutationFn: (email : string) => {
+      return emailValid(email);
+    },
+    onSuccess(data : AxiosResponse) {
+      const result = data.data.isAvailable;
+      console.log(result);
+      setIsRightEmail(!result);
+    },
+    onError(err) {
+    },
+  });
 
   const initPasswordMutation = useMutation({
     mutationFn: (email: string) => {
@@ -26,6 +41,11 @@ const Screen = () => {
       setOpenModal(true);
     }
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    emailValidMutation.mutate(e.target.value);
+  };
 
   const handleClickSendButton = async () => {
     initPasswordMutation.mutate(email);
@@ -45,7 +65,13 @@ const Screen = () => {
                 placeholder={"이메일을 입력하세요"}
                 value={email}
                 setValue={setEmail}
+                handleInputChange={handleInputChange}
               />
+              {!isRightEmail &&
+                <p className="text-xxs text-red-600 mt-1">
+                  회원 가입 시 사용한 이메일을 입력하세요.
+                </p>
+              }
             </div>
             <div className="text-xs font-medium">
               <BigButton
