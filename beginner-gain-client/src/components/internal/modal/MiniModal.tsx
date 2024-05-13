@@ -25,7 +25,7 @@ const MiniModal = ( { handleButtonClick, title, button, content, secondButton, h
                         <p className="text-sm">{content}</p>
                     }
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 w-full">
                     <SmallButton title={button} isFilled={true} color="black" onClick={handleButtonClick}/>
                     { secondButton &&
                         <SmallButton
