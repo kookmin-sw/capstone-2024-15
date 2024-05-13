@@ -10,18 +10,20 @@ import {login} from "@/server/user";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
 import {AxiosResponse} from "axios";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {userState} from "@/recoil/userState";
 
 const Screen = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [inputValue, setInputValue] = useState({
+        email: '',
+        password: '',
+    });
 
-    const [user, setUser] = useRecoilState(userState);
+    const setUser = useSetRecoilState(userState);
 
     const router = useRouter();
 
-    const isButtonActive = email && password;
+    const isButtonActive = inputValue.email && inputValue.password;
 
     // react-query test 코드
     const loginMutation = useMutation({
@@ -29,11 +31,9 @@ const Screen = () => {
             return login(loginData);
         },
         onError(err) {
-            console.log(err);
         },
         onSuccess(data: AxiosResponse) {
             const loginData: ILoginResponse = data.data;
-            // 쿠키로 token 저장 (현재 testToken으로 대체)
             setCookie('accessId', loginData.id);
             // user 데이터 recoil 저장
             setUser({
@@ -43,12 +43,16 @@ const Screen = () => {
             })
             router.push('/');
         }
-    })
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue({...inputValue, [e.target.name]: e.target.value });
+    };
 
     const handleLoginButtonClick = async () => {
         loginMutation.mutate({
-            email: email,
-            password: password,
+            email: inputValue.email,
+            password: inputValue.password,
         });
     };
 
@@ -78,15 +82,17 @@ const Screen = () => {
                     <p className="font-en text-sm pb-5">Email Address</p>
                     <Input
                         placeholder={"이메일을 입력하세요"}
-                        value={email}
-                        setValue={setEmail}/>
+                        value={inputValue.email}
+                        name="email"
+                        handleInputChange={handleInputChange}/>
                 </div>
                 <div>
                     <p className="font-en text-sm pb-5">Password</p>
                     <Input
                         placeholder={"비밀번호를 입력하세요"}
-                        value={password}
-                        setValue={setPassword}
+                        value={inputValue.password}
+                        name="password"
+                        handleInputChange={handleInputChange}
                         isPassword/>
                 </div>
                 <Link
