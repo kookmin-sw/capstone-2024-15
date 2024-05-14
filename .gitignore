@@ -136,3 +136,11 @@ dist
 
 uploads/*
 venv
+
+# jekyll
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+_posts
