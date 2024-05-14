@@ -136,6 +136,7 @@ dist
 
 uploads/*
 venv
+beginner-gain-chatbot/app/__pycache__/
 
 # jekyll
 _site
