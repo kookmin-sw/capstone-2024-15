@@ -14,25 +14,14 @@ import {projectDataState} from "@/recoil/projectDataState";
 import {QuestionSelected} from "@/types/Project";
 import Chat from "@/components/screen/chat";
 import Loading from "@/components/internal/common/Loading";
-
-interface IAnswerData {
-    id: number,
-    name: string,
-    nextQuestionId: number,
-}
-
-interface IQuestionData {
-    id: number,
-    content: string,
-    answers: IAnswerData[],
-}
+import {IQuestionData} from "@/types/Question";
 
 interface IAnswerButton {
     nextId: number,
     answerId: number,
 }
 
-const Screen = (props) => {
+const Screen = (props : any) => {
     const [questionData, setQuestionData] = useState<IQuestionData>();
     const setProjectData = useSetRecoilState(projectDataState);
 
