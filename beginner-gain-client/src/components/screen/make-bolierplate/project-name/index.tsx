@@ -1,17 +1,22 @@
 import BigButton from "@/components/internal/common/BigButton";
 import UnderlineInput from "@/components/internal/make-boilerplate/UnderlineInput";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DarkHeader from "@/components/layout/DarkHeader";
 import {useRouter} from "next/router";
 import BackArrow from "@/components/internal/common/BackArrow";
-import {useSetRecoilState} from "recoil";
+import {useResetRecoilState, useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 
-const Screen = (props) => {
+const Screen = (props: any) => {
     const [name, setName] = useState<string>('');
     const setProjectData = useSetRecoilState(projectDataState);
+    const resetProjectData = useResetRecoilState(projectDataState);
 
     const router = useRouter();
+
+    useEffect(() => {
+        resetProjectData();
+    }, []);
     const handleNextButtonClick = () => {
         // 프로젝트명 recoil 에 저장
         if(name) {
