@@ -39,7 +39,6 @@ const Screen = (props : any) => {
 
     useEffect(()=> {
         if(data?.data) {
-            console.log(data);
             setQuestionData(data.data);
         }
     },[data]);

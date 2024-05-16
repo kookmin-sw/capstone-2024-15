@@ -55,7 +55,6 @@ const Screen = (props : any) => {
       console.log(err);
     },
     onSuccess(data: AxiosResponse) {
-      console.log(data.data);
       const projectData: IMakeProjectResponse = data.data;
       setDownloadUrl(projectData.filePath);
       router.push("/make-boilerplate/complete");
