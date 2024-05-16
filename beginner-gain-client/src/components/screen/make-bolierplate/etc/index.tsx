@@ -1,4 +1,4 @@
-import router, {useRouter} from 'next/router';
+import {useRouter} from 'next/router';
 
 import DarkHeader from "@/components/layout/DarkHeader";
 import BackArrow from "@/components/internal/common/BackArrow";
@@ -6,7 +6,7 @@ import SmallButton from "@/components/internal/common/SmallButton";
 import Divider from "@/components/internal/common/Divider";
 import CheckOption from "@/components/internal/common/CheckOption";
 import ChatbotButton from "@/components/internal/make-boilerplate/ChatbotButton";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {projectDataState} from "@/recoil/projectDataState";
 import {useMutation, useQuery} from "react-query";
 import {IMakeProject, IMakeProjectResponse} from "@/types/Project";
@@ -19,51 +19,6 @@ import {getQuestionGroup} from "@/server/question";
 import {useEffect, useState} from "react";
 import {IQuestionGroupData} from "@/types/Question";
 
-const options = [
-  {
-    title: 'React.js 라이브러리',
-    select: [
-      {
-        option: 'React Query',
-      },
-      {
-        option: 'React Router',
-      },
-      {
-        option: 'React Responsive',
-      },
-    ]
-  },
-  {
-    title: 'css 관련 라이브러리 or 프레임워크',
-    select: [
-      {
-        option: 'style-component',
-      },
-      {
-        option: 'Material UI',
-      },
-      {
-        option: 'Chakra UI',
-      },
-    ]
-  },
-  {
-    title: 'React.js 라이브러리',
-    select: [
-      {
-        option: 'React Query',
-      },
-      {
-        option: 'React Router',
-      },
-      {
-        option: 'React Responsive',
-      },
-    ]
-  }
-];
-
 interface ICheckedInfo {
   question: number,
   answer: number,
@@ -71,7 +26,7 @@ interface ICheckedInfo {
 
 const Screen = (props : any) => {
   const router = useRouter();
-  const [projectData, setProjectData]= useRecoilState(projectDataState);
+  const projectData = useRecoilValue(projectDataState);
   const setDownloadUrl = useSetRecoilState(downloadUrlState);
 
   const questionId = router.query.questionId || "1";
@@ -142,6 +97,9 @@ const Screen = (props : any) => {
         <DarkHeader isLoggedIn={props.isLoggedIn} />
         {makeProjectMutation.isLoading ?
             <Loading text={"boilerplate를 생성중입니다"}/>
+            :
+            isLoading ?
+            <Loading />
             :
             <>
               <div className="flex flex-col items-center bg-blue-300 h-[calc(100vh-54px-4rem)]">

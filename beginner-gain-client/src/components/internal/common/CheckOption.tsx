@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 
 import CheckedBox from "public/assets/svg/checked-box.svg";
 import UncheckedBox from "public/assets/svg/unchecked-box.svg";
