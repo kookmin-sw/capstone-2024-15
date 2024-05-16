@@ -19,4 +19,7 @@ export class Answer {
 
   @Column({ nullable: true })
   nextQuestionId: string;
+
+  @Column({ nullable: true })
+  nextQuestionType: string;
 }

@@ -4,8 +4,10 @@ import {
   Column,
   BaseEntity,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { Answer } from './answer.entity';
+import { QuestionGroup } from './question-group.entity';
 
 @Entity()
 export class Question extends BaseEntity {
@@ -17,4 +19,7 @@ export class Question extends BaseEntity {
 
   @OneToMany(() => Answer, (answer) => answer.question)
   answers: Answer[];
+
+  @ManyToOne(() => QuestionGroup, (questionGroup) => questionGroup.questions)
+  questionGroup: QuestionGroup;
 }
