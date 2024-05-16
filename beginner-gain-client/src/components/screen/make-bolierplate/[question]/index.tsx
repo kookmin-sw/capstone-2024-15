@@ -14,11 +14,12 @@ import {projectDataState} from "@/recoil/projectDataState";
 import {QuestionSelected} from "@/types/Project";
 import Chat from "@/components/screen/chat";
 import Loading from "@/components/internal/common/Loading";
-import {IQuestionData} from "@/types/Question";
+import {IQuestionData, QuestionType} from "@/types/Question";
 
 interface IAnswerButton {
     nextId: number,
     answerId: number,
+    questionType: QuestionType | null,
 }
 
 const Screen = (props : any) => {
@@ -45,24 +46,32 @@ const Screen = (props : any) => {
 
     // todo: 다음 질문이 준비되어 있지 않은 서비스면 모달 띄우기
 
-    const handleAnswerButtonClick = ({ nextId, answerId }: IAnswerButton) => {
-        if(questionData) {
-            // 현재 질문, 답변 recoil 에 저장
-            const questionInfo: QuestionSelected = {
-                question: questionData?.id.toString(),
-                answer: answerId.toString(),
-            };
-            setProjectData((prev) => ({
-                ...prev,
-                select: [...prev.select, questionInfo]
-            }));
-        }
-        // 다음 질문이 없을 경우 etc 선택 화면으로 이동
-        if(nextId === null) {
-            router.push('/make-boilerplate/etc');
+    const handleAnswerButtonClick = ({ nextId, answerId, questionType }: IAnswerButton) => {
+        if(questionType === null) { // 다음 질문이 없을 경우 준비중 모달 띄우기
+            setIsOpenModal(true);
         } else {
-                router.push(`/make-boilerplate/${nextId}`);
+            if(questionData) {
+                // 현재 질문, 답변 recoil 에 저장
+                const questionInfo: QuestionSelected = {
+                    question: questionData?.id.toString(),
+                    answer: answerId.toString(),
+                };
+                setProjectData((prev) => ({
+                    ...prev,
+                    select: [...prev.select, questionInfo]
+                }));
+
+                // question type에 따라 경로 이동
+                if(questionType === QuestionType.그룹질문) {
+                    router.push({
+                        pathname: '/make-boilerplate/etc',
+                        query: {questionId: nextId},
+                    });
+                } else {
+                    router.push(`/make-boilerplate/${nextId}`);
+                }
             }
+        }
     }
 
     return (
@@ -92,7 +101,8 @@ const Screen = (props : any) => {
                                             onClick={() =>
                                                 handleAnswerButtonClick({
                                                     nextId: item.nextQuestionId,
-                                                    answerId: item.id
+                                                    answerId: item.id,
+                                                    questionType: item.nextQuestionType,
                                                 })}
                                         />
                                     )}
