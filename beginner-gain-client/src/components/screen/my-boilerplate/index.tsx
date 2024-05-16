@@ -6,6 +6,7 @@ import SmallCard from "@/components/internal/common/SmallCard";
 import ArrowButton from "@/components/internal/common/ArrowButton";
 import Divider from "@/components/internal/common/Divider";
 import Header from "@/components/layout/Header";
+import EmptyFile from "public/assets/svg/file-icon.svg";
 
 import { useRecoilValue } from "recoil";
 import { userState } from "src/recoil/userState";
@@ -13,7 +14,7 @@ import { IProject } from "@/types/Project";
 
 const Screen = (props) => {
   const userInfo = useRecoilValue(userState);
-  const [projectList, setProjectList] = useState<IProject[] | undefined>(undefined);
+  const [projectList, setProjectList] = useState<IProject[]>([]);
 
   if (!userInfo) return;
 
@@ -34,8 +35,8 @@ const Screen = (props) => {
   return (
     <>
       <Header isLoggedIn={props.isLoggedIn} />
-      <div className="w-full flex flex-col">
-        <div className="px-20 flex flex-col">
+      <div className="w-full h-[calc(100vh-54px-4rem)] flex flex-col">
+        <div className="h-full px-20 flex flex-col">
           <p className="mt-5 text-sm font-medium text-gray-400">
             My Boilerplate
           </p>
@@ -46,16 +47,25 @@ const Screen = (props) => {
               onClick={() => router.push("/make-boilerplate/project-name")}
             />
           </div>
-          <div
-            className="mt-14 grid gap-10"
-            style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(17rem, 1fr))',
-            }}
-          >
-            {projectList?.map((v) => (
-              <SmallCard key={v.id} projectData={v} deleteProject={() => deleteData(v.id)} />
-            ))}
-          </div>
+          {projectList.length === 0 ?
+            <div className="w-full h-full flex flex-col gap-8 mb-10 items-center justify-center">
+              <EmptyFile />
+              <h3 className="text-sm text-gray-300 font-medium">
+                보일러플레이트 보관함이 비어있습니다.
+              </h3>
+            </div>
+            :
+            <div
+              className="mt-14 grid gap-10"
+              style={{
+                gridTemplateColumns: 'repeat(auto-fill, minmax(17rem, 1fr))',
+              }}
+            >
+              {projectList?.map((v) => (
+                <SmallCard key={v.id} projectData={v} deleteProject={() => deleteData(v.id)} />
+              ))}
+            </div>
+          }
         </div>
       </div>
     </>
