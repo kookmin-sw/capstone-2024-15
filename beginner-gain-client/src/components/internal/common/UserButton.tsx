@@ -32,5 +32,5 @@ const UserButton = ({ color }: IUserButton) => {
 export default UserButton;
 
 const CustomDropdownBtn = styled(DropDown)`
-  transform: ${(props) => props.openModal && "rotate(0.5turn)"} ;
+  transform: ${(props) => !props.openModal && "rotate(0.5turn)"} ;
 `;
