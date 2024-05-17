@@ -11,6 +11,8 @@ import {emailValid, join} from "@/server/user";
 import {AxiosResponse} from "axios";
 import {setCookie} from "cookies-next";
 import {emailCheck, validatePassword} from "@/assets/utils";
+import {useSetRecoilState} from "recoil";
+import {userState} from "@/recoil/userState";
 
 const Screen = () => {
     const [inputValue, setInputValue] = useState({
@@ -24,6 +26,8 @@ const Screen = () => {
     const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(true);
 
     const router = useRouter();
+
+    const setUser = useSetRecoilState(userState);
 
     // 이메일 포맷 체크
     const isEmailValid = inputValue.email ? emailCheck(inputValue.email) : true;
@@ -45,6 +49,11 @@ const Screen = () => {
         },
         onSuccess(data : AxiosResponse) {
             const joinData : IJoinResponse = data.data;
+            setUser({
+                id: joinData.id,
+                email: inputValue.email,
+                name: inputValue.name,
+            });
             // 쿠키로 token 저장 (현재 testToken으로 대체)
             setCookie('accessId', joinData.id);
             router.push('/');
