@@ -21,7 +21,7 @@ const UserButton = ({ color }: IUserButton) => {
         <UserIcon css={{ color: `${color || 'black'}` }}/>
         <CustomDropdownBtn
           css={{ color: `${color || 'black'}` }}
-          openModal={openModal}
+          $openmodal={openModal}
         />
       </div>
       {openModal && <UserModal />}
@@ -31,6 +31,6 @@ const UserButton = ({ color }: IUserButton) => {
 
 export default UserButton;
 
-const CustomDropdownBtn = styled(DropDown)`
-  transform: ${(props) => !props.openModal && "rotate(0.5turn)"} ;
+const CustomDropdownBtn = styled(DropDown)<{ $openmodal: boolean }>`
+  transform: ${(props) => !props.$openmodal && "rotate(0.5turn)"} ;
 `;
