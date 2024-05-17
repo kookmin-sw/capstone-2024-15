@@ -24,10 +24,15 @@ const Screen = (props) => {
           <div className="w-2/5">
             <MainTitle width="100%" height="100%"/>
           </div>
-          <p className="text-sm font-medium mt-10 mb-10">
-            초보개발자들을 위한<br/>
-            보일러플레이트(boilerplate) 생성 서비스
-          </p>
+          <div className="relative text-lg font-medium my-12 text-gray-400">
+              <div className="absolute flex gap-7 left-[17rem] -top-1.5">
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+              </div>
+              <strong>초보개발자들의 올바른 첫걸음</strong>을<br/>
+            도와주는 서비스!
+          </div>
           <ArrowButton
             title="프로젝트 생성하기"
             onClick={() => router.push("/make-boilerplate/project-name")}
