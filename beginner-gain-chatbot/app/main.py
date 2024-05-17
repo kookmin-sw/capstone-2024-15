@@ -1,21 +1,38 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, WebSocket, Response
+from starlette.websockets import WebSocketDisconnect
+
+from chatbot import get_chain
+import asyncio
 from pydantic import BaseModel
-from chatbot import get_chain, ChainInput
-from typing import Optional
-from fastapi.requests import Request
 
 app = FastAPI()
 
 # Initialize the chatbot chain
 chatbot_chain = get_chain()
 
-@app.post("/chatbot")
-async def chat_with_bot(request: Request):
-    try:
-        data = await request.json()
+# Store connected clients
+connected_clients = set()
 
-        response = chatbot_chain.invoke(data)
 
-        return {"response": response}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+class Message(BaseModel):
+    content: str
+
+
+def stream_responses_sync(generator, websocket):
+    async def send_item(item):
+        await websocket.send_text(item)
+
+    for item in generator:
+        asyncio.run(send_item(item))
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        try:
+            data = await websocket.receive_text()
+            generator = chatbot_chain.stream({"text": data})
+            await asyncio.to_thread(stream_responses_sync, generator, websocket)
+        except WebSocketDisconnect:
+            break
