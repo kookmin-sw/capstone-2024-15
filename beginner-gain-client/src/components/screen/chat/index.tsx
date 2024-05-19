@@ -63,7 +63,6 @@ const Screen = () => {
                 } else {
                     setIsLoading(false);
                 }
-                console.log('서버로부터 메시지 수신:', event.data);
             };
 
         // 연결이 닫혔을 때의 이벤트 핸들러

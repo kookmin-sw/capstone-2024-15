@@ -12,24 +12,21 @@ import { useRecoilValue } from "recoil";
 import { userState } from "src/recoil/userState";
 import { IProject } from "@/types/Project";
 
-const Screen = (props) => {
+const Screen = (props: any) => {
   const userInfo = useRecoilValue(userState);
   const [projectList, setProjectList] = useState<IProject[]>([]);
 
-  if (!userInfo) return;
-
   const getData = async () => {
-    const data = await getProjects(userInfo.id);
-    setProjectList(data);
+    return await getProjects(userInfo.id);
   }
 
   const deleteData = async (projectId: number) => {
-    deleteProject(projectId);
+    await deleteProject(projectId);
   }
 
   useEffect(() => {
     if (!userInfo) return;
-    getData();
+    getData().then(r => setProjectList(r));
   }, []);
 
   return (
