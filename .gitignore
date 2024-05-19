@@ -4,6 +4,9 @@ beginner-gain-client/node_modules/
 beginner-gain-client/package-lock.json
 beginner-gain-server/node_modules/
 beginner-gain-server/package-lock.json
+beginner-gain-chatbot/.env
+beginner-gain-server/.env
+
 # IntelliJ project files
 .idea
 .idea/*
@@ -85,7 +88,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+beginner-gain-client/.env
 .env.test
 .env.product
 .env.develop
@@ -132,3 +135,13 @@ dist
 .pnp.*
 
 uploads/*
+venv
+beginner-gain-chatbot/app/__pycache__/
+
+# jekyll
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+_posts

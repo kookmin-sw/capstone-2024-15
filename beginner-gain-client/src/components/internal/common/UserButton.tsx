@@ -1,15 +1,36 @@
 import React from 'react';
+import { useState } from 'react';
+import styled from "styled-components";
 
 import UserIcon from 'public/assets/svg/user-icon.svg';
 import DropDown from 'public/assets/svg/dropdown-arrow.svg';
+import UserModal from "@/components/internal/common/UserModal";
 
-const UserButton = () => {
+export interface IUserButton {
+  color: string;
+}
+
+const UserButton = ({ color }: IUserButton) => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
   return (
-    <div className="flex items-center gap-2 mr-2">
-      <UserIcon />
-      <DropDown />
-    </div>
+    <>
+      <div
+        className="flex items-center gap-2 mr-2"
+        onClick={() => setOpenModal(!openModal)}
+      >
+        <UserIcon css={{ color: `${color || 'black'}` }}/>
+        <CustomDropdownBtn
+          css={{ color: `${color || 'black'}` }}
+          $openmodal={openModal}
+        />
+      </div>
+      {openModal && <UserModal />}
+    </>
   );
 }
 
 export default UserButton;
+
+const CustomDropdownBtn = styled(DropDown)<{ $openmodal: boolean }>`
+  transform: ${(props) => !props.$openmodal && "rotate(0.5turn)"} ;
+`;
