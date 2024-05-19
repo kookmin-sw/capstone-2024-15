@@ -15,6 +15,7 @@ import {QuestionSelected} from "@/types/Project";
 import Chat from "@/components/screen/chat";
 import Loading from "@/components/internal/common/Loading";
 import {IQuestionData, QuestionType} from "@/types/Question";
+import BgImage from "public/assets/svg/ellipse.svg";
 
 interface IAnswerButton {
     nextId: number,
@@ -42,8 +43,6 @@ const Screen = (props : any) => {
             setQuestionData(data.data);
         }
     },[data]);
-
-    // todo: 다음 질문이 준비되어 있지 않은 서비스면 모달 띄우기
 
     const handleAnswerButtonClick = ({ nextId, answerId, questionType }: IAnswerButton) => {
         if(questionType === null) { // 다음 질문이 없을 경우 준비중 모달 띄우기
@@ -81,17 +80,17 @@ const Screen = (props : any) => {
                 :
                 <>
                     <div className="flex flex-col bg-blue-300 h-[calc(100vh-54px-4rem)]">
+                        <BgImage width="100%" height="100%" className="absolute bottom-0 z-0 w-screen h-2/5"/>
                         <div className="pt-6 pl-12">
                             <BackArrow/>
                         </div>
-                        <div className="h-[50vh] w-fit mx-auto relative mt-[6vh]">
-                            <div className="absolute h-[50vh] w-fit p-28 w-full">
-                                <div className="flex items-center mb-14">
-                                    <p className="text-sm text-purple-200">{questionData?.id}</p>
-                                    <PurpleArrow/>
-                                    <p className="text-md text-white ml-4">{questionData?.content}</p>
+                        <div className="flex justify-center items-center flex-1 z-0">
+                            <div className="p-28 flex flex-col justify-center items-center gap-[10vh] bg-blue-300/50 h-[57vh] w-[66vw] border-white/50 border-2 rounded-[2.5rem] backdrop-blur-2xl">
+                                <div className="flex items-center">
+                                    <p className="text-lg text-white">Q{questionData?.id}.</p>
+                                    <p className="text-lg text-white ml-4">{questionData?.content}</p>
                                 </div>
-                                <div className="flex flex-col flex-wrap gap-4 h-full">
+                                <div className="flex gap-4 w-full">
                                     {questionData?.answers.map((item, index) =>
                                         <ChoiceButton
                                             key={index}
@@ -107,9 +106,8 @@ const Screen = (props : any) => {
                                     )}
                                 </div>
                             </div>
-                            <QuestionScreen width={"100%"} height={"100%"}/>
                         </div>
-                        <div className="flex items-center self-end flex-1 pr-14">
+                        <div className="flex self-end pr-14 my-10">
                             <ChatbotButton query={router.query.question || '1'}/>
                         </div>
                     </div>
