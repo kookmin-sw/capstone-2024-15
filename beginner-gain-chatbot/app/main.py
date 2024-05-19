@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 from fastapi import FastAPI, WebSocket, Response
 from starlette.websockets import WebSocketDisconnect
@@ -38,6 +37,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 load_dotenv()
 memory = ConversationBufferMemory()
+
 
 class ResponseEffectiveness(BaseModel):
     """Score the effectiveness of the AI chat bot response."""
@@ -82,17 +82,17 @@ def normalize_score(response: dict) -> dict:
 # To view the prompt in the playground: https://smith.langchain.com/hub/wfh/response-effectiveness
 evaluation_prompt = hub.pull("wfh/response-effectiveness")
 evaluate_response_effectiveness = (
-    format_dialog
-    | evaluation_prompt
-    # bind_functions formats the schema for the OpenAI function
-    # calling endpoint, which returns more reliable structured data.
-    | ChatOpenAI(model="gpt-4").bind_functions(
-        functions=[ResponseEffectiveness],
-        function_call="ResponseEffectiveness",
-    )
-    # Convert the model's output to a dict
-    | JsonOutputFunctionsParser(args_only=True)
-    | normalize_score
+        format_dialog
+        | evaluation_prompt
+        # bind_functions formats the schema for the OpenAI function
+        # calling endpoint, which returns more reliable structured data.
+        | ChatOpenAI(model="gpt-4").bind_functions(
+    functions=[ResponseEffectiveness],
+    function_call="ResponseEffectiveness",
+)
+        # Convert the model's output to a dict
+        | JsonOutputFunctionsParser(args_only=True)
+        | normalize_score
 )
 
 
@@ -104,7 +104,7 @@ class ResponseEffectivenessEvaluator(RunEvaluator):
         self.runnable = evaluator_runnable
 
     def evaluate_run(
-        self, run: Run, example: Optional[Example] = None
+            self, run: Run, example: Optional[Example] = None
     ) -> EvaluationResult:
         # This evaluator grades the AI's PREVIOUS response.
         # If no chat history is present, there isn't anything to evaluate
@@ -128,6 +128,7 @@ class ResponseEffectivenessEvaluator(RunEvaluator):
             target_run_id=target_run_id,  # Requires langsmith >= 0.0.54
         )
 
+
 def format_chat_history(chain_input: dict) -> dict:
     messages = format_messages(chain_input)
 
@@ -135,6 +136,7 @@ def format_chat_history(chain_input: dict) -> dict:
         "chat_history": messages,
         "text": chain_input.get("text"),
     }
+
 
 class ChainInput(BaseModel):
     """Input for the chat bot."""
@@ -485,7 +487,7 @@ def get_chain():
 
     chain = (
         (format_chat_history | final_prompt | llm | StrOutputParser())
-            .with_config(
+        .with_config(
             run_name="ChatBot",
             callbacks=[
                 EvaluatorCallbackHandler(
@@ -499,6 +501,7 @@ def get_chain():
 
     chain = chain.with_types(input_type=ChainInput)
     return chain
+
 
 app = FastAPI()
 

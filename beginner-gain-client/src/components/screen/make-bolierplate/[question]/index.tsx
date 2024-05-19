@@ -45,10 +45,10 @@ const Screen = (props : any) => {
     },[data]);
 
     const handleAnswerButtonClick = ({ nextId, answerId, questionType }: IAnswerButton) => {
-        if(questionType === null) { // 다음 질문이 없을 경우 준비중 모달 띄우기
+        if (questionType === null) { // 다음 질문이 없을 경우 준비중 모달 띄우기
             setIsOpenModal(true);
         } else {
-            if(questionData) {
+            if (questionData) {
                 // 현재 질문, 답변 recoil 에 저장
                 const questionInfo: QuestionSelected = {
                     question: questionData?.id.toString(),
@@ -60,7 +60,7 @@ const Screen = (props : any) => {
                 }));
 
                 // question type에 따라 경로 이동
-                if(questionType === QuestionType.그룹질문) {
+                if (questionType === QuestionType.그룹질문) {
                     router.push({
                         pathname: '/make-boilerplate/etc',
                         query: {questionId: nextId},
@@ -119,7 +119,7 @@ const Screen = (props : any) => {
                             handleButtonClick={() => setIsOpenModal(false)}
                             content="추후 버전에서 업데이트 될 예정입니다"/>
                     }
-                    <Chat/>
+                    <Chat />
                 </>}
         </>
     );

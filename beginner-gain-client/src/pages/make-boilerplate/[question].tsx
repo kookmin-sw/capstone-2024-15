@@ -1,7 +1,6 @@
 import Screen from 'src/components/screen/make-bolierplate/[question]';
-import Chat from "@/components/screen/chat";
 
-export const getServerSideProps = async ({ query = {}, params = {}, req }) => {
+export const getServerSideProps = async ({ query = {}, params = {}, req } : any) => {
   const isLoggedIn = !!req.cookies['accessId'];
 
   return {
@@ -12,14 +11,5 @@ export const getServerSideProps = async ({ query = {}, params = {}, req }) => {
     },
   };
 };
-
-// const Page = () => {
-//   return (
-//     <>
-//       <Chat />
-//       <Screen />
-//     </>
-//   );
-// };
 
 export default Screen;
