@@ -1,17 +1,40 @@
 import { useState } from "react";
+import { useMutation } from "react-query";
 
 import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
 import Header from "@/components/layout/Header";
-import useShowIllust from "@/hooks/useShowIllust";
 import EmailModal from "@/components/internal/modal/EmailModal";
 
+import { initPassword } from "@/server/user";
+import { AxiosResponse } from "axios";
+
 const Screen = () => {
-  // const { isVisible } = useShowIllust();
   const [email, setEmail] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const isButtonActive = Boolean(email);
+
+  const initPasswordMutation = useMutation({
+    mutationFn: (email: string) => {
+      return initPassword(email);
+    },
+    onError(err) {
+      console.log(err.response.data.statusCode);
+    },
+    onSuccess(data: AxiosResponse) {
+      setOpenModal(true);
+    }
+  });
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    console.log(email);
+  }
+
+  const handleClickSendButton = async () => {
+    initPasswordMutation.mutate(email);
+  };
 
   return (
     <div className="flex flex-col static">
@@ -26,7 +49,8 @@ const Screen = () => {
               <Input
                 placeholder={"이메일을 입력하세요"}
                 value={email}
-                setValue={setEmail}
+                name="email"
+                handleInputChange={handleEmailChange}
               />
             </div>
             <div className="text-xs font-medium">
@@ -35,7 +59,7 @@ const Screen = () => {
                 color={'purple'}
                 isFilled={true}
                 isDisabled={!isButtonActive}
-                onClick={() => setOpenModal(true)}
+                onClick={() => handleClickSendButton()}
               />
             </div>
           </div>

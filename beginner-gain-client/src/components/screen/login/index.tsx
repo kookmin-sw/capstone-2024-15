@@ -1,5 +1,5 @@
 import Input from "@/components/internal/common/Input";
-import {useState} from "react";
+import React, {useState} from "react";
 import Logo from "public/assets/svg/beginnergain-logo-black.svg";
 import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
@@ -9,31 +9,40 @@ import {useMutation} from "react-query";
 import {login} from "@/server/user";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
-import {AxiosResponse} from "axios";
-import {useRecoilState} from "recoil";
+import {AxiosError, AxiosResponse} from "axios";
+import {useSetRecoilState} from "recoil";
 import {userState} from "@/recoil/userState";
 
 const Screen = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [inputValue, setInputValue] = useState({
+        email: '',
+        password: '',
+    });
 
-    const [user, setUser] = useRecoilState(userState);
+    const [isEmailNotExist, setIsEmailNotExist] = useState<boolean>(false);
+    const [isPasswordFail, setIsPasswordFail] = useState<boolean>(false);
+
+    const setUser = useSetRecoilState(userState);
 
     const router = useRouter();
 
-    const isButtonActive = email && password;
+    const isButtonActive = inputValue.email && inputValue.password;
 
     // react-query test 코드
     const loginMutation = useMutation({
         mutationFn: (loginData: ILogin) => {
             return login(loginData);
         },
-        onError(err) {
-            console.log(err);
+        onError(error : AxiosError) {
+            if(error.response?.status === 404) {
+                setIsEmailNotExist(true);
+            }
+            else if(error.response?.status === 401) {
+                setIsPasswordFail(true);
+            }
         },
         onSuccess(data: AxiosResponse) {
             const loginData: ILoginResponse = data.data;
-            // 쿠키로 token 저장 (현재 testToken으로 대체)
             setCookie('accessId', loginData.id);
             // user 데이터 recoil 저장
             setUser({
@@ -43,12 +52,16 @@ const Screen = () => {
             })
             router.push('/');
         }
-    })
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue({...inputValue, [e.target.name]: e.target.value });
+    };
 
     const handleLoginButtonClick = async () => {
         loginMutation.mutate({
-            email: email,
-            password: password,
+            email: inputValue.email,
+            password: inputValue.password,
         });
     };
 
@@ -78,16 +91,28 @@ const Screen = () => {
                     <p className="font-en text-sm pb-5">Email Address</p>
                     <Input
                         placeholder={"이메일을 입력하세요"}
-                        value={email}
-                        setValue={setEmail}/>
+                        value={inputValue.email}
+                        name="email"
+                        handleInputChange={handleInputChange}/>
+                    {isEmailNotExist &&
+                        <p className="text-xxs text-red-600 mt-1">
+                            가입되지 않은 이메일입니다.
+                        </p>
+                    }
                 </div>
                 <div>
                     <p className="font-en text-sm pb-5">Password</p>
                     <Input
                         placeholder={"비밀번호를 입력하세요"}
-                        value={password}
-                        setValue={setPassword}
+                        value={inputValue.password}
+                        name="password"
+                        handleInputChange={handleInputChange}
                         isPassword/>
+                    {isPasswordFail &&
+                        <p className="text-xxs text-red-600 mt-1">
+                            비밀번호가 일치하지 않습니다.
+                        </p>
+                    }
                 </div>
                 <Link
                     className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"
