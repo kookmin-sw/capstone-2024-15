@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import CloseIcon from "public/assets/svg/close-purple.svg";
 import ChatBubble from "@/components/internal/make-boilerplate/ChatBubble";
@@ -7,19 +7,9 @@ import {useRouter} from "next/router";
 
 interface IChatingHistory {
     content: string,
-    isMychat: boolean,
+    isMyChat: boolean,
 }
 
-const testChatingData: IChatingHistory[] = [
-    {
-        content: 'recoil이랑 redux중에 뭘 써야할까?',
-        isMychat: true,
-    },
-    {
-        content: '더 탄탄한 전역관리 구조를 원하시거나, 대규모 프로젝트라면 redux를 쓰시는게 좋습니다. 보다 간단한 프로젝트는 recoil을 써보세요',
-        isMychat: false,
-    }
-]
 
 Modal.setAppElement('#__next');
 
@@ -43,25 +33,63 @@ const customStyles = {
 
 const Screen = () => {
     const [inputValue, setInputValue] = useState<string>('');
-    const [chatingHistory, setChatingHistory] = useState<IChatingHistory[]>(testChatingData);
-
+    const [chatingHistory, setChatingHistory] = useState<IChatingHistory[]>([]);
+    const [currentResponse, setCurrentResponse] = useState<string>('');
     const router = useRouter();
+    const socket = useRef<WebSocket | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    useEffect(() => {
+        if (!isLoading) {
+            const myNewChat = {
+                content: currentResponse,
+                isMyChat: false,
+            }
+            setChatingHistory([...chatingHistory, myNewChat])
+            setCurrentResponse('');
+        }
+    }, [isLoading])
+    useEffect(() => {
+        socket.current = new WebSocket('ws://15.165.109.67:8000/ws');
+
+        socket.current.onopen = () => {
+            console.log('WebSocket 연결이 열렸습니다.');
+            socket.current?.send('안녕?');
+        };
+
+        // 메시지를 수신했을 때의 이벤트 핸들러
+            socket.current.onmessage = (event) => {
+                if (event.data !== 'Response completed.') {
+                    setCurrentResponse(prevResponse => prevResponse + event.data);
+                } else {
+                    setIsLoading(false);
+                }
+                console.log('서버로부터 메시지 수신:', event.data);
+            };
+
+        // 연결이 닫혔을 때의 이벤트 핸들러
+        socket.current.onclose = () => {
+            console.log('WebSocket 연결이 닫혔습니다.');
+        };
+
+        // 컴포넌트가 언마운트되면 WebSocket 연결을 닫음
+        return () => {
+            socket.current?.close();
+        };
+    }, []);
 
     const handleModalClose: () => void = () => {
         router.back();
     };
 
-    const handleSendButtonClick = () => {
-        if(inputValue !== '') {
-            // 내 채팅 내용 저장
-            console.log('!');
-            console.log(inputValue);
+    const handleSendButtonClick = async () => {
+        if (inputValue !== '') {
+            setIsLoading(true);
+            socket.current?.send(inputValue);
             const myNewChat = {
                 content: inputValue,
-                isMychat: true,
+                isMyChat: true,
             }
             setChatingHistory([...chatingHistory, myNewChat]);
-            // todo: 채팅 보내는, 답장 받는 api 연결 후 답장 history 저장
             setInputValue('');
         }
     };
@@ -82,9 +110,12 @@ const Screen = () => {
                     {chatingHistory.map((item, index) => (
                         <ChatBubble
                             key={index}
-                            isMychat={item.isMychat}
+                            isMychat={item.isMyChat}
                             content={item.content}/>
                     ))}
+                    {isLoading &&
+                        <ChatBubble content={currentResponse} isMychat={false}/>
+                    }
                 </div>
                 <div className="p-6 sticky bottom-0 right-0 left-0 z-10">
                     <ChatingInput
