@@ -459,7 +459,7 @@ def get_chain():
     llm = ChatOpenAI(
         temperature=0,  # 창의성 (0.0 ~ 2.0)
         max_tokens=2048,  # 최대 토큰수
-        model_name="gpt-4",  # 모델명
+        model_name="gpt-3.5-turbo",  # 모델명
         streaming=True,
         callbacks=[StreamingStdOutCallbackHandler()],
     )
@@ -510,5 +510,6 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
             generator = chatbot_chain.stream({"text": data})
             await asyncio.to_thread(stream_responses_sync, generator, websocket)
+            await websocket.send_text("Response completed.")
         except WebSocketDisconnect:
             break
