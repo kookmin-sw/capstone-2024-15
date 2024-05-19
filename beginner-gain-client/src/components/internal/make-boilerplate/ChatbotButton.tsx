@@ -6,7 +6,7 @@ const ChatbotButton = ({ query }: { query : string | string[] }) => {
     return (
         <div className="flex gap-6 items-center">
             <div className="relative">
-                <p className="absolute top-4 left-4 text-black">
+                <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-nowrap">
                     선택이 어렵다면 챗봇과 대화해보세요!
                 </p>
                 <Bubble/>

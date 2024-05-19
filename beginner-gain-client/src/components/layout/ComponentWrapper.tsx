@@ -10,7 +10,7 @@ const ComponentWrapper = ({ ...other }: IComponentWrapper) => {
   const router = useRouter();
   return (
     <>
-      <main>
+      <main className="h-screen">
         {other.children}
       </main>
     </>
