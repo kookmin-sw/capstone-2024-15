@@ -68,6 +68,7 @@ const UserBox = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 8px 18px -6px rgba(24, 39, 75, 0.12);
   border-radius: 10px;
   color: #505050;
+  z-index: 2;
 `
 
 export default UserModal;

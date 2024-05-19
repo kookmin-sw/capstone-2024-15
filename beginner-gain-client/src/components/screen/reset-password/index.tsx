@@ -27,6 +27,11 @@ const Screen = () => {
     }
   });
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    console.log(email);
+  }
+
   const handleClickSendButton = async () => {
     initPasswordMutation.mutate(email);
   };
@@ -44,7 +49,8 @@ const Screen = () => {
               <Input
                 placeholder={"이메일을 입력하세요"}
                 value={email}
-                setValue={setEmail}
+                name="email"
+                handleInputChange={handleEmailChange}
               />
             </div>
             <div className="text-xs font-medium">

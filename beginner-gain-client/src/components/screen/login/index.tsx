@@ -1,5 +1,5 @@
 import Input from "@/components/internal/common/Input";
-import {useState} from "react";
+import React, {useState} from "react";
 import Logo from "public/assets/svg/beginnergain-logo-black.svg";
 import BigButton from "@/components/internal/common/BigButton";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import {useMutation} from "react-query";
 import {login} from "@/server/user";
 import {ILogin, ILoginResponse} from "@/types/User";
 import { setCookie } from "cookies-next";
-import {AxiosResponse} from "axios";
+import {AxiosError, AxiosResponse} from "axios";
 import {useSetRecoilState} from "recoil";
 import {userState} from "@/recoil/userState";
 
@@ -18,6 +18,9 @@ const Screen = () => {
         email: '',
         password: '',
     });
+
+    const [isEmailNotExist, setIsEmailNotExist] = useState<boolean>(false);
+    const [isPasswordFail, setIsPasswordFail] = useState<boolean>(false);
 
     const setUser = useSetRecoilState(userState);
 
@@ -30,7 +33,13 @@ const Screen = () => {
         mutationFn: (loginData: ILogin) => {
             return login(loginData);
         },
-        onError(err) {
+        onError(error : AxiosError) {
+            if(error.response?.status === 404) {
+                setIsEmailNotExist(true);
+            }
+            else if(error.response?.status === 401) {
+                setIsPasswordFail(true);
+            }
         },
         onSuccess(data: AxiosResponse) {
             const loginData: ILoginResponse = data.data;
@@ -85,6 +94,11 @@ const Screen = () => {
                         value={inputValue.email}
                         name="email"
                         handleInputChange={handleInputChange}/>
+                    {isEmailNotExist &&
+                        <p className="text-xxs text-red-600 mt-1">
+                            가입되지 않은 이메일입니다.
+                        </p>
+                    }
                 </div>
                 <div>
                     <p className="font-en text-sm pb-5">Password</p>
@@ -94,6 +108,11 @@ const Screen = () => {
                         name="password"
                         handleInputChange={handleInputChange}
                         isPassword/>
+                    {isPasswordFail &&
+                        <p className="text-xxs text-red-600 mt-1">
+                            비밀번호가 일치하지 않습니다.
+                        </p>
+                    }
                 </div>
                 <Link
                     className="text-xxs text-gray-300 self-end mt-4 cursor-pointer"

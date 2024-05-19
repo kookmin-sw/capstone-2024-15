@@ -46,3 +46,19 @@ export const camelToKeys = (o: any): any => {
   }
   return o;
 };
+
+export const validatePassword = (password: string): boolean => {
+  // 최소 9자 이상인지 확인
+  if (password.length < 9) {
+    return false;
+  }
+
+  // 적어도 하나의 특수 문자가 있는지 확인
+  const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  if (!specialCharacters.test(password)) {
+    return false;
+  }
+
+  // 모든 조건을 충족하면 유효한 비밀번호로 간주
+  return true;
+};

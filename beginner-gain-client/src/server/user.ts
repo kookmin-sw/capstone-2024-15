@@ -3,9 +3,7 @@ import {IJoin, ILogin} from "@/types/User";
 
 const API_ENDPOINT = process.env["NEXT_PUBLIC_API_ENDPOINT"];
 
-// api 호출 test 코드
 export const login = async ({ email, password } : ILogin ): Promise<AxiosResponse> => {
-  console.log(API_ENDPOINT);
   const response: AxiosResponse = await axios.post(`${API_ENDPOINT}/user/login`, {
     email,
     password,
