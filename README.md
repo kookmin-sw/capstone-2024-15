@@ -45,7 +45,7 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469
 
 ## 5. 사용법💻
 
-**BeginnerGain 서비스 URL** : http://15.165.109.67:3000/
+**BeginnerGain 서비스 URL** : https://www.beginergain.com/
 
 ### 1) 접속 방법
 - 화면 우측 상단의 [회원가입] 버튼을 클릭한다.
