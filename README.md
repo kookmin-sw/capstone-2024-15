@@ -39,7 +39,7 @@ BeginnerGain provides an environment where developers can set up the basic struc
 
 
 ## 4. 소개 영상📀
-https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469b-a958-2d8f591412f6
+https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/3ec68729-0f37-43a9-a992-8e8ddc1bc2b5
 
 
 
