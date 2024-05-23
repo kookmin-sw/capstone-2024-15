@@ -57,6 +57,8 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/3ec68729-0f37-43a
 - 프로젝트 이름을 입력하고 개발 목적을 묻는 질문에 응답하며 보일러 플레이트를 생성한다. 어떤 응답을 선택해야할 지 어려운 경우에는 우측 하단의 ‘챗봇과 질문하기'를 활용하여 챗봇에게 질문을 하며 도움을 받는다.
 - 생성된 보일러 플레이트를 ‘my boilerplate’에서 다운로드 받아서 사용한다.
 
+**GPT store 비기닝  URL** : https://chatgpt.com/g/g-vRGIlYFpU-bigining
+
 
 ## 6. 팀 소개🧑‍🧑‍🧒‍🧒
 <table>
