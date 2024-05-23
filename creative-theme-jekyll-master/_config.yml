@@ -37,6 +37,9 @@ plugins:
 # Sass
 sass:
   sass_dir: _sass
+
+# Add repository information
+repository: kookmin-sw/capstone-2024-15
   
 
 # Exclude from processing.
