@@ -37,6 +37,8 @@ plugins:
 # Sass
 sass:
   sass_dir: _sass
+
+source: creative-theme-jekyll-master
   
 
 # Exclude from processing.
