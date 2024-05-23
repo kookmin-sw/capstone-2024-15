@@ -44,7 +44,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --source capstone-2024-15/creative-theme-jekyll-master --destination capstone-2024-15/creative-theme-jekyll-master/_site --baseurl "/capstone-2024-15"
+        run: bundle exec jekyll build --baseurl "/capstone-2024-15/creative-theme-jekyll-master"
         env:
           PAGES_REPO_NWO: kookmin-sw/capstone-2024-15
           JEKYLL_ENV: production
