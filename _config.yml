@@ -31,10 +31,13 @@ github_username:  jekyll
 
 # Build settings
 theme: minima
-minima:
-  skin: default
 plugins:
   - jekyll-feed
+
+# Sass
+sass:
+  sass_dir: _sass
+  
 
 # Exclude from processing.
 # The following items will not be processed, by default.
