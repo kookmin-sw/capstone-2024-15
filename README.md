@@ -1,20 +1,25 @@
-# 비기너게인(BeginnerGain) : 초보개발자들을 위한 보일러플레이트(boilerplate) 생성 서비스
-<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/96d3a50e-6f45-4f83-af8f-6376a971a0e8" width="800" height="550">
+# 비기너게인(BeginnerGain) : 초보개발자들을 위한 보일러플레이트(boilerplate) 코드 생성 서비스
+<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/8544ff16-a1dc-43f5-bd69-44949c60b83c" width="800" height="550">
 
 
 ## 1. 프로젝트 소개
-### 1) 프로젝트 개발 배경
+### 1) Abstract
+비기너게인(BeginnerGain)은 몇번의 클릭만으로 개발자들이 프로젝트의 기본 구조를 세팅할 수 있는 환경을 제공합니다. 특정 프레임워크에 대한 지식이 없는 초보 개발자들의 입장을 고려하여 간편하고 직관적인 UI와 플로우로 이루어져 있으며, 인공지능을 이용한 대화형 챗봇을 통해 사용자의 선택을 돕습니다.
+
+
+BeginnerGain provides an environment where developers can set up the basic structure of a project with just a few clicks. It features a simple and intuitive UI and flow, taking into account the perspective of novice developers who may not have specific framework knowledge. Additionally, it assists users through an interactive chatbot powered by artificial intelligence.
+
+### 2) 프로젝트 개발 배경
 학과 동아리에서 프로젝트를 하면서 개발 경험이 많지 않은 팀원들은 처음 쓰는 프레임워크나 언어로 프로젝트를 진행하는 것에 어려움이 있다는 것을 느꼈습니다. 챗지피티를 이용하거나 구글 서치를 통해 많은 정보를 얻을 수는 있지만 초보 개발자의 경우 그 정보가 올바른 정보인지 구분하기 쉽지 않습니다. 특히 기본적인 프로젝트 구조를 세팅할 때 어떤 방식을 이용해야 하는지 헤매는 경우가 많았습니다. 따라서 저희는 초보개발자들의 이러한 어려움에 집중하여 특정 언어나 프레임워크를 처음 접하는 개발자도 효율적이고 올바르게 프로젝트 구조를 세팅할 수 있도록 돕는 서비스를 개발하고자 합니다.
 
-### 2) 프로젝트 목적 
+### 3) 프로젝트 목적 
 초보 개발자들이 프로젝트를 시작할 때, 자신이 원하는 기술 스택으로 프로젝트를 셋팅하는 데에 어려움을 느낍니다. 그래서 저희는 이러한 문제점을 해결하기 위해 AI 챗봇을 도입하여 사용자들의 선택지를 좁혀가며 프로젝트 구조를 셋팅할 수 있도록 돕는 것을 서비스 개발을 목적으로 하였습니다.
 
-### 3) 핵심 기능
+### 4) 핵심 기능
 1. 보일러플레이트 제공
-2. 사용자에게 최적화된 챗봇 추천 서비스 제공
-3. 내 보일러플레이트 보관함
+2. 기술 스택 추천 챗봇 ‘비기닝’
 
-### 4) 기대효과 
+### 5) 기대효과 
 새로운 프로젝트를 시작할 때 코딩 기초를 공부하고 처음 개발을 하는 초보 개발자들을 위해 기본적인 프로젝트 구조를 제공해주고, 자주 사용하는 보일러플레이트 코드를 미리 구현하고 설명과 함께 제공해줌으로써 초보 개발자들의 개발 시간 단축에 도움을 주고, 개발 중 일관성을 유지하고, 코드의 가독성을 높이고 유지관리를 수월하게 할 수 있도록 도울 수 있습니다.
 
 ## 2. 기술 스택
@@ -29,7 +34,7 @@
 
 
 ## 3. 시스템 아키텍처
-<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2024-15/assets/66251759/75972cf6-ef2d-4845-9ec5-cbb3e2f1d7bc">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/dab6d59e-9f47-4e3b-904e-9d1c0727cba6">
 
 
 
@@ -110,8 +115,10 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469
 
 소스코드제출시 설치법이나 사용법을 작성하세요.
 -->
+## 6. 포스터
+<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/aff3d1e3-eed1-4f41-aa77-f7125d4b4044" width="550" height="800">
 
-## 6. 소개 자료
+## 7. 소개 자료
 <a href="https://drive.google.com/file/d/1Pauf7xWhJ0fevqsi5CrV66KH-04LEPWV/view?usp=sharing">
     중간 발표
 </a>
@@ -120,3 +127,12 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469
 ">
     중간 보고서
 </a>
+<br>
+<a href="https://drive.google.com/file/d/11OpLOFTizhXKs3u9HXxhUOYDIHf6LZ6u/view?usp=drive_link">
+    최종 발표 자료
+</a>
+<br>
+<a href="https://docs.google.com/document/d/14DPvr-uR6SugBjG2VXJs2A5kTcS7bqJM2HpDkIozWek/edit?usp=sharing">
+    수행 결과 보고서
+</a>
+<br>
