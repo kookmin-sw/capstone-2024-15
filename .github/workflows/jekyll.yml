@@ -46,7 +46,6 @@ jobs:
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
-          PAGES_REPO_NWO: kookmin-sw/capstone-2024-15
           JEKYLL_ENV: production
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
