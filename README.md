@@ -26,7 +26,7 @@ BeginnerGain provides an environment where developers can set up the basic struc
 ### Frontend 
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=oracle&logoColor=white">
 ### Backend
-<img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=java&logoColor=white"> ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+<img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=java&logoColor=white"> ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 
 
 ### AI 
@@ -42,7 +42,23 @@ BeginnerGain provides an environment where developers can set up the basic struc
 https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469b-a958-2d8f591412f6
 
 
-## 5. 팀 소개
+
+## 5. 사용법
+
+**BeginnerGain 서비스 URL** : http://15.165.109.67:3000/
+
+### 1) 접속 방법
+- 화면 우측 상단의 [회원가입] 버튼을 클릭한다.
+- 필수정보인 ‘사용자 이메일', ‘비밀번호’, ‘사용자 이름’을 입력하고 하단의 [회원가입]버튼을 클릭하여 회원가입한다.
+- 가입한 이메일, 비밀번호를 입력하여 로그인한다.
+
+### 2) 보일러플레이트 생성
+- 시작 페이지 좌측 하단의 ‘프로젝트 생성하기' 버튼을 클릭한다.
+- 프로젝트 이름을 입력하고 개발 목적을 묻는 질문에 응답하며 보일러 플레이트를 생성한다. 어떤 응답을 선택해야할 지 어려운 경우에는 우측 하단의 ‘챗봇과 질문하기'를 활용하여 챗봇에게 질문을 하며 도움을 받는다.
+- 생성된 보일러 플레이트를 ‘my boilerplate’에서 다운로드 받아서 사용한다.
+
+
+## 6. 팀 소개
 <table>
     <tr align="center">
         <td style="min-width: 150px;">
@@ -102,7 +118,7 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469
             Frontend, Design
         </td>
                 <td>
-            AI
+            Prompt Engineering
         </td>
                 <td>
             Frontend
@@ -110,15 +126,10 @@ https://github.com/kookmin-sw/capstone-2024-15/assets/66466139/b132673e-f551-469
     </tr>
 </table>
 
-<!--
-## 6. 사용법
+## 7. 포스터
+<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/aff3d1e3-eed1-4f41-aa77-f7125d4b4044" width="520" height="700">
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
--->
-## 6. 포스터
-<img src="https://github.com/kookmin-sw/capstone-2024-15/assets/67200721/aff3d1e3-eed1-4f41-aa77-f7125d4b4044" width="550" height="800">
-
-## 7. 소개 자료
+## 8. 소개 자료
 <a href="https://drive.google.com/file/d/1Pauf7xWhJ0fevqsi5CrV66KH-04LEPWV/view?usp=sharing">
     중간 발표
 </a>
