@@ -5,32 +5,47 @@ import Input from "@/components/internal/common/Input";
 import BigButton from "@/components/internal/common/BigButton";
 import Header from "@/components/layout/Header";
 import EmailModal from "@/components/internal/modal/EmailModal";
+import MiniModal from "@/components/internal/modal/MiniModal";
 
-import { initPassword } from "@/server/user";
+import { emailValid, initPassword } from "@/server/user";
 import { AxiosResponse } from "axios";
 
 const Screen = () => {
   const [email, setEmail] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openMiniModal, setOpenMiniModal] = useState<boolean>(false);
+  const [isRightEmail, setIsRightEmail] = useState<boolean>(true);
 
   const isButtonActive = Boolean(email);
+
+  const emailValidMutation = useMutation({
+    mutationFn: (email : string) => {
+      return emailValid(email);
+    },
+    onSuccess(data : AxiosResponse) {
+      const result = data.data.isAvailable;
+      setIsRightEmail(!result);
+    },
+    onError(err) {
+    },
+  });
 
   const initPasswordMutation = useMutation({
     mutationFn: (email: string) => {
       return initPassword(email);
     },
     onError(err) {
-      console.log(err.response.data.statusCode);
+      setOpenMiniModal(true);
     },
     onSuccess(data: AxiosResponse) {
       setOpenModal(true);
     }
   });
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    console.log(email);
-  }
+    emailValidMutation.mutate(e.target.value);
+  };
 
   const handleClickSendButton = async () => {
     initPasswordMutation.mutate(email);
@@ -48,10 +63,16 @@ const Screen = () => {
             <div className="mb-8">
               <Input
                 placeholder={"이메일을 입력하세요"}
-                value={email}
                 name="email"
-                handleInputChange={handleEmailChange}
+                value={email}
+                setValue={setEmail}
+                handleInputChange={handleInputChange}
               />
+              {!isRightEmail &&
+                <p className="text-xxs text-red-600 mt-1">
+                  회원 가입 시 사용한 이메일을 입력하세요.
+                </p>
+              }
             </div>
             <div className="text-xs font-medium">
               <BigButton
@@ -72,6 +93,14 @@ const Screen = () => {
         <EmailModal
           email={email}
           closeModal={() => setOpenModal(false)}
+        />
+      }
+      {openMiniModal &&
+        <MiniModal
+          title="이메일 전송에 실패했습니다."
+          content="이메일을 확인한 뒤, 다시 시도해 주세요."
+          button="확인"
+          handleButtonClick={() => setOpenMiniModal(false)}
         />
       }
     </div>
