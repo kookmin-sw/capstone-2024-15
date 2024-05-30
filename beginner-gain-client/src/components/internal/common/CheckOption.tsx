@@ -1,24 +1,22 @@
 import React from 'react';
-import { useState } from 'react';
 
 import CheckedBox from "public/assets/svg/checked-box.svg";
 import UncheckedBox from "public/assets/svg/unchecked-box.svg";
 
 export interface ICheckBox {
   title: string;
+  handleCheckBoxClick: React.MouseEventHandler<HTMLLabelElement>;
   isChecked?: boolean;
 }
 
-const CheckOption = ({ title }: ICheckBox) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
+const CheckOption = ({ title, isChecked, handleCheckBoxClick }: ICheckBox) => {
   return (
-    <div>
-      <label className="flex gap-5 items-center" onClick={() => setIsChecked(!isChecked)}>
+    <>
+      <label className="flex gap-5 items-center" onClick={handleCheckBoxClick}>
         {isChecked ? <CheckedBox /> : <UncheckedBox />}
         <p className="text-white text-sm font-semibold">{title}</p>
       </label>
-    </div>
+    </>
   );
 }
 

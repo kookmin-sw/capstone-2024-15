@@ -13,7 +13,7 @@ const Screen = (props: any) => {
     <>
       <DarkHeader isLoggedIn={props.isLoggedIn} />
       <div className="flex flex-col items-center justify-center bg-blue-300 h-[calc(100vh-54px-4rem)]">
-        <BgImage className="fixed bottom-0 w-screen h-3/5 z-0"/>
+        <BgImage width="100%" height="100%" className="fixed bottom-0 z-0 w-screen h-2/5"/>
         <div className="flex-1 flex flex-col w-1/3 h-full justify-center gap-6 z-10 mb-24">
           <div className="w-full flex flex-col items-center mb-8">
             <div className="w-3/4">

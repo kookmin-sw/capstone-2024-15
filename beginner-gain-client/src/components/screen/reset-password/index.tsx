@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 
 import Input from "@/components/internal/common/Input";
@@ -9,7 +9,6 @@ import MiniModal from "@/components/internal/modal/MiniModal";
 
 import { emailValid, initPassword } from "@/server/user";
 import { AxiosResponse } from "axios";
-import {emailCheck} from "@/assets/utils";
 
 const Screen = () => {
   const [email, setEmail] = useState<string>('');
@@ -64,6 +63,7 @@ const Screen = () => {
             <div className="mb-8">
               <Input
                 placeholder={"이메일을 입력하세요"}
+                name="email"
                 value={email}
                 setValue={setEmail}
                 handleInputChange={handleInputChange}
