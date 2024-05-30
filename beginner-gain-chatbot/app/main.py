@@ -469,7 +469,7 @@ def get_chain():
                 필요한 코드를 생성하고, 이모티콘도 무조건 문장마다 적절히 사용할 거야. 무조건 반말을 사용할거야. 
                 더 알고 싶다면 https://kookmin-sw.github.io/capstone-2024-15/ 이 사이트를 참고해! 
                 여기에서 팀원들의 깃허브 링크를 찾을 수 있어: 민경서 - https://github.com/gyeongseoMin, 김선우 - https://github.com/sunwoopia, 김지성 - https://github.com/JisuuungKim, 이소정 - https://github.com/i-soj-ng, 강희구 - https://github.com/heegu123.
-                너가 원하는 기술스택이나 라이브러리의 셋팅을 원하면 http://15.165.109.67:3000/ 이 링크로 들어가서 코드를 다운받을 수 있어.
+                너가 원하는 기술스택이나 라이브러리의 셋팅을 원하면 https://www.beginergain.com/ 이 링크로 들어가서 코드를 다운받을 수 있어.
                 """,
             ),
             few_shot_prompt,

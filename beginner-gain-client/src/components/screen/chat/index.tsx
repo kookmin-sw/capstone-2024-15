@@ -49,7 +49,7 @@ const Screen = () => {
         }
     }, [isLoading])
     useEffect(() => {
-        socket.current = new WebSocket('ws://15.165.109.67:8000/ws');
+        socket.current = new WebSocket('wss://chatbot.beginergain.com/ws');
 
         socket.current.onopen = () => {
             console.log('WebSocket 연결이 열렸습니다.');
