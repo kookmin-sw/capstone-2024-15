@@ -1,7 +1,13 @@
 html,
 body {
     height: 100%;
-    width: 100%;
+    width: auto;
+}
+
+@media screen and (max-width: 800px) {
+    html {
+        display: flex;
+    }
 }
 
 body {
@@ -201,14 +207,12 @@ header {
         .header-content-inner {
             h1 {
                 font-weight: 700;
-                text-transform: uppercase;
                 margin-top: 0;
                 margin-bottom: 0;
                 color: #060B21;
             }
             h2 {
                 font-weight: 700;
-                text-transform: uppercase;
                 margin-top: 8px;
                 margin-bottom: 0;
                 color: #060B21;
@@ -255,11 +259,19 @@ header {
     margin-top: 0;
 }
 
+.service-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+}
+
 .service-box {
+    flex-basis: calc(50% - 40px);
     max-width: 400px;
-    margin: 50px auto 0;
+    text-align: center;
     @media (min-width: 992px) {
-        margin: 20px auto 0;
     }
     p {
         margin-bottom: 0;
@@ -352,7 +364,6 @@ header {
     border: none;
     border-radius: 300px;
     font-weight: 700;
-    text-transform: uppercase;
 }
 
 .btn-xl {
@@ -393,3 +404,36 @@ body {
     -webkit-tap-highlight-color: $theme-dark;
 }
 
+// custom
+#services .container {
+    display: flex;
+    gap: 8rem;
+}
+
+.service-video {
+    height: 800px;
+    padding: 0 4rem;
+}
+
+#contact .document {
+    margin-top: 8rem;
+}
+
+#contact .folder-container {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding-top: 3rem;
+}
+
+@media screen and (max-width: 1200px) {
+    #services .poster {
+        margin: 0 auto;
+        margin-bottom: 4rem;
+    }
+    #services .container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
