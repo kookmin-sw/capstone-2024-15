@@ -19,7 +19,7 @@ const Screen = () => {
     mutationFn: (email: string) => {
       return initPassword(email);
     },
-    onError(err) {
+    onError(err: any) {
       console.log(err.response.data.statusCode);
     },
     onSuccess(data: AxiosResponse) {

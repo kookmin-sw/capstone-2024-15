@@ -15,7 +15,7 @@ const ArrowButton = ({ title, onClick }: IButton) => {
         `relative group h-14 bg-black text-white rounded-full flex items-center justify-between gap-10 px-5 text-xs font-medium
         ${title === "프로젝트 생성하기" && "hover:gap-20 hover:ease-in hover:duration-150 duration-150"}
         `}
-        onClick={onClick || null}
+        onClick={onClick}
       >
         <span>
           {title}

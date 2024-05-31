@@ -1,11 +1,12 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 
 export interface IInput {
     placeholder: string;
     value: string;
-    name: string;
-    handleInputChange:  React.ChangeEventHandler<HTMLInputElement>;
+    name?: string;
+    handleInputChange?:  React.ChangeEventHandler<HTMLInputElement>;
     isPassword?: boolean;
+    setValue?: Dispatch<SetStateAction<any>>;
 }
 
 const Input = ({ placeholder, value, name, handleInputChange, isPassword }: IInput) => {

@@ -1,7 +1,7 @@
 import Screen from '@/components/screen/make-bolierplate/etc';
 import Chat from "@/components/screen/chat";
 
-export const getServerSideProps = async ({ query = {}, params = {}, req }) => {
+export const getServerSideProps = async ({ query = {}, params = {}, req }: any) => {
   const isLoggedIn = !!req.cookies['accessId'];
 
   return {

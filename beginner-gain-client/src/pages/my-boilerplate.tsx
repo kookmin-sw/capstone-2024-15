@@ -1,6 +1,6 @@
 import Screen from '../components/screen/my-boilerplate';
 
-export const getServerSideProps = async ({ query = {}, params = {}, req }) => {
+export const getServerSideProps = async ({ query = {}, params = {}, req }: any) => {
   const isLoggedIn = !!req.cookies['accessId'];
 
   return {

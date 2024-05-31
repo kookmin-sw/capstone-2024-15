@@ -27,7 +27,7 @@ export const emailValid = async (email : string): Promise<AxiosResponse> => {
   return response;
 };
 
-export const initPassword = async (email: string): Promise<AxiosResponse> => {
+export const initPassword = async (email: string): Promise<any> => {
   if (!email) return;
   const response: AxiosResponse = await axios.post(`${API_ENDPOINT}/user/reset-password`, {
     email,
