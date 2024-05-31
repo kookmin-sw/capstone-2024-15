@@ -1,5 +1,6 @@
 from __future__ import annotations
 from fastapi import FastAPI, WebSocket, Response
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.websockets import WebSocketDisconnect
 import asyncio
 from pydantic import BaseModel
@@ -504,7 +505,17 @@ def get_chain():
 
 
 app = FastAPI()
-
+origins = [
+    "https://www.beginergain.com",
+    "https://chatbot.beginergain.com",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Initialize the chatbot chain
 chatbot_chain = get_chain()
 
@@ -522,6 +533,11 @@ def stream_responses_sync(generator, websocket):
 
     for item in generator:
         asyncio.run(send_item(item))
+
+
+@app.get("/")
+async def read_root():
+    return {"message": "Hello, Beginergain!"}
 
 
 @app.websocket("/ws")
