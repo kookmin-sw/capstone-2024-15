@@ -9,7 +9,7 @@ import MainImage from 'public/assets/svg/main-image.svg';
 import useShowMousePointer from "@/hooks/useShowMousePointer";
 import Header from "@/components/layout/Header";
 
-const Screen = (props) => {
+const Screen = (props: any) => {
   const { isVisible } = useShowMousePointer();
 
   return (
